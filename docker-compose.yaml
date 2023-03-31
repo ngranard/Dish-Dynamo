@@ -2,6 +2,7 @@ volumes:
   jwtdown-db-data:
     external: true
   dishdynamo-data:
+    external: true
 services:
   fastapi:
     build:
