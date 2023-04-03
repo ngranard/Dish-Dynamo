@@ -7,12 +7,12 @@ from queries.users import UserQueries, UserOut, UserOutWithPassword
 class MyAuthenticator(Authenticator):
     async def get_account_data(
         self,
-        username: str,
+        email: str,
         accounts: UserQueries,
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-        return accounts.get(username)
+        return accounts.get(email)
 
     def get_account_getter(
         self,
@@ -21,7 +21,7 @@ class MyAuthenticator(Authenticator):
         # Return the accounts. That's it.
         return accounts
 
-    def get_hashed_password(self, account: UserOut):
+    def get_hashed_password(self, account: UserOutWithPassword):
         # Return the encrypted password value from your
         # account object
         return account.hashed_password
