@@ -58,7 +58,6 @@ async def create_account(
     hashed_password = authenticator.hash_password(info.password)
     try:
         account = accounts.create(info, hashed_password)
-        print("This is the acount ********", account)
     except Error:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -66,5 +65,4 @@ async def create_account(
         )
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
-    print("this is the token *********", token)
     return AccountToken(account=account, **token.dict())

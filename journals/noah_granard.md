@@ -1,3 +1,12 @@
+## April 3, 2023
+
+Today I worked on:
+* Implementing authentication and authorization
+
+We struggled as a team to get through implementing authentication and authorization, but with some SEIR guidance we finally got the basics working. We can now create a user, login, and see this information reflected in Beekeeper.
+
+We learned how painful and crucial indentation is with FastAPI.
+
 ## March 29, 2023
 
 Today I worked on:

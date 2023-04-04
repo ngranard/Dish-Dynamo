@@ -29,7 +29,6 @@ class MyAuthenticator(Authenticator):
     def get_account_data_for_cookie(self, account: UserOut):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
-        print("This is the user dict in auth.py", account.dict())
         return account.email, UserOut(**account.dict())
 
 

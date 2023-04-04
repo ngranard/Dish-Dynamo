@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List, Union
 from queries.pool import pool
 
 
@@ -90,7 +89,3 @@ class UserQueries:
             email=record[3],
             hashed_password=record[4],
         )
-
-    # def user_in_to_out(self, id: int, account: UserIn):
-    #     old_data = account.dict()
-    #     return UserOut(id=id, **old_data)
