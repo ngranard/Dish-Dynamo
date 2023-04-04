@@ -80,7 +80,19 @@ def get_all_accounts(
             detail="You are not authorized to access this resource"
         )
 
-
+@router.get("/api/accounts/{id}", response_model=Union[UserOut, Error])
+def get_account(
+    id: int,
+    info: UserQueries = Depends(),
+    account: Optional[dict] = Depends(authenticator.get_current_account_data),
+):
+    if account is not None:
+        return info.get_one(id)
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="You are not authorized to access this resource"
+        )
 
 @router.delete("/api/accounts/{id}", response_model=bool)
 def delete_account(

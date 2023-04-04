@@ -52,6 +52,29 @@ class UserQueries:
             print(e)
             return {"message": "Error getting user"}
 
+    def get_one(self, id: int) -> Union[Error, UserOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , first_name
+                            , last_name
+                            , email
+                        FROM users
+                        WHERE id = %s
+                        """,
+                        [id],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_user_out_without_password(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Error getting user"}
+
     def get_all_accounts(self) -> Union[Error, List[UserOut]]:
         try:
             with pool.connection() as conn:
@@ -116,7 +139,6 @@ class UserQueries:
                     return True
         except Exception:
             return False
-
 
     def record_to_user_out(self, record):
         return UserOutWithPassword(
