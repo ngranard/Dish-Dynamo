@@ -8,13 +8,13 @@ from fastapi import (
 )
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
-
+from typing import Union, List, Optional
 from pydantic import BaseModel
-
 from queries.users import (
     UserIn,
     UserOut,
     UserQueries,
+    UserDelete,
     Error,
 )
 
@@ -36,7 +36,7 @@ router = APIRouter()
 
 
 @router.get("/token", response_model=AccountToken | None)
-async def get_token(
+async def get_user_token(
     request: Request,
     account: UserOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
@@ -66,3 +66,31 @@ async def create_account(
     form = AccountForm(username=info.email, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
     return AccountToken(account=account, **token.dict())
+
+@router.get("/api/accounts/all", response_model=Union[List[UserOut], Error])
+def get_all_accounts(
+    info: UserQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
+):
+    if account is not None:
+        return info.get_all_accounts()
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="You are not authorized to access this resource"
+        )
+
+
+
+@router.delete("/api/accounts/{id}", response_model=bool)
+def delete_account(
+    id: int,
+    info: UserQueries = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
+) -> bool:
+    if account_data["id"] != id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Cannot delete account!",
+        )
+    return info.delete(id)

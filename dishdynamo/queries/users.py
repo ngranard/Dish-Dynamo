@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Union, List
 from queries.pool import pool
 
 
@@ -23,6 +24,8 @@ class UserOut(BaseModel):
 class UserOutWithPassword(UserOut):
     hashed_password: str
 
+class UserDelete(BaseModel):
+    deleted: bool
 
 class UserQueries:
     def get(self, email: str) -> UserOutWithPassword:
@@ -48,6 +51,24 @@ class UserQueries:
         except Exception as e:
             print(e)
             return {"message": "Error getting user"}
+
+    def get_all_accounts(self) -> Union[Error, List[UserOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id
+                            , first_name
+                            , last_name
+                            , email
+                        FROM users
+                        """
+                    )
+                    return [self.record_to_user_out_without_password(record) for record in db.fetchall()]
+        except Exception as e:
+            print(e)
+            return {"message": "Error getting users"}
 
     def create(
         self, account: UserIn, hashed_password: str
@@ -81,6 +102,22 @@ class UserQueries:
             print(e)
             return {"message": "Error creating user"}
 
+    def delete(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM users
+                        WHERE id = %s
+                        """,
+                        [id]
+                    )
+                    return True
+        except Exception:
+            return False
+
+
     def record_to_user_out(self, record):
         return UserOutWithPassword(
             id=record[0],
@@ -88,4 +125,12 @@ class UserQueries:
             last_name=record[2],
             email=record[3],
             hashed_password=record[4],
+        )
+
+    def record_to_user_out_without_password(self, record):
+        return UserOut(
+            id=record[0],
+            first_name=record[1],
+            last_name=record[2],
+            email=record[3],
         )
