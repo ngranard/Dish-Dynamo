@@ -1,3 +1,18 @@
+
+## April 5, 2023
+
+Today I worked on:
+* Finishing endpoints for users
+
+
+## April 4, 2023
+
+Today I worked on:
+* Creating additional endpoints for users
+
+We created our first merge request and merged the newly completed authorization branch into main. We then split up work to handle individually.
+I have since learned how delicate and irritating FastAPI can be, so I had to restart from a safe point a few times. I got the delete, get user, and get all users endpoints done.
+
 ## April 3, 2023
 
 Today I worked on:

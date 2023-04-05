@@ -12,9 +12,12 @@ from typing import Union, List, Optional
 from pydantic import BaseModel
 from queries.users import (
     UserIn,
+    UserInUpdate,
     UserOut,
     UserQueries,
+    UserOutWithPassword,
     UserDelete,
+    UserUpdate,
     Error,
 )
 
@@ -94,12 +97,26 @@ def get_account(
             detail="You are not authorized to access this resource"
         )
 
-@router.delete("/api/accounts/{id}", response_model=bool)
+@router.put("/api/accounts/{id}", response_model=Union[UserUpdate, Error])
+def update_account(
+    id: int,
+    user: UserInUpdate,
+    info: UserQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
+    ) -> UserOutWithPassword:
+    if account["id"] != id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Cannot update account!",
+        )
+    return info.update(id, user)
+
+@router.delete("/api/accounts/{id}", response_model=UserDelete)
 def delete_account(
     id: int,
     info: UserQueries = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
-) -> bool:
+) -> UserDelete:
     if account_data["id"] != id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

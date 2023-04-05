@@ -13,6 +13,10 @@ class UserIn(BaseModel):
     email: str
     password: str
 
+class UserInUpdate(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
 
 class UserOut(BaseModel):
     id: int
@@ -23,6 +27,11 @@ class UserOut(BaseModel):
 
 class UserOutWithPassword(UserOut):
     hashed_password: str
+
+class UserUpdate(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
 
 class UserDelete(BaseModel):
     deleted: bool
@@ -125,6 +134,31 @@ class UserQueries:
             print(e)
             return {"message": "Error creating user"}
 
+    def update(self, id: int, account: UserInUpdate) -> UserOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE users
+                        SET first_name = %s
+                            , last_name = %s
+                            , email = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            account.first_name,
+                            account.last_name,
+                            account.email,
+                            id,
+                        ]
+                    )
+                    return self.user_in_to_out(account, id)
+        except Exception as e:
+            print(e)
+            return {"message": "Error updating user"}
+
+
     def delete(self, id: int) -> bool:
         try:
             with pool.connection() as conn:
@@ -156,3 +190,7 @@ class UserQueries:
             last_name=record[2],
             email=record[3],
         )
+
+    def user_in_to_out(self, account: UserIn, id: int):
+        old_data = account.dict()
+        return UserOut(id=id, **old_data)
