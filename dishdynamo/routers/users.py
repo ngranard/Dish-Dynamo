@@ -16,7 +16,6 @@ from queries.users import (
     UserOut,
     UserQueries,
     UserOutWithPassword,
-    UserDelete,
     UserUpdate,
     Error,
 )
@@ -111,15 +110,16 @@ def update_account(
         )
     return info.update(id, user)
 
-@router.delete("/api/accounts/{id}", response_model=UserDelete)
+@router.delete("/api/accounts/{id}", response_model=bool)
 def delete_account(
     id: int,
+    response: Response,
     info: UserQueries = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
-) -> UserDelete:
-    if account_data["id"] != id:
+) -> bool:
+    response = info.delete_account(id)
+    if response is None:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Cannot delete account!",
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Account not found",
         )
-    return info.delete(id)
+    return response

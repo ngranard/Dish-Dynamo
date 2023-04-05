@@ -33,8 +33,6 @@ class UserUpdate(BaseModel):
     last_name: str
     email: str
 
-class UserDelete(BaseModel):
-    deleted: bool
 
 class UserQueries:
     def get(self, email: str) -> UserOutWithPassword:
@@ -159,7 +157,7 @@ class UserQueries:
             return {"message": "Error updating user"}
 
 
-    def delete(self, id: int) -> bool:
+    def delete_account(self, id: int) -> Union[bool, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -172,7 +170,7 @@ class UserQueries:
                     )
                     return True
         except Exception:
-            return False
+            return {"message": "Error deleting user"}
 
     def record_to_user_out(self, record):
         return UserOutWithPassword(
