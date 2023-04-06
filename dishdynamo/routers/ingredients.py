@@ -43,7 +43,7 @@ def update_ingredient(
 
 
 @router.delete("/ingredient/{ingredient_id}", response_model=bool)
-def delete_difficulty(
+def delete_ingredient(
     ingredient_id: int,
     repo: IngredientRepository = Depends(),
 ) -> bool:
