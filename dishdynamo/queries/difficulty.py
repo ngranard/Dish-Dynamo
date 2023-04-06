@@ -23,7 +23,7 @@ class DifficultyRepository:
                     result = db.execute(
                         """
                         SELECT id
-                             , name
+                            , name
                         FROM difficulty
                         WHERE id = %s
                         """,
@@ -32,7 +32,7 @@ class DifficultyRepository:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_vacation_out(record)
+                    return self.record_to_difficulty_out(record)
         except Exception as e:
             print(e)
             return {"message": "Could not get that difficulty"}
@@ -94,7 +94,7 @@ class DifficultyRepository:
 
     def create(self, difficulty: DifficultyIn) -> Union[DifficultyOut, Error]:
         try:
-            with pool.coonection() as conn:
+            with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
