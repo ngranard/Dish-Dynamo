@@ -4,6 +4,7 @@ volumes:
   dishdynamo-data:
     external: true
 services:
+
   fastapi:
     build:
       context: ./dishdynamo
