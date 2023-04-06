@@ -1,3 +1,8 @@
+## April 6, 2023
+
+Today I worked on:
+* Created merge request for users endpoints and started work on frontend for users
+
 
 ## April 5, 2023
 
