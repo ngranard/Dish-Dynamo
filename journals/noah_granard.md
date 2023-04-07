@@ -3,6 +3,7 @@
 Today I worked on:
 * Created merge request for users endpoints and started work on frontend for users
 
+We merged all of our endpoints together for users, which went fine. We were stuck for a time on figuring out frontend authenticatio while simultaneously trying to implement Chakra-UI for our frontend. I got the login to work (sends a token) with a basic form, so that was nice.
 
 ## April 5, 2023
 

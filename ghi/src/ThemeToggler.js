@@ -1,7 +1,9 @@
 import React from 'react';
 import { useColorMode, Box, IconButton } from '@chakra-ui/react';
 
-export default function ThemeToggler() {
+
+
+function ThemeToggler() {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Box textAlign="right" py={4} mr={12}>
@@ -13,3 +15,5 @@ export default function ThemeToggler() {
         </Box>
     );
 }
+
+export default ThemeToggler

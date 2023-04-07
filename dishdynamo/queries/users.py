@@ -13,10 +13,12 @@ class UserIn(BaseModel):
     email: str
     password: str
 
+
 class UserInUpdate(BaseModel):
     first_name: str
     last_name: str
     email: str
+
 
 class UserOut(BaseModel):
     id: int
@@ -27,6 +29,7 @@ class UserOut(BaseModel):
 
 class UserOutWithPassword(UserOut):
     hashed_password: str
+
 
 class UserUpdate(BaseModel):
     first_name: str
@@ -95,7 +98,10 @@ class UserQueries:
                         FROM users
                         """
                     )
-                    return [self.record_to_user_out_without_password(record) for record in db.fetchall()]
+                    return [
+                        self.record_to_user_out_without_password(record)
+                        for record in db.fetchall()
+                    ]
         except Exception as e:
             print(e)
             return {"message": "Error getting users"}
@@ -149,13 +155,12 @@ class UserQueries:
                             account.last_name,
                             account.email,
                             id,
-                        ]
+                        ],
                     )
                     return self.user_in_to_out(account, id)
         except Exception as e:
             print(e)
             return {"message": "Error updating user"}
-
 
     def delete_account(self, id: int) -> Union[bool, Error]:
         try:
@@ -166,7 +171,7 @@ class UserQueries:
                         DELETE FROM users
                         WHERE id = %s
                         """,
-                        [id]
+                        [id],
                     )
                     return True
         except Exception:
