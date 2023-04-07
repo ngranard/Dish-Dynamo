@@ -13,14 +13,13 @@ import {
 
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { token, login } = useToken();
+    const { login } = useToken();
 
     const handleSubmit = event => {
         event.preventDefault();
-        login(email, password);
-        console.log(token)
+        login(username, password);
         event.target.reset();
 
     };
@@ -32,16 +31,16 @@ const LoginForm = () => {
                     <Heading>Login</Heading>
                 </Box>
                 <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
-                    <form onSubmit={(e) => handleSubmit(e)}>
+                    <form onSubmit={(event) => handleSubmit(event)}>
                         <FormControl isRequired mt={6}>
                             <FormLabel>Email</FormLabel>
-                            <Input type="email" placeholder="test@test.com" size="lg" id="email" name="email" onChange={event => setEmail(event.target.value)} />
+                            <Input type="username" placeholder="test@test.com" size="lg" id="username" name="username" onChange={event => setUsername(event.target.value)} />
                             <FormLabel>Password</FormLabel>
                             <Input type="password" placeholder="*******" size="lg" name="password" id="password" onChange={event => setPassword(event.target.value)} />
                             <Button variantcolor="teal"
                                 variant="outline"
                                 type="submit"
-                                value="Submit"
+                                value="Login"
                                 width="full"
                                 mt={4}>
                                 Sign In
