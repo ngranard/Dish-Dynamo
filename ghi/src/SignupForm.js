@@ -13,13 +13,14 @@ import {
     Text,
     useColorModeValue,
     Link,
+    useToast,
+    Img
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import useToken from '@galvanize-inc/jwtdown-for-react';
 import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
-
 const SignupForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState('');
@@ -28,6 +29,7 @@ const SignupForm = () => {
     const [password, setPassword] = useState('');
     const { register } = useToken();
     const navigate = useNavigate();
+    const toast = useToast();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -38,7 +40,15 @@ const SignupForm = () => {
         accountData.password = password;
         accountData.username = email;
         register(accountData, `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`, "post");
-        navigate("/login");
+        toast({
+            title: "Account created.",
+            description: "We've created your account for you.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+        })
+
+        navigate("/");
     };
 
     return (
@@ -114,9 +124,9 @@ const SignupForm = () => {
                             </Text>
                         </Stack>
                     </Stack>
-                </Box>
-            </Stack>
-        </Flex>
+                </Box >
+            </Stack >
+        </Flex >
     );
 }
 

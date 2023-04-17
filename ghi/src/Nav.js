@@ -4,6 +4,9 @@ import { Text, Flex, Spacer } from '@chakra-ui/react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
 
 
+
+
+
 const Nav = () => {
     const [scroll, setScroll] = useState(false);
     const { logout } = useToken();
@@ -17,20 +20,26 @@ const Nav = () => {
 
     window.addEventListener('scroll', changeScroll);
 
+
+
+
     return (
+
         <Flex
             h="10vh"
             alignItems="center"
             p="6"
             boxShadow={scroll ? 'base' : 'none'}
-            position="sticky"
+            position="static"
             top="0"
-            zIndex="sticky"
+            zIndex="static"
             w="full"
         >
-            <Text fontSize="xl" fontWeight="bold">
-                Dish Dynamo
-            </Text>
+            <NavLink to="/">
+                <Text fontSize="xl" fontWeight="bold">
+                    Dish Dynamo
+                </Text>
+            </NavLink>
 
             <Spacer />
 
@@ -48,6 +57,7 @@ const Nav = () => {
                 <button onClick={logout}>
                     <Text fontSize="md">Logout</Text>
                 </button>
+
             </Flex>
         </Flex>
     );
