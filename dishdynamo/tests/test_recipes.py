@@ -9,8 +9,10 @@ class EmptyRecipeRepository:
         return []
 
 class CreateRecipeRepository:
-    def create_recipe(self, recipe):
-        result = {}
+    def create(self, recipe):
+        result = {
+            "id": 1,
+        }
         result.update(recipe)
         return result
 
@@ -24,16 +26,15 @@ def test_get_all_recipes():
     assert response.json() == []
 
 def test_create_recipe():
-    app.dependency_overrides[RecipeRepository] = EmptyRecipeRepository
+    app.dependency_overrides[RecipeRepository] = CreateRecipeRepository
 
-    json= {
-        "id": 1,
+    json = {
         "recipe_name": "test pie",
         "description": "this is a test",
         "image_url": "picture",
         "instructions": "test",
         "rating": 5,
-        "cooking time": "10 min",
+        "cooking_time": "10 min",
         "user_id": 1,
         "difficulty_id": 1
     }
@@ -45,7 +46,7 @@ def test_create_recipe():
         "image_url": "picture",
         "instructions": "test",
         "rating": 5,
-        "cooking time": "10 min",
+        "cooking_time": "10 min",
         "user_id": 1,
         "difficulty_id": 1
     }
