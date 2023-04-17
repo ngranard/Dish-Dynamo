@@ -69,6 +69,7 @@ async def create_account(
     token = await authenticator.login(response, request, form, accounts)
     return AccountToken(account=account, **token.dict())
 
+
 @router.get("/api/accounts/all", response_model=Union[List[UserOut], Error])
 def get_all_accounts(
     info: UserQueries = Depends(),
@@ -79,8 +80,9 @@ def get_all_accounts(
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="You are not authorized to access this resource"
+            detail="You are not authorized to access this resource",
         )
+
 
 @router.get("/api/accounts/{id}", response_model=Union[UserOut, Error])
 def get_account(
@@ -93,8 +95,9 @@ def get_account(
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="You are not authorized to access this resource"
+            detail="You are not authorized to access this resource",
         )
+
 
 @router.put("/api/accounts/{id}", response_model=Union[UserUpdate, Error])
 def update_account(
@@ -102,13 +105,14 @@ def update_account(
     user: UserInUpdate,
     info: UserQueries = Depends(),
     account: dict = Depends(authenticator.get_current_account_data),
-    ) -> UserOutWithPassword:
+) -> UserOutWithPassword:
     if account["id"] != id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Cannot update account!",
         )
     return info.update(id, user)
+
 
 @router.delete("/api/accounts/{id}", response_model=bool)
 def delete_account(
