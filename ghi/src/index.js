@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 // import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, theme } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 
@@ -11,9 +11,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="dish-dynamo">
       <AuthProvider tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <App />
         </ChakraProvider>
       </AuthProvider>

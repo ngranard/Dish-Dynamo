@@ -35,9 +35,9 @@ const LoginForm = () => {
                     <form onSubmit={(event) => handleSubmit(event)}>
                         <FormControl isRequired mt={6}>
                             <FormLabel>Email</FormLabel>
-                            <Input type="username" placeholder="test@test.com" size="lg" id="username" name="username" onChange={event => setUsername(event.target.value)} />
+                            <Input type="username" placeholder="test@test.com" size="lg" id="username" name="username" onChange={(event) => setUsername(event.target.value)} />
                             <FormLabel>Password</FormLabel>
-                            <Input type="password" placeholder="*******" size="lg" name="password" id="password" onChange={event => setPassword(event.target.value)} />
+                            <Input type="password" placeholder="*******" size="lg" name="password" id="password" onChange={(event) => setPassword(event.target.value)} />
                             <Button variantcolor="teal"
                                 variant="outline"
                                 type="submit"

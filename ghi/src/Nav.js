@@ -2,11 +2,16 @@ import { NavLink } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Text, Flex, Spacer } from '@chakra-ui/react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
+import { useColorMode, Box, IconButton } from '@chakra-ui/react';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+
+
 
 
 const Nav = () => {
     const [scroll, setScroll] = useState(false);
     const { logout } = useToken();
+    // const { colorMode, toggleColorMode } = useColorMode();
 
 
 
@@ -17,20 +22,26 @@ const Nav = () => {
 
     window.addEventListener('scroll', changeScroll);
 
+
+
+
     return (
+
         <Flex
             h="10vh"
             alignItems="center"
             p="6"
             boxShadow={scroll ? 'base' : 'none'}
-            position="sticky"
+            position="static"
             top="0"
-            zIndex="sticky"
+            zIndex="static"
             w="full"
         >
-            <Text fontSize="xl" fontWeight="bold">
-                Dish Dynamo
-            </Text>
+            <NavLink to="/">
+                <Text fontSize="xl" fontWeight="bold">
+                    Dish Dynamo
+                </Text>
+            </NavLink>
 
             <Spacer />
 
@@ -48,6 +59,15 @@ const Nav = () => {
                 <button onClick={logout}>
                     <Text fontSize="md">Logout</Text>
                 </button>
+
+                {/* <Box textAlign="right" py={4} mr={0}>
+                    <IconButton
+                        aria-label="Toggle dark mode"
+                        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                        onClick={toggleColorMode}
+                        variant="ghost"
+                    />
+                </Box> */}
             </Flex>
         </Flex>
     );
