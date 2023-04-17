@@ -11,9 +11,10 @@ class IngredientIn(BaseModel):
     quantity: int
     measurement: str
     name: str
+    recipe_id: int
 
 class IngredientOut(BaseModel):
-    id: int
+    recipe_id: int
     quantity: int
     measurement: str
     name: str
@@ -105,30 +106,31 @@ class IngredientRepository(BaseModel):
             print(e)
             return {"message:": "Could not get all ingredients"}
 
-    def create(self, ingredient: IngredientIn):
+    def create(self, ingredient: IngredientIn) -> IngredientOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                 """
                 INSERT INTO ingredients
-                    (quantity, measurement, name)
+                    (quantity, measurement, name, recipe_id)
                 VALUES
-                    (%s, %s, %s)
+                    (%s, %s, %s, %s)
                 RETURNING id;
                 """,
                 [
                     ingredient.quantity,
                     ingredient.measurement,
-                    ingredient.name
+                    ingredient.name,
+                    ingredient.recipe_id,
                 ]
             )
-            id = result.fetchone()[0]
-            old_data = ingredient.dict()
-            return IngredientOut(id=id, **old_data)
+                id = result.fetchone()[0]
+                old_data = ingredient.dict()
+                return IngredientOut(id=id, **old_data)
 
     def record_to_ingredient_out(self, record):
         return IngredientOut(
-            id=record[0],
+            recipe_id=record[0],
             quantity=record[1],
             measurement=record[2],
             name=record[3],
