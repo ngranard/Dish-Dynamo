@@ -1,4 +1,4 @@
-import { Heading, Text, Box, Button, Flex, Badge, Spacer, SimpleGrid, Image } from '@chakra-ui/react'
+import { Heading, Text, Box, SimpleGrid, Image } from '@chakra-ui/react'
 import React from 'react'
 
 const Main = () => {
@@ -26,27 +26,6 @@ const Main = () => {
                     Get Started
                 </Text>
             </Box>
-
-            {/* <Box m="8" border="1px solid" borderColor="gray.400" w="300px" borderRadius="lg">
-                <Box w="100%" h="200px" bg="gray.100" borderTopRadius="lg"></Box>
-                <Box p="4">
-                    <Badge fontSize="0.8em" colorScheme="red">
-                        Popular
-                    </Badge>
-                    <Text fontSize="2xl" fontWeight="bold">
-                        Brawhala
-                    </Text>
-                    <Text fontSize="xs" mb="6">
-                        Toronto, Canada
-                    </Text>
-                    <Flex>
-                        <Text fontSize="xs">Starting at $50/day</Text>
-                        <Spacer />
-                        <Button size="xs">Expand</Button>
-                    </Flex>
-                </Box>
-            </Box> */}
-
             <Box mt={20}>
                 <SimpleGrid columns={2}>
                     <Box>
