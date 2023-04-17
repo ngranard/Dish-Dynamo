@@ -11,15 +11,7 @@ class EmptyRecipeRepository:
 class CreateRecipeRepository:
     def create(self, recipe):
         result = {
-        "id": 1,
-        "recipe_name": "test pie",
-        "description": "this is a test",
-        "image_url": "picture",
-        "instructions": "test",
-        "rating": 5,
-        "cooking_time": "10 min",
-        "user_id": 1,
-        "difficulty_id": 1
+            "id": 1,
         }
         result.update(recipe)
         return result
@@ -36,8 +28,7 @@ def test_get_all_recipes():
 def test_create_recipe():
     app.dependency_overrides[RecipeRepository] = CreateRecipeRepository
 
-    json= {
-        "id": 1,
+    json = {
         "recipe_name": "test pie",
         "description": "this is a test",
         "image_url": "picture",
