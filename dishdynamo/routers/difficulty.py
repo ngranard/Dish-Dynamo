@@ -17,7 +17,6 @@ def create_difficulty(
     response: Response,
     repo: DifficultyRepository = Depends(),
 ):
-    response.status_code = 400
     return repo.create(difficulty)
 
 

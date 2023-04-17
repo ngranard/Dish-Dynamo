@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+// import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ChakraProvider } from '@chakra-ui/react'
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter basename="/">
+      <AuthProvider tokenUrl={`${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`}>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

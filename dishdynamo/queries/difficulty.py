@@ -23,7 +23,7 @@ class DifficultyRepository:
                     result = db.execute(
                         """
                         SELECT id
-                             , name
+                            , name
                         FROM difficulty
                         WHERE id = %s
                         """,

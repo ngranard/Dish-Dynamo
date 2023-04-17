@@ -1,3 +1,28 @@
+## April 6, 2023
+
+Today I worked on:
+* Created merge request for users endpoints and started work on frontend for users
+
+We merged all of our endpoints together for users, which went fine. We were stuck for a time on figuring out frontend authenticatio while simultaneously trying to implement Chakra-UI for our frontend. I got the login to work (sends a token) with a basic form, so that was nice.
+
+## April 5, 2023
+
+Today I worked on:
+* Finishing endpoints for users
+
+I wrapped up the users endpoints with the update user and delete account functionality. I also added some error handling for the endpoints, but nothing too fancy compared to what we already have been using. The delete account endpoint functions a little strangely, but I think that is more to do with the way tokens are handled in FastAPI. I will look into this more tomorrow, but overall it does not worry me and I'm marking the issue as complete.
+
+I also wrote issues for said endpoints and added them to our Gitlab issue board.
+
+
+## April 4, 2023
+
+Today I worked on:
+* Creating additional endpoints for users
+
+We created our first merge request and merged the newly completed authorization branch into main. We then split up work to handle individually.
+I have since learned how delicate and irritating FastAPI can be, so I had to restart from a safe point a few times. I got the delete, get user, and get all users endpoints done.
+
 ## April 3, 2023
 
 Today I worked on:
