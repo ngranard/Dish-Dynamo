@@ -7,6 +7,7 @@ import Nav from './Nav';
 import LoginForm from './LoginForm.js';
 import Main from './Main';
 import Footer from './Footer';
+import Search from './RecipeSearch';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="login" element={<LoginForm />} />
             <Route path="signup" element={<SignupForm />} />
+            <Route path="search" element={<Search />} />
+
           </Routes>
         </ColorModeProvider>
       </ThemeProvider>
