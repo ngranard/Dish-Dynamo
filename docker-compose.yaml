@@ -4,7 +4,6 @@ volumes:
   dishdynamo-data:
     external: true
 services:
-
   fastapi:
     build:
       context: ./dishdynamo
@@ -13,8 +12,6 @@ services:
       DATABASE_URL: postgresql://user:secret@db/dishdynamopostgres
       WAIT_HOSTS: db:5432
       PORT: 8000
-      SIGNING_KEY: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4MDEzMTg5OSwiaWF0IjoxNjgwMTMxODk5fQ.wcQF_Fy9OfiLJRPs0m1NtK6vhMjoAC48ok5qtb_c9R4
-
       WAIT_BEFORE: 5
       WAIT_TIMEOUT: 60
 

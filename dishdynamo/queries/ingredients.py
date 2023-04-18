@@ -1,11 +1,11 @@
 from pydantic import BaseModel
 from typing import List, Optional, Union
-from datetime import date
 from queries.pool import pool
 
 
 class Error(BaseModel):
     message: str
+
 
 class IngredientIn(BaseModel):
     quantity: int
@@ -13,14 +13,15 @@ class IngredientIn(BaseModel):
     name: str
     recipe_id: int
 
+
 class IngredientOut(BaseModel):
     recipe_id: int
     quantity: int
     measurement: str
     name: str
 
-class IngredientRepository(BaseModel):
 
+class IngredientRepository(BaseModel):
     def get_one(self, ingredient_id: int) -> Optional[IngredientOut]:
         try:
             with pool.connection() as conn:
@@ -34,7 +35,7 @@ class IngredientRepository(BaseModel):
                         FROM ingredients
                         WHERE id = %s
                         """,
-                        [ingredient_id]
+                        [ingredient_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -53,14 +54,16 @@ class IngredientRepository(BaseModel):
                         DELETE FROM ingredients
                         WHERE id = %s
                         """,
-                        [ingredient_id]
+                        [ingredient_id],
                     )
                     return True
         except Exception as e:
             print(e)
             return False
 
-    def update(self, ingredient_id: int, ingredients: IngredientIn) -> Union[IngredientOut, Error]:
+    def update(
+        self, ingredient_id: int, ingredients: IngredientIn
+    ) -> Union[IngredientOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -76,10 +79,12 @@ class IngredientRepository(BaseModel):
                             ingredients.quantity,
                             ingredients.measurement,
                             ingredients.name,
-                            ingredient_id
-                        ]
+                            ingredient_id,
+                        ],
                     )
-                    return self.ingredient_in_to_out(ingredient_id, ingredients)
+                    return self.ingredient_in_to_out(
+                        ingredient_id, ingredients
+                    )
         except Exception as e:
             print(e)
             return {"message": "Could not update that ingredient"}
@@ -110,20 +115,20 @@ class IngredientRepository(BaseModel):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
-                """
+                    """
                 INSERT INTO ingredients
                     (quantity, measurement, name, recipe_id)
                 VALUES
                     (%s, %s, %s, %s)
                 RETURNING id;
                 """,
-                [
-                    ingredient.quantity,
-                    ingredient.measurement,
-                    ingredient.name,
-                    ingredient.recipe_id,
-                ]
-            )
+                    [
+                        ingredient.quantity,
+                        ingredient.measurement,
+                        ingredient.name,
+                        ingredient.recipe_id,
+                    ],
+                )
                 id = result.fetchone()[0]
                 old_data = ingredient.dict()
                 return IngredientOut(id=id, **old_data)

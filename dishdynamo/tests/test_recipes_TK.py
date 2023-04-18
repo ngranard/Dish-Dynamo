@@ -4,9 +4,11 @@ from queries.recipes import RecipeRepository
 
 client = TestClient(app)
 
+
 class EmptyRecipeRepository:
     def get_all(self):
         return []
+
 
 class CreateRecipeRepository:
     def create(self, recipe):
@@ -16,6 +18,7 @@ class CreateRecipeRepository:
         result.update(recipe)
         return result
 
+
 def test_get_all_recipes():
     app.dependency_overrides[RecipeRepository] = EmptyRecipeRepository
 
@@ -24,6 +27,7 @@ def test_get_all_recipes():
 
     assert response.status_code == 200
     assert response.json() == []
+
 
 def test_create_recipe():
     app.dependency_overrides[RecipeRepository] = CreateRecipeRepository
@@ -36,7 +40,7 @@ def test_create_recipe():
         "rating": 5,
         "cooking_time": "10 min",
         "user_id": 1,
-        "difficulty_id": 1
+        "difficulty_id": 1,
     }
 
     expected = {
@@ -48,7 +52,7 @@ def test_create_recipe():
         "rating": 5,
         "cooking_time": "10 min",
         "user_id": 1,
-        "difficulty_id": 1
+        "difficulty_id": 1,
     }
 
     response = client.post("/recipes", json=json)
