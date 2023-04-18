@@ -15,10 +15,11 @@ class IngredientIn(BaseModel):
 
 
 class IngredientOut(BaseModel):
-    recipe_id: int
+    id: int
     quantity: int
     measurement: str
     name: str
+    recipe_id: int
 
 
 class IngredientRepository(BaseModel):
@@ -32,6 +33,7 @@ class IngredientRepository(BaseModel):
                             , quantity
                             , measurement
                             , name
+                            , recipe_id
                         FROM ingredients
                         WHERE id = %s
                         """,
@@ -73,12 +75,14 @@ class IngredientRepository(BaseModel):
                         SET quantity = %s
                             , measurement = %s
                             , name = %s
+                            , recipe_id = %s
                         WHERE id = %s
                         """,
                         [
                             ingredients.quantity,
                             ingredients.measurement,
                             ingredients.name,
+                            ingredients.recipe_id,
                             ingredient_id,
                         ],
                     )
@@ -99,6 +103,7 @@ class IngredientRepository(BaseModel):
                             , quantity
                             , measurement
                             , name
+                            , recipe_id
                         FROM ingredients
                         ORDER BY name;
                         """
@@ -135,10 +140,11 @@ class IngredientRepository(BaseModel):
 
     def record_to_ingredient_out(self, record):
         return IngredientOut(
-            recipe_id=record[0],
+            id=record[0],
             quantity=record[1],
             measurement=record[2],
             name=record[3],
+            recipe_id=record[4],
         )
 
     def ingredient_in_to_out(self, id: int, ingredient: IngredientIn):
