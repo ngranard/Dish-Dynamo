@@ -3,9 +3,7 @@ from fastapi import (
     Response,
     APIRouter,
 )
-from jwtdown_fastapi.authentication import Token
 from typing import List, Optional, Union
-from pydantic import BaseModel
 from queries.ingredients import (
     IngredientIn,
     IngredientRepository,
