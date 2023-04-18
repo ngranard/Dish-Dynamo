@@ -50,11 +50,10 @@ class RecipeRepository:
                         WHERE user_id = %s
                         ORDER BY recipe_name;
                         """,
-                        [user_id]
+                        [user_id],
                     )
                     return [
-                        self.record_to_recipe_out(record)
-                        for record in result
+                        self.record_to_recipe_out(record) for record in result
                     ]
         except Exception as e:
             print(e)
@@ -67,18 +66,18 @@ class RecipeRepository:
                     result = db.execute(
                         """
                         SELECT id
-                             , recipe_name
-                             , description
-                             , image_url
-                             , instructions
-                             , rating
-                             , cooking_time
-                             , user_id
-                             , difficulty_id
+                            , recipe_name
+                            , description
+                            , image_url
+                            , instructions
+                            , rating
+                            , cooking_time
+                            , user_id
+                            , difficulty_id
                         FROM recipes
                         WHERE id = %s
                         """,
-                        [recipe_id]
+                        [recipe_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -97,14 +96,16 @@ class RecipeRepository:
                         DELETE FROM recipes
                         WHERE id = %s
                         """,
-                        [recipe_id]
+                        [recipe_id],
                     )
                     return True
         except Exception as e:
             print(e)
             return False
 
-    def update(self, recipe_id: int, recipe: RecipeIn) -> Union[RecipeOut, Error]:
+    def update(
+        self, recipe_id: int, recipe: RecipeIn
+    ) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -112,13 +113,13 @@ class RecipeRepository:
                         """
                         UPDATE recipes
                         SET recipe_name = %s
-                          , description = %s
-                          , image_url = %s
-                          , instructions = %s
-                          , rating = %s
-                          , cooking_time = %s
-                          , user_id = %s
-                          , difficulty_id = %s
+                            , description = %s
+                            , image_url = %s
+                            , instructions = %s
+                            , rating = %s
+                            , cooking_time = %s
+                            , user_id = %s
+                            , difficulty_id = %s
                         WHERE id = %s
                         """,
                         [
@@ -130,8 +131,8 @@ class RecipeRepository:
                             recipe.cooking_time,
                             recipe.user_id,
                             recipe.difficulty_id,
-                            recipe_id
-                        ]
+                            recipe_id,
+                        ],
                     )
                     return self.recipe_in_to_out(recipe_id, recipe)
         except Exception as e:
@@ -145,21 +146,20 @@ class RecipeRepository:
                     result = db.execute(
                         """
                         SELECT id
-                             , recipe_name
-                             , description
-                             , image_url
-                             , instructions
-                             , rating
-                             , cooking_time
-                             , user_id
-                             , difficulty_id
+                            , recipe_name
+                            , description
+                            , image_url
+                            , instructions
+                            , rating
+                            , cooking_time
+                            , user_id
+                            , difficulty_id
                         FROM recipes
                         ORDER BY recipe_name;
                         """
                     )
                     return [
-                        self.record_to_recipe_out(record)
-                        for record in result
+                        self.record_to_recipe_out(record) for record in result
                     ]
         except Exception as e:
             print(e)
@@ -194,8 +194,8 @@ class RecipeRepository:
                             recipe.rating,
                             recipe.cooking_time,
                             recipe.user_id,
-                            recipe.difficulty_id
-                        ]
+                            recipe.difficulty_id,
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.recipe_in_to_out(id, recipe)
@@ -216,5 +216,5 @@ class RecipeRepository:
             rating=record[5],
             cooking_time=record[6],
             user_id=record[7],
-            difficulty_id=record[8]
+            difficulty_id=record[8],
         )

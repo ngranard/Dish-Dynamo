@@ -35,7 +35,7 @@ lint-test-job:
   stage: test
   script:
     - pip install flake8
-    - flake8 dish-dynamo
+    - flake8 dishdynamo
 
 # Run the unit tests
 api-unit-test-job:

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from authenticator import authenticator
@@ -7,7 +7,6 @@ from routers import users, difficulty, recipes, ingredients
 app = FastAPI()
 app.include_router(recipes.router)
 
-# router = APIRouter()
 
 app.add_middleware(
     CORSMiddleware,
