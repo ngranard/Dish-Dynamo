@@ -38,14 +38,14 @@ class RecipeRepository:
                     result = db.execute(
                         """
                         SELECT id
-                             , recipe_name
-                             , description
-                             , image_url
-                             , instructions
-                             , rating
-                             , cooking_time
-                             , user_id
-                             , difficulty_id
+                            , recipe_name
+                            , description
+                            , image_url
+                            , instructions
+                            , rating
+                            , cooking_time
+                            , user_id
+                            , difficulty_id
                         FROM recipes
                         WHERE user_id = %s
                         ORDER BY recipe_name;
