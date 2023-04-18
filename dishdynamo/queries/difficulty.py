@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import List, Optional, Union
-from datetime import date
 from queries.pool import pool
 
 
@@ -11,9 +10,11 @@ class Error(BaseModel):
 class DifficultyIn(BaseModel):
     name: str
 
+
 class DifficultyOut(BaseModel):
     id: int
     name: str
+
 
 class DifficultyRepository:
     def get_one(self, difficulty_id: int) -> Optional[DifficultyOut]:
@@ -27,7 +28,7 @@ class DifficultyRepository:
                         FROM difficulty
                         WHERE id = %s
                         """,
-                        [difficulty_id]
+                        [difficulty_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -46,14 +47,16 @@ class DifficultyRepository:
                         DELETE FROM difficulty
                         WHERE id = %s
                         """,
-                        [difficulty_id]
+                        [difficulty_id],
                     )
                     return True
         except Exception as e:
             print(e)
             return False
 
-    def update(self, difficulty_id: int, difficulty: DifficultyIn) -> Union[DifficultyOut, Error]:
+    def update(
+        self, difficulty_id: int, difficulty: DifficultyIn
+    ) -> Union[DifficultyOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -63,10 +66,7 @@ class DifficultyRepository:
                         SET name = %s
                         WHERE id = %s
                         """,
-                        [
-                            difficulty.name,
-                            difficulty_id
-                        ]
+                        [difficulty.name, difficulty_id],
                     )
                     return self.difficulty_in_to_out(difficulty_id, difficulty)
         except Exception as e:
@@ -104,9 +104,7 @@ class DifficultyRepository:
                             (%s)
                         RETURNING id;
                         """,
-                        [
-                            difficulty.name
-                        ]
+                        [difficulty.name],
                     )
                     id = result.fetchone()[0]
                     return self.difficulty_in_to_out(id, difficulty)

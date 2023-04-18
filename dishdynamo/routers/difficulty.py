@@ -27,7 +27,9 @@ def get_all(
     return repo.get_all()
 
 
-@router.put("/difficulty/{difficulty_id}", response_model=Union[DifficultyOut, Error])
+@router.put(
+    "/difficulty/{difficulty_id}", response_model=Union[DifficultyOut, Error]
+)
 def update_difficulty(
     difficulty_id: int,
     difficulty: DifficultyIn,
@@ -44,7 +46,9 @@ def delete_difficulty(
     return repo.delete(difficulty_id)
 
 
-@router.get("/difficulty/{difficulty_id}", response_model=Optional[DifficultyOut])
+@router.get(
+    "/difficulty/{difficulty_id}", response_model=Optional[DifficultyOut]
+)
 def get_one_difficulty(
     difficulty_id: int,
     response: Response,
