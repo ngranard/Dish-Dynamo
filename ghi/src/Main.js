@@ -80,14 +80,12 @@ const Main = () => {
                                         height="100%"
                                         boxShadow="md"
                                     >
-                                        {/* <Flex alignItems="absolute"> */}
                                         <Text fontSize="3xl" textAlign="center" minHeight="200px">
                                             {testimonial.quote}
                                         </Text>
                                         <Box>
                                             <Avatar size="2xl" src={testimonial.avatar} />
                                         </Box>
-                                        {/* </Flex> */}
                                         <Flex direction="column" alignItems="center">
                                             <Text fontSize="xl" color="blue.500" mt={4} textAlign="center">
                                                 {testimonial.name}
