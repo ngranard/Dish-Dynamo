@@ -12,7 +12,7 @@ import Nav from "./Nav";
 import LoginForm from "./LoginForm.js";
 import Main from "./Main";
 import Footer from "./Footer";
-import AutoCompleteWrapper from "./RecipeSearch";
+import SearchBar from "./RecipeSearch";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="login" element={<LoginForm />} />
             <Route path="signup" element={<SignupForm />} />
-            <Route path="search" element={<AutoCompleteWrapper />} />
+            <Route path="search" element={<SearchBar />} />
           </Routes>
         </ColorModeProvider>
       </ThemeProvider>

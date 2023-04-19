@@ -12,7 +12,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://api.edamam.com/api/recipes/v2/",
         os.environ.get("CORS_HOST", None),
     ],
     allow_credentials=True,
