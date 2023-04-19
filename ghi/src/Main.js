@@ -60,7 +60,7 @@ const Main = () => {
                                     avatar:
                                         "https://imgs.search.brave.com/Ezj_vAXHMuj-3sM1oKptaaD8NGpHDDflVspEJDcxX4s/rs:fit:670:960:1/g:ce/aHR0cHM6Ly9pLmt5/bS1jZG4uY29tL3Bo/b3Rvcy9pbWFnZXMv/ZmFjZWJvb2svMDAx/LzMzNC85MzcvMmQ4/LmpwZ19sYXJnZQ",
                                     name: "Frank Renolds",
-                                    role: "CEO at Patty's Pub",
+                                    role: "CEO at Patty's",
                                 },
                                 // Add two more testimonials here with their own quotes, avatars, names, and roles.
                             ].map((testimonial) => (
