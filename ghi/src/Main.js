@@ -1,4 +1,4 @@
-import { Heading, Text, Box, SimpleGrid, Image, Button, Flex, Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Heading, Text, Box, SimpleGrid, Button, Flex, Avatar, } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 
 
