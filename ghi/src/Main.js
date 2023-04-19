@@ -80,7 +80,7 @@ const Main = () => {
                                         height="100%"
                                         boxShadow="md"
                                     >
-                                        <Text fontSize="3xl" textAlign="center" minHeight="200px">
+                                        <Text fontSize="3xl" color="black" textAlign="center" minHeight="200px">
                                             {testimonial.quote}
                                         </Text>
                                         <Box>
