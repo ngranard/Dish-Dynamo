@@ -1,44 +1,64 @@
-import { Heading, Text, Box, SimpleGrid, Button, Flex, Avatar, } from '@chakra-ui/react'
+import { Heading, Text, Box, SimpleGrid, Button, Flex, Avatar, Img } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 import React from 'react'
+import art_3 from '../assets/art_3.jpg'
+import { motion } from 'framer-motion';
+import { SearchIcon } from '@chakra-ui/icons'
 
-const Main = () => {
+
+const Main = ({ footerHeight }) => {
     return (
         <>
             <Box maxW="2xl" m="0 auto" alignItems="center">
-                <Heading as="h1" textAlign="center" fontSize="7xl" mt="100px">
+                <Heading as="h1" fontSize={{ base: '5xl', md: '7xl' }} mt={{ base: '50px', md: '100px' }}>
                     Your Ingredients, Your Recipes
                 </Heading>
-                <Text fontSize="xl" textAlign="center" mt="30px">
+                <Text fontSize={{ base: 'lg', md: 'xl' }} mt={{ base: '20px', md: '30px' }}>
                     Never struggle again with what to eat! Dish Dynamo is a recipe app that allows you to search for recipes based on the ingredients you have on hand.
                 </Text>
                 <Flex width="100%" justifyContent="center">
                     <Link to="search">
                         <Button
+                            rightIcon={<SearchIcon />}
                             w="fit-content"
-                            p="4"
-                            px="50px"
+                            p="6"
+                            px="20x"
                             bg="blue.300"
                             borderRadius="10px"
                             mt="8"
                             fontWeight="bold"
                             color="white"
                             fontSize="xl"
+                            _hover={{
+                                bgGradient: 'linear(to-r, blue.400, blue.600)',
+                            }}
                         >
                             Get Started
                         </Button>
                     </Link>
                 </Flex>
             </Box>
-            <Box mt={20}>
-                <SimpleGrid columns={1}>
-                    <Box mt={31} w="100%" bg="gray.200" py={20}>
+            <Box mt={{ base: '10', md: '20' }}>
+                <Img
+                    src={art_3}
+                    alt="Hero image"
+                    objectFit="cover"
+                    w="fit-content"
+                    h="fit-content"
+
+                />
+            </Box>
+            <Box mt={{ base: '10', md: '20' }}>
+                <SimpleGrid columns={1} spacing={{ base: '6', md: '10' }} mb={{ base: footerHeight, md: 0 }}>
+                    <Box mt={31} w="100%" py={20}>
+
                         <Flex justifyContent="center">
                             <Flex
                                 direction="row"
                                 alignItems="stretch"
                                 justifyContent="center"
-                                maxW="1000px"
+                                w="fit-content"
+                                h="fit-content"
                                 wrap="wrap"
                             >
                                 {[
@@ -67,34 +87,40 @@ const Main = () => {
                                         role: "CEO at Patty's Pub",
                                     },
                                 ].map((testimonial, index) => (
-                                    <Flex
+                                    <motion.div
                                         key={index}
-                                        direction="column"
-                                        alignItems="center"
-                                        justifyContent="space-between"
-                                        maxW="300px"
-                                        bg="white"
-                                        borderRadius="lg"
-                                        p={4}
-                                        m={2}
-                                        height="100%"
-                                        boxShadow="md"
+                                        whileHover={{ scale: 1.1 }}
+                                        transition={{ duration: 0.2 }}
                                     >
-                                        <Text fontSize="3xl" color="black" textAlign="center" minHeight="200px">
-                                            {testimonial.quote}
-                                        </Text>
-                                        <Box>
-                                            <Avatar size="2xl" src={testimonial.avatar} />
-                                        </Box>
-                                        <Flex direction="column" alignItems="center">
-                                            <Text fontSize="xl" color="blue.500" mt={4} textAlign="center">
-                                                {testimonial.name}
+                                        <Flex
+                                            key={index}
+                                            direction="column"
+                                            alignItems="center"
+                                            justifyContent="space-between"
+                                            maxW={{ base: '100%', md: '300px' }}
+                                            bg="gray.400"
+                                            borderRadius="lg"
+                                            p={{ base: '2', md: '4' }}
+                                            m={{ base: '2', md: '4' }}
+                                            height="100%"
+                                            boxShadow="md"
+                                        >
+                                            <Text fontSize={{ base: '2xl', md: '3xl' }} textAlign="center" minHeight={{ base: '100px', md: '200px' }}>
+                                                {testimonial.quote}
                                             </Text>
-                                            <Text fontSize="sm" textAlign="center">
-                                                {testimonial.role}
-                                            </Text>
+                                            <Box>
+                                                <Avatar size={{ base: 'lg', md: '2xl' }} src={testimonial.avatar} />
+                                            </Box>
+                                            <Flex direction="column" alignItems="center">
+                                                <Text fontSize={{ base: 'md', md: 'xl' }} color="blue.500" mt={{ base: '2', md: '4' }} textAlign="center">
+                                                    {testimonial.name}
+                                                </Text>
+                                                <Text fontSize={{ base: 'sm', md: 'md' }} textAlign="center">
+                                                    {testimonial.role}
+                                                </Text>
+                                            </Flex>
                                         </Flex>
-                                    </Flex>
+                                    </motion.div>
                                 ))}
                             </Flex>
                         </Flex>
