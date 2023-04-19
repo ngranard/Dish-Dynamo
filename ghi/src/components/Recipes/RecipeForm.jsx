@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   FormControl,
@@ -10,26 +10,9 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  useToast,
 } from "@chakra-ui/react";
-import useUser from "../useUser";
-import useToken from "@galvanize-inc/jwtdown-for-react";
 
-const CreateRecipe = () => {
-  const authToken = useToken();
-  const currentUser = useUser(authToken);
-
-  const [recipe, setRecipe] = useState({
-    recipe_name: "",
-    description: "",
-    image_url: "",
-    instructions: "",
-    rating: 0,
-    cooking_time: 0,
-    user_id: currentUser?.id || null,
-    difficulty_id: 1,
-  });
-
+const CreateRecipe = ({ recipe, setRecipe }) => {
   const handleChange = (e) => {
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };

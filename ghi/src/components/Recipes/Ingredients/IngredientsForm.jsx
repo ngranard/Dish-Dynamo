@@ -8,16 +8,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-const IngredientForm = ({ onSubmit }) => {
+const IngredientsForm = () => {
   const [quantity, setQuantity] = useState("");
   const [measurement, setMeasurement] = useState("");
   const [name, setName] = useState("");
-  const [recipeId, setRecipeId] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ quantity, measurement, name, recipe_id: recipeId });
-  };
 
   return (
     <Box width="100%">
@@ -48,18 +42,9 @@ const IngredientForm = ({ onSubmit }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </FormControl>
-
-        <FormControl id="recipeId">
-          <FormLabel>Recipe ID</FormLabel>
-          <Input
-            type="number"
-            value={recipeId}
-            onChange={(e) => setRecipeId(e.target.value)}
-          />
-        </FormControl>
       </VStack>
     </Box>
   );
 };
 
-export default IngredientForm;
+export default IngredientsForm;

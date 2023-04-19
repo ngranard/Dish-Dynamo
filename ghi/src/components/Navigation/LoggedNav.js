@@ -44,6 +44,11 @@ const LoggedNav = () => {
             <Spacer />
 
             <Flex alignItems="center">
+                <NavLink to="/create">
+                    <Text fontSize="md" mr="5">
+                        Create Recipe
+                    </Text>
+                </NavLink>
                 <NavLink to="/search">
                     <Text fontSize="md" mr="5">
                         Recipe Search

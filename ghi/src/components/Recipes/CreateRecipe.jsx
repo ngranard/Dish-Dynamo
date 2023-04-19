@@ -17,14 +17,50 @@ function Multistep() {
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
   const initialRecipe = {
-    difficulty_id: 1,
-    rating: 0,
+    recipe_name: "",
+    description: "",
+    instructions: "",
+    cooking_time: "",
+    difficulty_id: "",
+    rating: "",
     image_url: "",
   };
   const [recipe, setRecipe] = useState(initialRecipe);
 
   const handleSubmit = async (e) => {
-    // Implement your form submission logic here.
+    e.preventDefault();
+    // Handle form submission here
+    console.log(recipe);
+    try {
+      const response = await fetch("https://localhost:8000/recipes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recipe),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      toast({
+        title: "Success!",
+        description: "Recipe added successfully!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error!",
+        description: "Something went wrong.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -36,6 +72,8 @@ function Multistep() {
         maxWidth={800}
         p={6}
         m="10px auto"
+        as="form"
+        onSubmit={step === 3 ? handleSubmit : undefined}
       >
         <Progress
           hasStripe
@@ -45,15 +83,11 @@ function Multistep() {
           isAnimated
         ></Progress>
         {step === 1 ? (
-          <RecipeForm />
+          <RecipeForm recipe={recipe} setRecipe={setRecipe} />
         ) : step === 2 ? (
           <IngredientsForm />
         ) : (
-          <RecipeDetailsForm
-            recipe={recipe}
-            setRecipe={setRecipe}
-            handleSubmit={handleSubmit}
-          />
+          <RecipeDetailsForm recipe={recipe} setRecipe={setRecipe} />
         )}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
@@ -89,12 +123,7 @@ function Multistep() {
               </Button>
             </Flex>
             {step === 3 ? (
-              <Button
-                w="7rem"
-                colorScheme="red"
-                variant="solid"
-                onClick={handleSubmit}
-              >
+              <Button type="submit" w="7rem" colorScheme="red" variant="solid">
                 Submit
               </Button>
             ) : null}
