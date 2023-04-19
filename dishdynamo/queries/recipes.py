@@ -6,6 +6,19 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
+class UserOut(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+
+class DifficultyOut(BaseModel):
+    difficulty: str
+
+class IngredientOut(BaseModel):
+    quantity: int
+    measurement: str
+    name: str
+    recipe_id: int
 
 class RecipeIn(BaseModel):
     recipe_name: str
@@ -28,6 +41,17 @@ class RecipeOut(BaseModel):
     cooking_time: str
     user_id: int
     difficulty_id: int
+    # ingredient_quantity: Optional[int]
+    # ingredient_measurement: Optional[str]
+    # ingredient_name: Optional[str]
+    # ingredient_recipe_id: Optional[int]
+    # user_first_name: str
+    # user_last_name: str
+    # user_email: str
+    # difficulty: str
+    ingredient: Optional[IngredientOut]
+    user: Optional[UserOut]
+    difficulty: Optional[DifficultyOut]
 
 
 class RecipeRepository:
@@ -37,17 +61,19 @@ class RecipeRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                            , recipe_name
-                            , description
-                            , image_url
-                            , instructions
-                            , rating
-                            , cooking_time
-                            , user_id
-                            , difficulty_id
-                        FROM recipes
-                        WHERE user_id = %s
+                        SELECT r.id, r.recipe_name, r.description,
+                            r.image_url, r.instructions, r.rating,
+                            r.cooking_time, r.user_id, r.difficulty_id,
+                            i.quantity, i.measurement, i.name, i.recipe_id,
+                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                        FROM recipes AS r
+                        LEFT OUTER JOIN users AS u
+                            ON (r.user_id = u.id)
+                        LEFT OUTER JOIN difficulty AS d
+                            ON (r.difficulty_id = d.id)
+                        LEFT OUTER JOIN ingredients AS i
+                            ON (r.id = i.recipe_id)
+                        WHERE r.user_id = %s
                         ORDER BY recipe_name;
                         """,
                         [user_id],
@@ -65,17 +91,19 @@ class RecipeRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                            , recipe_name
-                            , description
-                            , image_url
-                            , instructions
-                            , rating
-                            , cooking_time
-                            , user_id
-                            , difficulty_id
-                        FROM recipes
-                        WHERE id = %s
+                        SELECT r.id, r.recipe_name, r.description,
+                            r.image_url, r.instructions, r.rating,
+                            r.cooking_time, r.user_id, r.difficulty_id,
+                            i.quantity, i.measurement, i.name, i.recipe_id,
+                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                        FROM recipes AS r
+                        LEFT OUTER JOIN users AS u
+                            ON (r.user_id = u.id)
+                        LEFT OUTER JOIN difficulty AS d
+                            ON (r.difficulty_id = d.id)
+                        LEFT OUTER JOIN ingredients AS i
+                            ON (r.id = i.recipe_id)
+                        WHERE r.id = %s
                         """,
                         [recipe_id],
                     )
@@ -139,31 +167,37 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not update that recipe"}
 
-    def get_all(self) -> Union[Error, List[RecipeOut]]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        SELECT id
-                            , recipe_name
-                            , description
-                            , image_url
-                            , instructions
-                            , rating
-                            , cooking_time
-                            , user_id
-                            , difficulty_id
-                        FROM recipes
-                        ORDER BY recipe_name;
-                        """
-                    )
-                    return [
-                        self.record_to_recipe_out(record) for record in result
-                    ]
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get all recipes"}
+    def get_all(self) ->  Union[Error, List[RecipeOut]]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT r.id, r.recipe_name, r.description,
+                        r.image_url, r.instructions, r.rating,
+                        r.cooking_time, r.user_id, r.difficulty_id,
+                        i.quantity, i.measurement, i.name, i.recipe_id,
+                        u.first_name, u.last_name, u.email, d.name AS difficulty
+                    FROM recipes AS r
+                    LEFT OUTER JOIN users AS u
+                        ON (r.user_id = u.id)
+                    LEFT OUTER JOIN difficulty AS d
+                        ON (r.difficulty_id = d.id)
+                    LEFT OUTER JOIN ingredients as i
+                        ON (r.id = i.recipe_id)
+                    ORDER BY recipe_name;
+                    """,
+                )
+                # return [
+                #     self.record_to_recipe_out(record)
+                #     for record in result
+                # ]
+                recipes = []
+                rows = result.fetchall()
+                for row in rows:
+                    recipe = self.recipe_record_to_dict(row, db.description)
+                    recipes.append(recipe)
+                print("this is the final recipe that is going into the pydantic model **************,", recipes)
+                return recipes
 
     def create(self, recipe: RecipeIn) -> Union[RecipeOut, Error]:
         try:
@@ -206,6 +240,59 @@ class RecipeRepository:
         old_data = recipe.dict()
         return RecipeOut(id=id, **old_data)
 
+    def recipe_record_to_dict(self, row, description):
+        recipe = None
+        if row is not None:
+            recipe = {}
+            recipe_fields = [
+                "id",
+                "recipe_name",
+                "description",
+                "image_url",
+                "instructions",
+                "rating",
+                "cooking_time",
+                "user_id",
+                "difficulty_id",
+            ]
+            for i, column in enumerate(description):
+                if column.name in recipe_fields:
+                    recipe[column.name] = row[i]
+
+            ingredient = {}
+            ingredient_fields = [
+                "quantity",
+                "measurement",
+                "name",
+                "recipe_id",
+            ]
+            for i, column in enumerate(description):
+                if column.name in ingredient_fields:
+                    ingredient[column.name] = row[i]
+            recipe["ingredient"] = ingredient
+
+            user = {}
+            user_fields = [
+                "first_name",
+                "last_name",
+                "email",
+            ]
+            for i, column in enumerate(description):
+                if column.name in user_fields:
+                    user[column.name] = row[i]
+            recipe["user"] = user
+
+            difficulty = {}
+            difficulty_fields = [
+                "difficulty",
+            ]
+            for i, column in enumerate(description):
+                if column.name in difficulty_fields:
+                    difficulty[column.name] = row[i]
+            recipe["difficulty"] = difficulty
+        print("this is the recipe dictionary **********", recipe)
+        return recipe
+
     def record_to_recipe_out(self, record):
         return RecipeOut(
             id=record[0],
@@ -217,4 +304,12 @@ class RecipeRepository:
             cooking_time=record[6],
             user_id=record[7],
             difficulty_id=record[8],
+            # ingredient_quantity=record[9],
+            # ingredient_measurement=record[10],
+            # ingredient_name=record[11],
+            # ingredient_recipe_id=record[12],
+            # user_first_name=record[13],
+            # user_last_name=record[14],
+            # user_email=record[15],
+            # difficulty=record[16],
         )

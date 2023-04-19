@@ -23,6 +23,26 @@ class IngredientOut(BaseModel):
 
 
 class IngredientRepository(BaseModel):
+    def get_ingredient_by_recipe(self, recipe_id: int) -> Union[Error, List[IngredientOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT i.id, i.quantity, i.measurement,
+                            i.name, i.recipe_id
+                        FROM ingredients AS i
+                        WHERE i.recipe_id = %s
+                        """,
+                        [recipe_id],
+                    )
+                    return [
+                        self.record_to_ingredient_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get list of ingredients for this recipe"}
+
     def get_one(self, ingredient_id: int) -> Optional[IngredientOut]:
         try:
             with pool.connection() as conn:
