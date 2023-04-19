@@ -12,7 +12,7 @@ class EmptyIngredientRepository:
 
 class CreateIngredientRepository:
     def create(self, ingredient):
-        result = {"id": 1, "name": "test difficulty"}
+        result = {"id": 1}
         result.update(ingredient)
         return result
 
