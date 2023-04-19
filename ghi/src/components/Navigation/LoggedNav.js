@@ -7,7 +7,7 @@ import useToken from '@galvanize-inc/jwtdown-for-react';
 
 
 
-const Nav = () => {
+const LoggedNav = () => {
     const [scroll, setScroll] = useState(false);
     const { logout } = useToken();
 
@@ -44,14 +44,9 @@ const Nav = () => {
             <Spacer />
 
             <Flex alignItems="center">
-                <NavLink to="/login">
-                    <Text fontSize="md" mr="10">
-                        Login
-                    </Text>
-                </NavLink>
-                <NavLink to="/signup">
-                    <Text fontSize="md" mr="10">
-                        Signup
+                <NavLink to="/search">
+                    <Text fontSize="md" mr="5">
+                        Recipe Search
                     </Text>
                 </NavLink>
                 <button onClick={logout}>
@@ -63,4 +58,4 @@ const Nav = () => {
     );
 };
 
-export default Nav;
+export default LoggedNav;
