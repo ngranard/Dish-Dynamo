@@ -12,6 +12,7 @@ services:
       DATABASE_URL: postgresql://user:secret@db/dishdynamopostgres
       WAIT_HOSTS: db:5432
       PORT: 8000
+      SIGNING_KEY: ${SIGNING_KEY}
       WAIT_BEFORE: 5
       WAIT_TIMEOUT: 60
 

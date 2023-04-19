@@ -63,3 +63,11 @@ def get_recipe_by_user(
     if recipe is None:
         response.status_code = 404
     return recipe
+
+
+@router.get("/search", response_model=Union[List[RecipeOut], Error])
+def search_recipes(
+    ingredient: str,
+    repo: RecipeRepository = Depends(),
+) -> Union[List[RecipeOut], Error]:
+    return repo.search_by_ingredient(ingredient)
