@@ -14,8 +14,8 @@ import {
     Button,
     Heading,
     Text,
-    useColorModeValue,
     Link,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +28,8 @@ const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const cardBg = useColorModeValue('white', 'gray.700');
+
 
     const { login } = useToken();
 
@@ -45,7 +47,8 @@ const LoginForm = () => {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
+
+        >
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -57,9 +60,11 @@ const LoginForm = () => {
                 </Stack>
                 <Box
                     rounded={'lg'}
-                    bg={useColorModeValue('white', 'gray.700')}
+                    bg={cardBg}
+
                     boxShadow={'lg'}
                     p={8}>
+
                     <Stack spacing={4}>
                         <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>

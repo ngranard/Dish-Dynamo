@@ -5,6 +5,7 @@ import {
   useToast,
   Progress,
   ButtonGroup,
+  Heading,
   Flex,
 } from "@chakra-ui/react";
 
@@ -118,18 +119,21 @@ function Multistep() {
         as="form"
         onSubmit={handleSubmit}
       >
-        <Progress
-          hasStripe
-          value={progress}
-          mb="5%"
-          mx="5%"
-          isAnimated
-        ></Progress>
+        <Heading as="h2" size="xl" mb="5%" textAlign="center">
+          Enter Recipe Info
+        </Heading>
         {step === 1 ? (
           <RecipeForm recipe={recipe} setRecipe={setRecipe} />
         ) : (
           <RecipeDetailsForm recipe={recipe} setRecipe={setRecipe} />
         )}
+        <Progress
+          hasStripe
+          value={progress}
+          mt="5%"
+          mx="5%"
+          isAnimated
+        ></Progress>
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">
             <Flex>

@@ -1,3 +1,11 @@
+## April 19, 2023
+
+Today I worked on:
+
+- Create recipe form(s), updated navbar, added styling
+
+I created a form for creating a recipe, which is currently functional.It's actually multiple forms in one. I also updated the navbar to include a link to the create recipe form and the navbar now changes based on if the user is logged in or not. I also added some styling to the main page.
+
 ## April 18, 2023
 
 Today I worked on:

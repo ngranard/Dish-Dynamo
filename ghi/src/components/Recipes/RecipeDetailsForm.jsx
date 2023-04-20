@@ -47,7 +47,10 @@ const RecipeDetailsForm = ({ recipe, setRecipe }) => {
           step={1}
           value={recipe.rating}
           onChange={(value) =>
-            setRecipe({ ...recipe, rating: parseInt(value) })
+            setRecipe({
+              ...recipe,
+              rating: value === "" ? "" : parseInt(value),
+            })
           }
         >
           <NumberInputField

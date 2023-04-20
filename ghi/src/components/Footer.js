@@ -1,6 +1,11 @@
 import React from 'react'
-import { Box, Text, Stack } from '@chakra-ui/react'
+import { Box, Text, Stack, Button, Slide } from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/hooks'
+
+
 function Footer() {
+    const { isOpen, onToggle } = useDisclosure()
+
     return (
         <footer id="footer" position="sticky" bottom="0">
             <Box mt={{ base: '10', md: '20' }}>
@@ -26,6 +31,7 @@ function Footer() {
                     alignItems="center"
                 >
                     <Text>Privacy</Text>
+
                     <Text>About</Text>
                     <Text>Contact Us</Text>
                 </Stack>
