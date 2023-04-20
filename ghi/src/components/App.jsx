@@ -9,11 +9,10 @@ import Footer from "./Footer";
 import SearchBar from "./Recipes/RecipeSearch";
 import { useEffect, useState } from "react";
 import CreateRecipe from "./Recipes/CreateRecipe";
-import { Box, useColorMode } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
-  const { colorMode } = useColorMode();
   useEffect(() => {
     if (document.getElementById("footer")) {
       setFooterHeight(document.getElementById("footer").clientHeight);
@@ -22,13 +21,7 @@ function App() {
 
   return (
     <>
-      {/* <ThemeToggler /> */}
-      <Box
-      // bg={colorMode === "light" ? "gray.50" : "gray.900"}
-      // minH="100vh"
-      // position="relative"
-      // paddingBottom={footerHeight}
-      >
+      <Box>
         <Nav />
         <Routes>
           <Route path="/" element={<Main footerHeight={footerHeight} />} />

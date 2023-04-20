@@ -85,7 +85,7 @@ function Multistep() {
             duration: 3000,
             isClosable: true,
           });
-          setRecipe(initialRecipe); // Reset the form data
+          setRecipe(initialRecipe);
         }
       } catch (error) {
         console.error("Error:", error);
