@@ -41,6 +41,12 @@ class RecipeOut(BaseModel):
     user_id: int
     difficulty_id: int
 
+class RecipeOutWithUser(RecipeOut):
+    user_first_name: str
+    user_last_name: str
+    user_email: str
+    difficulty: str
+
 class RecipeOutWithAdditionalData(RecipeOut):
     ingredient_quantity: Optional[int]
     ingredient_measurement: Optional[str]
@@ -165,7 +171,7 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not update that recipe"}
 
-    def get_all(self) ->  Union[Error, List[RecipeOutWithAdditionalData]]:
+    def get_all(self) ->  Union[Error, List[RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -187,7 +193,7 @@ class RecipeRepository:
                         """,
                     )
                     return [
-                        self.record_to_recipe_out_with_additional_data(record)
+                        self.record_to_recipe_out(record)
                         for record in result
                     ]
         except Exception as e:
@@ -200,6 +206,7 @@ class RecipeRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
+                        BEGIN;
                         INSERT INTO recipes
                             (
                                 recipe_name,
@@ -214,6 +221,15 @@ class RecipeRepository:
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
+                        INSERT INTO ingredients
+                            (
+                                quantity,
+                                measurement,
+                                name,
+                                recipe_id
+                            )
+                        VALUES (%s, %s, %s, new_recipe_id)
+                        COMMIT;
                         """,
                         [
                             recipe.recipe_name,
@@ -257,7 +273,7 @@ class RecipeRepository:
         )
 
     def record_to_recipe_out(self, record):
-        return RecipeOut(
+        return RecipeOutWithUser(
             id=record[0],
             recipe_name=record[1],
             description=record[2],
@@ -267,4 +283,8 @@ class RecipeRepository:
             cooking_time=record[6],
             user_id=record[7],
             difficulty_id=record[8],
+            user_first_name=record[13],
+            user_last_name=record[14],
+            user_email=record[15],
+            difficulty=record[16],
         )
