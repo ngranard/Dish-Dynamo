@@ -18,12 +18,12 @@ import CreateRecipe from "./Recipes/CreateRecipe";
 
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
-
   useEffect(() => {
     if (document.getElementById("footer")) {
       setFooterHeight(document.getElementById("footer").clientHeight);
     }
   }, []);
+
   return (
     <>
       <Nav />

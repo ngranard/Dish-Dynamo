@@ -9,53 +9,46 @@ import {
 } from "@chakra-ui/react";
 
 import RecipeForm from "./RecipeForm";
-import IngredientsForm from "./Ingredients/IngredientsForm";
 import RecipeDetailsForm from "./RecipeDetailsForm";
+import useToken from "@galvanize-inc/jwtdown-for-react";
+import useUser from "../useUser";
 
 function Multistep() {
+  const validateForm = () => {
+    const requiredFields = [
+      "recipe_name",
+      "description",
+      "instructions",
+      "cooking_time",
+    ];
+    return requiredFields.every((field) => recipe[field]);
+  };
+
   const toast = useToast();
   const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(33.33);
+  const [progress, setProgress] = useState(50);
   const initialRecipe = {
     recipe_name: "",
     description: "",
     instructions: "",
     cooking_time: "",
-    difficulty_id: "",
+    difficulty_id: 0,
     rating: "",
     image_url: "",
   };
   const [recipe, setRecipe] = useState(initialRecipe);
+  const token = useToken();
+  const user = useUser(token);
 
-  const handleSubmit = async (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(recipe);
-    try {
-      const response = await fetch("https://localhost:8000/recipes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(recipe),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      toast({
-        title: "Success!",
-        description: "Recipe added successfully!",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-    } catch (error) {
-      console.error("Error:", error);
+    if (validateForm()) {
+      setStep(step + 1);
+      setProgress(progress + 50);
+    } else {
       toast({
         title: "Error!",
-        description: "Something went wrong.",
+        description: "Please fill in all required fields.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -63,6 +56,56 @@ function Multistep() {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      const recipeWithUserId = { ...recipe, user_id: user.id };
+      console.log(recipe);
+      try {
+        const response = await fetch("http://localhost:8000/recipes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(recipeWithUserId),
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const responseData = await response.json();
+        if (responseData) {
+          toast({
+            title: "Success!",
+            description: "Recipe added successfully!",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+          setRecipe(initialRecipe); // Reset the form data
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        toast({
+          title: "Error!",
+          description: "Something went wrong.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } else {
+      toast({
+        title: "Error!",
+        description: "Please fill in all required fields.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
   return (
     <>
       <Box
@@ -73,7 +116,7 @@ function Multistep() {
         p={6}
         m="10px auto"
         as="form"
-        onSubmit={step === 3 ? handleSubmit : undefined}
+        onSubmit={handleSubmit}
       >
         <Progress
           hasStripe
@@ -84,8 +127,6 @@ function Multistep() {
         ></Progress>
         {step === 1 ? (
           <RecipeForm recipe={recipe} setRecipe={setRecipe} />
-        ) : step === 2 ? (
-          <IngredientsForm />
         ) : (
           <RecipeDetailsForm recipe={recipe} setRecipe={setRecipe} />
         )}
@@ -95,7 +136,7 @@ function Multistep() {
               <Button
                 onClick={() => {
                   setStep(step - 1);
-                  setProgress(progress - 33.33);
+                  setProgress(progress - 50);
                 }}
                 isDisabled={step === 1}
                 colorScheme="teal"
@@ -105,28 +146,27 @@ function Multistep() {
               >
                 Back
               </Button>
-              <Button
-                w="7rem"
-                isDisabled={step === 3}
-                onClick={() => {
-                  setStep(step + 1);
-                  if (step === 3) {
-                    setProgress(100);
-                  } else {
-                    setProgress(progress + 33.33);
-                  }
-                }}
-                colorScheme="teal"
-                variant="outline"
-              >
-                Next
-              </Button>
+              {step === 1 ? (
+                <Button
+                  type="submit"
+                  w="7rem"
+                  onClick={handleNext}
+                  colorScheme="teal"
+                  variant="outline"
+                >
+                  Next
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  w="7rem"
+                  colorScheme="red"
+                  variant="solid"
+                >
+                  Submit
+                </Button>
+              )}
             </Flex>
-            {step === 3 ? (
-              <Button type="submit" w="7rem" colorScheme="red" variant="solid">
-                Submit
-              </Button>
-            ) : null}
           </Flex>
         </ButtonGroup>
       </Box>

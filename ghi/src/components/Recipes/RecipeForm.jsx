@@ -48,19 +48,11 @@ const CreateRecipe = ({ recipe, setRecipe }) => {
 
       <FormControl id="cooking_time" mt={4} isRequired>
         <FormLabel>Cooking Time (minutes)</FormLabel>
-        <NumberInput
-          min={1}
+        <Input
+          name="cooking_time"
           value={recipe.cooking_time}
-          onChange={(value) =>
-            setRecipe({ ...recipe, cooking_time: parseInt(value) })
-          }
-        >
-          <NumberInputField name="cooking_time" />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+          onChange={handleChange}
+        ></Input>
       </FormControl>
     </Box>
   );

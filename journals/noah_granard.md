@@ -1,3 +1,11 @@
+## April 18, 2023
+
+Today I worked on:
+
+- Working on frontend, created a new form for searching for recipes, and fixed our CI/CD (mostly)
+
+I created a new form for searching for recipes, which is currently not functional. I also worked on the frontend for the users, but it is not complete. I also fixed our CI/CD, which was a pain. I had to change many things in the .yml file, but it is now working, just not consistently because of our unit tests.
+
 ## April 17, 2023
 
 Today I worked on:
