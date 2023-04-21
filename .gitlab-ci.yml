@@ -43,6 +43,8 @@ api-unit-test-job:
   stage: test
   needs:
     - lint-test-job
+  variables:
+    SIGNING_KEY: "${SIGNING_KEY}"
   before_script:
     - export DATABASE_URL=os.environ["DATABASE_URL"]
   script:

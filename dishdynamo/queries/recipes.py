@@ -290,3 +290,34 @@ class RecipeRepository:
             user_email=record[11],
             difficulty=record[12],
         )
+
+    def search_by_ingredient(
+        self, ingredient: str
+    ) -> Union[Error, List[RecipeOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT DISTINCT r.id
+                            , r.recipe_name
+                            , r.description
+                            , r.image_url
+                            , r.instructions
+                            , r.rating
+                            , r.cooking_time
+                            , r.user_id
+                            , r.difficulty_id
+                        FROM recipes r
+                        JOIN ingredients i ON r.id = i.recipe_id
+                        WHERE LOWER(i.name) LIKE %s
+                        ORDER BY r.recipe_name;
+                        """,
+                        [f"%{ingredient.lower()}%"],
+                    )
+                    return [
+                        self.record_to_recipe_out(record) for record in result
+                    ]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not search recipes by ingredient"}

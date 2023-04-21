@@ -30,6 +30,8 @@ const SignupForm = () => {
     const navigate = useNavigate();
     const toast = useToast();
 
+    const cardBg = useColorModeValue('white', 'gray.700');
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const accountData = {}
@@ -55,7 +57,7 @@ const SignupForm = () => {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
+        >
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -67,9 +69,11 @@ const SignupForm = () => {
                 </Stack>
                 <Box
                     rounded={'lg'}
-                    bg={useColorModeValue('white', 'gray.700')}
                     boxShadow={'lg'}
-                    p={8}>
+                    bg={cardBg}
+
+                    p={8}
+                >
                     <Stack spacing={4}>
                         <HStack>
                             <Box>

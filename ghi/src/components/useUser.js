@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const useUser = (token) => {
     const [user, setUser] = useState(null);
+    const tokenRef = useRef(token);
 
     useEffect(() => {
-        if (!token) {
+        if (!tokenRef.current) {
             return;
         }
 
@@ -20,6 +21,10 @@ const useUser = (token) => {
             setUser(user);
         };
         getUser();
+    }, []);
+
+    useEffect(() => {
+        tokenRef.current = token;
     }, [token]);
 
     return user;
