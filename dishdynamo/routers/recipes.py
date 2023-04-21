@@ -39,7 +39,7 @@ def delete_recipe(
     return repo.delete(recipe_id)
 
 
-@router.get("/recipes/{recipe_id}", response_model=Optional[RecipeOut])
+@router.get("/recipes/{recipe_id}", response_model=Optional[RecipeOutWithUser])
 def get_one_recipe(
     recipe_id: int,
     response: Response,
@@ -52,7 +52,7 @@ def get_one_recipe(
 
 
 @router.get(
-    "/recipes/user/{user_id}", response_model=Union[List[RecipeOut], Error]
+    "/recipes/user/{user_id}", response_model=Union[List[RecipeOutWithUser], Error]
 )
 def get_recipe_by_user(
     user_id: int,

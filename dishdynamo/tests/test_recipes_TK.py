@@ -41,6 +41,13 @@ def test_create_recipe():
         "cooking_time": "10 min",
         "user_id": 1,
         "difficulty_id": 1,
+        "ingredients": [
+            {
+                "quantity": 2,
+                "measurement": "cups",
+                "name": "heavy cream",
+            }
+        ]
     }
 
     expected = {

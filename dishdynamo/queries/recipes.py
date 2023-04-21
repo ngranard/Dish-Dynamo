@@ -6,19 +6,10 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
-class UserOut(BaseModel):
-    first_name: str
-    last_name: str
-    email: str
-
-class DifficultyOut(BaseModel):
-    difficulty: str
-
-class IngredientOut(BaseModel):
+class IngredientIn(BaseModel):
     quantity: int
     measurement: str
     name: str
-    recipe_id: int
 
 class RecipeIn(BaseModel):
     recipe_name: str
@@ -29,6 +20,9 @@ class RecipeIn(BaseModel):
     cooking_time: str
     user_id: int
     difficulty_id: int
+
+class RecipeInWithIngredients(RecipeIn):
+    ingredients: List[IngredientIn]
 
 class RecipeOut(BaseModel):
     id: int
@@ -59,7 +53,7 @@ class RecipeOutWithAdditionalData(RecipeOut):
 
 
 class RecipeRepository:
-    def get_by_user_id(self, user_id: int) -> Union[Error, List[RecipeOutWithAdditionalData]]:
+    def get_by_user_id(self, user_id: int) -> Union[Error, List[RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -68,22 +62,19 @@ class RecipeRepository:
                         SELECT r.id, r.recipe_name, r.description,
                             r.image_url, r.instructions, r.rating,
                             r.cooking_time, r.user_id, r.difficulty_id,
-                            i.quantity, i.measurement, i.name, i.recipe_id,
                             u.first_name, u.last_name, u.email, d.name AS difficulty
                         FROM recipes AS r
                         LEFT OUTER JOIN users AS u
                             ON (r.user_id = u.id)
                         LEFT OUTER JOIN difficulty AS d
                             ON (r.difficulty_id = d.id)
-                        LEFT OUTER JOIN ingredients AS i
-                            ON (r.id = i.recipe_id)
                         WHERE r.user_id = %s
                         ORDER BY recipe_name;
                         """,
                         [user_id],
                     )
                     return [
-                        self.record_to_recipe_out_with_additional_data(record) for record in result
+                        self.record_to_recipe_out(record) for record in result
                     ]
         except Exception as e:
             print(e)
@@ -180,15 +171,12 @@ class RecipeRepository:
                         SELECT r.id, r.recipe_name, r.description,
                             r.image_url, r.instructions, r.rating,
                             r.cooking_time, r.user_id, r.difficulty_id,
-                            i.quantity, i.measurement, i.name, i.recipe_id,
                             u.first_name, u.last_name, u.email, d.name AS difficulty
                         FROM recipes AS r
                         LEFT OUTER JOIN users AS u
                             ON (r.user_id = u.id)
                         LEFT OUTER JOIN difficulty AS d
                             ON (r.difficulty_id = d.id)
-                        LEFT OUTER JOIN ingredients as i
-                            ON (r.id = i.recipe_id)
                         ORDER BY recipe_name;
                         """,
                     )
@@ -200,13 +188,12 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not get all recipes"}
 
-    def create(self, recipe: RecipeIn) -> Union[RecipeOut, Error]:
+    def create(self, recipe: RecipeInWithIngredients) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        BEGIN;
                         INSERT INTO recipes
                             (
                                 recipe_name,
@@ -221,15 +208,6 @@ class RecipeRepository:
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
-                        INSERT INTO ingredients
-                            (
-                                quantity,
-                                measurement,
-                                name,
-                                recipe_id
-                            )
-                        VALUES (%s, %s, %s, new_recipe_id)
-                        COMMIT;
                         """,
                         [
                             recipe.recipe_name,
@@ -243,9 +221,33 @@ class RecipeRepository:
                         ],
                     )
                     id = result.fetchone()[0]
-                    return self.recipe_in_to_out(id, recipe)
+                    for ingredient in recipe.ingredients:
+                        db.execute(
+                            """
+                            INSERT INTO ingredients
+                                (
+                                    quantity,
+                                    measurement,
+                                    name,
+                                    recipe_id
+                                )
+                            VALUES
+                                (%s, %s, %s, %s)
+                            """,
+                            [
+                                ingredient.quantity,
+                                ingredient.measurement,
+                                ingredient.name,
+                                id,
+                            ],
+                        )
+                    return self.recipe_in_to_out_with_ingredients(id, recipe)
         except Exception:
             return {"message": "Create did not work"}
+
+    def recipe_in_to_out_with_ingredients(self, id: int, recipe: RecipeInWithIngredients):
+        old_data = recipe.dict()
+        return RecipeOut(id=id, **old_data)
 
     def recipe_in_to_out(self, id: int, recipe: RecipeIn):
         old_data = recipe.dict()
@@ -283,8 +285,8 @@ class RecipeRepository:
             cooking_time=record[6],
             user_id=record[7],
             difficulty_id=record[8],
-            user_first_name=record[13],
-            user_last_name=record[14],
-            user_email=record[15],
-            difficulty=record[16],
+            user_first_name=record[9],
+            user_last_name=record[10],
+            user_email=record[11],
+            difficulty=record[12],
         )
