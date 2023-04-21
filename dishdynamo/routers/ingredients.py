@@ -60,3 +60,17 @@ def get_one_ingredient(
     if ingredient is None:
         response.status_code = 404
     return ingredient
+
+
+@router.get(
+    "/ingredient/recipe/{recipe_id}", response_model=Union[List[IngredientOut], Error]
+)
+def get_ingredients_by_recipe(
+    recipe_id: int,
+    response: Response,
+    repo: IngredientRepository = Depends(),
+) -> IngredientOut:
+    ingredient = repo.get_ingredient_by_recipe(recipe_id)
+    if ingredient is None:
+        response.status_code = 404
+    return ingredient

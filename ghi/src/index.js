@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import './index.css';
 import App from './components/App.jsx';
 import reportWebVitals from './components/reportWebVitals.js';
 import { ChakraProvider, theme } from '@chakra-ui/react'

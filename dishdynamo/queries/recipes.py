@@ -6,6 +6,10 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
+class IngredientIn(BaseModel):
+    quantity: int
+    measurement: str
+    name: str
 
 class RecipeIn(BaseModel):
     recipe_name: str
@@ -17,6 +21,8 @@ class RecipeIn(BaseModel):
     user_id: int
     difficulty_id: int
 
+class RecipeInWithIngredients(RecipeIn):
+    ingredients: List[IngredientIn]
 
 class RecipeOut(BaseModel):
     id: int
@@ -29,25 +35,40 @@ class RecipeOut(BaseModel):
     user_id: int
     difficulty_id: int
 
+class RecipeOutWithUser(RecipeOut):
+    user_first_name: str
+    user_last_name: str
+    user_email: str
+    difficulty: str
+
+class RecipeOutWithAdditionalData(RecipeOut):
+    ingredient_quantity: Optional[int]
+    ingredient_measurement: Optional[str]
+    ingredient_name: Optional[str]
+    ingredient_recipe_id: Optional[int]
+    user_first_name: str
+    user_last_name: str
+    user_email: str
+    difficulty: str
+
 
 class RecipeRepository:
-    def get_by_user_id(self, user_id: int) -> Union[Error, List[RecipeOut]]:
+    def get_by_user_id(self, user_id: int) -> Union[Error, List[RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                            , recipe_name
-                            , description
-                            , image_url
-                            , instructions
-                            , rating
-                            , cooking_time
-                            , user_id
-                            , difficulty_id
-                        FROM recipes
-                        WHERE user_id = %s
+                        SELECT r.id, r.recipe_name, r.description,
+                            r.image_url, r.instructions, r.rating,
+                            r.cooking_time, r.user_id, r.difficulty_id,
+                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                        FROM recipes AS r
+                        LEFT OUTER JOIN users AS u
+                            ON (r.user_id = u.id)
+                        LEFT OUTER JOIN difficulty AS d
+                            ON (r.difficulty_id = d.id)
+                        WHERE r.user_id = %s
                         ORDER BY recipe_name;
                         """,
                         [user_id],
@@ -59,30 +80,32 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not get list of recipes for this user"}
 
-    def get_one(self, recipe_id: int) -> Optional[RecipeOut]:
+    def get_one(self, recipe_id: int) -> Optional[RecipeOutWithAdditionalData]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                            , recipe_name
-                            , description
-                            , image_url
-                            , instructions
-                            , rating
-                            , cooking_time
-                            , user_id
-                            , difficulty_id
-                        FROM recipes
-                        WHERE id = %s
+                        SELECT r.id, r.recipe_name, r.description,
+                            r.image_url, r.instructions, r.rating,
+                            r.cooking_time, r.user_id, r.difficulty_id,
+                            i.quantity, i.measurement, i.name, i.recipe_id,
+                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                        FROM recipes AS r
+                        LEFT OUTER JOIN users AS u
+                            ON (r.user_id = u.id)
+                        LEFT OUTER JOIN difficulty AS d
+                            ON (r.difficulty_id = d.id)
+                        LEFT OUTER JOIN ingredients AS i
+                            ON (r.id = i.recipe_id)
+                        WHERE r.id = %s
                         """,
                         [recipe_id],
                     )
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_recipe_out(record)
+                    return self.record_to_recipe_out_with_additional_data(record)
         except Exception as e:
             print(e)
             return {"message": "Could not get that recipe"}
@@ -139,33 +162,33 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not update that recipe"}
 
-    def get_all(self) -> Union[Error, List[RecipeOut]]:
+    def get_all(self) ->  Union[Error, List[RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id
-                            , recipe_name
-                            , description
-                            , image_url
-                            , instructions
-                            , rating
-                            , cooking_time
-                            , user_id
-                            , difficulty_id
-                        FROM recipes
+                        SELECT r.id, r.recipe_name, r.description,
+                            r.image_url, r.instructions, r.rating,
+                            r.cooking_time, r.user_id, r.difficulty_id,
+                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                        FROM recipes AS r
+                        LEFT OUTER JOIN users AS u
+                            ON (r.user_id = u.id)
+                        LEFT OUTER JOIN difficulty AS d
+                            ON (r.difficulty_id = d.id)
                         ORDER BY recipe_name;
-                        """
+                        """,
                     )
                     return [
-                        self.record_to_recipe_out(record) for record in result
+                        self.record_to_recipe_out(record)
+                        for record in result
                     ]
         except Exception as e:
             print(e)
             return {"message": "Could not get all recipes"}
 
-    def create(self, recipe: RecipeIn) -> Union[RecipeOut, Error]:
+    def create(self, recipe: RecipeInWithIngredients) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -198,16 +221,40 @@ class RecipeRepository:
                         ],
                     )
                     id = result.fetchone()[0]
-                    return self.recipe_in_to_out(id, recipe)
+                    for ingredient in recipe.ingredients:
+                        db.execute(
+                            """
+                            INSERT INTO ingredients
+                                (
+                                    quantity,
+                                    measurement,
+                                    name,
+                                    recipe_id
+                                )
+                            VALUES
+                                (%s, %s, %s, %s)
+                            """,
+                            [
+                                ingredient.quantity,
+                                ingredient.measurement,
+                                ingredient.name,
+                                id,
+                            ],
+                        )
+                    return self.recipe_in_to_out_with_ingredients(id, recipe)
         except Exception:
             return {"message": "Create did not work"}
+
+    def recipe_in_to_out_with_ingredients(self, id: int, recipe: RecipeInWithIngredients):
+        old_data = recipe.dict()
+        return RecipeOut(id=id, **old_data)
 
     def recipe_in_to_out(self, id: int, recipe: RecipeIn):
         old_data = recipe.dict()
         return RecipeOut(id=id, **old_data)
 
-    def record_to_recipe_out(self, record):
-        return RecipeOut(
+    def record_to_recipe_out_with_additional_data(self, record):
+        return RecipeOutWithAdditionalData(
             id=record[0],
             recipe_name=record[1],
             description=record[2],
@@ -217,6 +264,31 @@ class RecipeRepository:
             cooking_time=record[6],
             user_id=record[7],
             difficulty_id=record[8],
+            ingredient_quantity=record[9],
+            ingredient_measurement=record[10],
+            ingredient_name=record[11],
+            ingredient_recipe_id=record[12],
+            user_first_name=record[13],
+            user_last_name=record[14],
+            user_email=record[15],
+            difficulty=record[16],
+        )
+
+    def record_to_recipe_out(self, record):
+        return RecipeOutWithUser(
+            id=record[0],
+            recipe_name=record[1],
+            description=record[2],
+            image_url=record[3],
+            instructions=record[4],
+            rating=record[5],
+            cooking_time=record[6],
+            user_id=record[7],
+            difficulty_id=record[8],
+            user_first_name=record[9],
+            user_last_name=record[10],
+            user_email=record[11],
+            difficulty=record[12],
         )
 
     def search_by_ingredient(

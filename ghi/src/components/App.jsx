@@ -1,9 +1,3 @@
-import {
-  ThemeProvider,
-  theme,
-  ColorModeProvider,
-  CSSReset,
-} from "@chakra-ui/react";
 import ThemeToggler from "./ThemeToggler";
 import "./App.css";
 import SignupForm from "./SignupForm";
@@ -15,33 +9,30 @@ import Footer from "./Footer";
 import SearchBar from "./Recipes/RecipeSearch";
 import { useEffect, useState } from "react";
 import CreateRecipe from "./Recipes/CreateRecipe";
+import { Box } from "@chakra-ui/react";
 import UpdateProfile from "./UpdateProfileForm";
 
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
-
   useEffect(() => {
     if (document.getElementById("footer")) {
       setFooterHeight(document.getElementById("footer").clientHeight);
     }
   }, []);
+
   return (
     <>
-      <Nav />
-      <ThemeProvider theme={theme}>
-        <ColorModeProvider>
-          <CSSReset />
-          <ThemeToggler />
-          <Routes>
-            <Route path="/" element={<Main footerHeight={footerHeight} />} />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="signup" element={<SignupForm />} />
-            <Route path="search" element={<SearchBar />} />
-            <Route path="create" element={<CreateRecipe />} />
-            <Route path="update" element={<UpdateProfile />} />
-          </Routes>
-        </ColorModeProvider>
-      </ThemeProvider>
+      <Box>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Main footerHeight={footerHeight} />} />
+          <Route path="login" element={<LoginForm />} />
+          <Route path="signup" element={<SignupForm />} />
+          <Route path="search" element={<SearchBar />} />
+          <Route path="create" element={<CreateRecipe />} />
+          <Route path="update" element={<UpdateProfile />} />
+        </Routes>
+      </Box>
       <Footer />
     </>
   );
