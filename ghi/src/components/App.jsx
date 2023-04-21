@@ -15,6 +15,7 @@ import Footer from "./Footer";
 import SearchBar from "./Recipes/RecipeSearch";
 import { useEffect, useState } from "react";
 import CreateRecipe from "./Recipes/CreateRecipe";
+import UpdateProfile from "./UpdateProfileForm";
 
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
@@ -37,6 +38,7 @@ function App() {
             <Route path="signup" element={<SignupForm />} />
             <Route path="search" element={<SearchBar />} />
             <Route path="create" element={<CreateRecipe />} />
+            <Route path="update" element={<UpdateProfile />} />
           </Routes>
         </ColorModeProvider>
       </ThemeProvider>

@@ -1,7 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import React, { useState } from 'react';
-import { Text, Flex, Spacer } from '@chakra-ui/react';
+import {
+    Text,
+    Flex,
+    Spacer,
+    Button,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+
+} from '@chakra-ui/react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 
 
@@ -10,6 +25,8 @@ import useToken from '@galvanize-inc/jwtdown-for-react';
 const LoggedNav = () => {
     const [scroll, setScroll] = useState(false);
     const { logout } = useToken();
+
+
 
 
 
@@ -54,9 +71,17 @@ const LoggedNav = () => {
                         Recipe Search
                     </Text>
                 </NavLink>
-                <button onClick={logout}>
-                    <Text fontSize="md">Logout</Text>
-                </button>
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        Name
+                    </MenuButton>
+                    <MenuList>
+                        <NavLink to={"/update"}>
+                            <MenuItem>Update Profile</MenuItem>
+                        </NavLink>
+                        <MenuItem onClick={logout}>Logout</MenuItem>
+                    </MenuList>
+                </Menu>
 
             </Flex>
         </Flex>
