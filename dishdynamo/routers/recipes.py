@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List, Optional, Union
-from queries.recipes import Error, RecipeIn, RecipeOut, RecipeRepository, RecipeOutWithUser, RecipeOutWithAdditionalData
+from queries.recipes import Error, RecipeIn, RecipeOut, RecipeRepository, RecipeOutWithUser, RecipeOutWithAdditionalData, RecipeInWithIngredients
 from authenticator import authenticator
 
 
@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
 def create_recipe(
-    recipe: RecipeIn,
+    recipe: RecipeInWithIngredients,
     response: Response,
     repo: RecipeRepository = Depends(),
 ):
