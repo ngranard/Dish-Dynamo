@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List, Optional, Union
-from queries.recipes import Error, RecipeIn, RecipeOut, RecipeRepository
+from queries.recipes import Error, RecipeIn, RecipeOut, RecipeRepository, RecipeOutWithUser, RecipeOutWithAdditionalData, RecipeInWithIngredients
 from authenticator import authenticator
 
 
@@ -9,14 +9,14 @@ router = APIRouter()
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
 def create_recipe(
-    recipe: RecipeIn,
+    recipe: RecipeInWithIngredients,
     response: Response,
     repo: RecipeRepository = Depends(),
 ):
     return repo.create(recipe)
 
 
-@router.get("/recipes", response_model=Union[List[RecipeOut], Error])
+@router.get("/recipes", response_model=Union[List[RecipeOutWithUser], Error])
 def get_all(
     repo: RecipeRepository = Depends(),
 ):
@@ -40,7 +40,7 @@ def delete_recipe(
     return repo.delete(recipe_id)
 
 
-@router.get("/recipes/{recipe_id}", response_model=Optional[RecipeOut])
+@router.get("/recipes/{recipe_id}", response_model=Optional[RecipeOutWithUser])
 def get_one_recipe(
     recipe_id: int,
     response: Response,
@@ -53,7 +53,7 @@ def get_one_recipe(
 
 
 @router.get(
-    "/recipes/user/{user_id}", response_model=Union[List[RecipeOut], Error]
+    "/recipes/user/{user_id}", response_model=Union[List[RecipeOutWithUser], Error]
 )
 def get_recipe_by_user(
     user_id: int,
