@@ -82,6 +82,9 @@ const LoggedNav = () => {
                     <NavLink to="/search" activestyle={activeLinkStyle}>
                         <Text fontSize="lg" mr="5">Recipe Search</Text>
                     </NavLink>
+                    <NavLink to="/update" activestyle={activeLinkStyle}>
+                        <Text fontSize="lg" mr="5">Update Profile</Text>
+                    </NavLink>
                     <button onClick={logout}>
                         <Text fontSize="lg" mr="5">Logout</Text>
                     </button>
@@ -103,6 +106,9 @@ const LoggedNav = () => {
                             </NavLink>
                             <NavLink to="/search">
                                 <MenuItem>Recipe Search</MenuItem>
+                            </NavLink>
+                            <NavLink to="/update">
+                                <MenuItem>Update Profile</MenuItem>
                             </NavLink>
                             <MenuItem onClick={logout}>Logout</MenuItem>
                             <IconButton

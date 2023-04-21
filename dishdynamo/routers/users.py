@@ -106,7 +106,6 @@ def update_account(
     info: UserQueries = Depends(),
     account: dict = Depends(authenticator.get_current_account_data),
 ) -> UserOutWithPassword:
-    print("****** this is what we're looking for")
     if account["id"] != id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
