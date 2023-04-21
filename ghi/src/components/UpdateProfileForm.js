@@ -13,14 +13,15 @@ import {
   Heading,
   useColorModeValue,
   useToast,
+  Editable,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import useUser from './useUser';
 const UpdateProfileForm = () => {
-  // const token = useToken();
-  // const user = useUser(token);
-
+  const token = useToken();
+  const user = useUser(token);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,20 +46,17 @@ const UpdateProfileForm = () => {
     accountData.last_name = lastName;
     accountData.email = email;
     accountData.username = email;
-    const url = "http://localhost:8000/api/accounts/${id}";
+    const url = `http://localhost:8000/api/accounts/${user.id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(accountData),
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.token}`,
       },
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      setFirstName('');
-      setLastName('');
-      setEmail('');
       toast({
         title: "Account updated.",
         description: "All changes have been saved.",
