@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
     Text,
@@ -33,14 +34,12 @@ const LoggedNav = () => {
 
     const display = useBreakpointValue({ base: "none", md: "flex" });
 
-    const activeLinkStyle = {
-        textDecoration: "underline",
-        textDecorationColor: "#4299E1",
-    };
+
 
     return (
         <>
             <Flex
+                bg="brand.700"
                 h="10vh"
                 alignItems="center"
                 p="6"
@@ -68,12 +67,24 @@ const LoggedNav = () => {
                 <Spacer />
 
                 <Flex alignItems="center" display={display}>
-                    <NavLink to="/create" activestyle={activeLinkStyle}>
-                        <Text fontSize="lg" mr="5">Create Recipe</Text>
-                    </NavLink>
-                    <NavLink to="/search" activestyle={activeLinkStyle}>
-                        <Text fontSize="lg" mr="5">Recipe Search</Text>
-                    </NavLink>
+                    <ChakraLink
+                        as={NavLink}
+                        to="/create"
+                        fontSize="lg"
+                        mr="5"
+                        _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                    >
+                        Create Recipe
+                    </ChakraLink>
+                    <ChakraLink
+                        as={NavLink}
+                        to="/search"
+                        fontSize="lg"
+                        mr="5"
+                        _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                    >
+                        Recipe Search
+                    </ChakraLink>
                     <button onClick={logout}>
                         <Text fontSize="lg" mr="5">Logout</Text>
                     </button>
@@ -91,10 +102,20 @@ const LoggedNav = () => {
                         />
                         <MenuList>
                             <NavLink to="/create">
-                                <MenuItem>Create Recipe</MenuItem>
+                                <MenuItem
+                                    as={ChakraLink}
+                                    _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                                >
+                                    Create Recipe
+                                </MenuItem>
                             </NavLink>
                             <NavLink to="/search">
-                                <MenuItem>Recipe Search</MenuItem>
+                                <MenuItem
+                                    as={ChakraLink}
+                                    _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                                >
+                                    Recipe Search
+                                </MenuItem>
                             </NavLink>
                             <MenuItem onClick={logout}>Logout</MenuItem>
                             <IconButton

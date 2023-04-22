@@ -1,3 +1,11 @@
+## April 20, 2023
+
+Today I worked on:
+
+- Finished create recipe form, added styling
+
+I finished the create recipe form. I also added some styling to the main page and the create recipe form. The site is overall dynamic and responsive, which is nice. Tenzing is working on what remains in the backend, which is necessary before more frontend work can be done.
+
 ## April 19, 2023
 
 Today I worked on:
