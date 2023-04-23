@@ -40,7 +40,7 @@ const LoggedNav = () => {
         <>
             <Flex
                 bg="brand.700"
-                h="10vh"
+                h="15vh"
                 alignItems="center"
                 p="6"
                 boxShadow={scroll ? "base" : "none"}
@@ -54,10 +54,10 @@ const LoggedNav = () => {
                     <Img
                         src={Logo4}
                         alt="Logo"
-                        w={{ base: "25%", md: "20%" }}
+                        w={{ base: "20%", md: "20%" }}
                         h="auto"
-                        marginTop="5"
-                        marginBottom="5"
+                        marginTop="auto"
+                        marginBottom="auto"
                         rounded="lg"
                         position="relative"
                         marginLeft="-18px"
@@ -101,29 +101,29 @@ const LoggedNav = () => {
                             variant="outline"
                         />
                         <MenuList>
-                            <NavLink to="/create">
-                                <MenuItem
-                                    as={ChakraLink}
-                                    _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
-                                >
-                                    Create Recipe
-                                </MenuItem>
-                            </NavLink>
-                            <NavLink to="/search">
-                                <MenuItem
-                                    as={ChakraLink}
-                                    _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
-                                >
-                                    Recipe Search
-                                </MenuItem>
-                            </NavLink>
+                            <MenuItem
+                                as={NavLink}
+                                to="/create"
+                                _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                            >
+                                Create Recipe
+                            </MenuItem>
+                            <MenuItem
+                                as={NavLink}
+                                to="/search"
+                                _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                            >
+                                Recipe Search
+                            </MenuItem>
                             <MenuItem onClick={logout}>Logout</MenuItem>
                             <IconButton
                                 aria-label="Toggle dark mode"
                                 icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                 onClick={toggleColorMode}
-                                variant="ghost" />
+                                variant="ghost"
+                            />
                         </MenuList>
+
                     </Menu>
                 </Box>
             </Flex>

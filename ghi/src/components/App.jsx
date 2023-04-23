@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import CreateRecipe from "./Recipes/CreateRecipe";
 import { Box } from "@chakra-ui/react";
 import Contact from "./Contact";
+import RecipeDetail from "./Recipes/RecipeDetail";
+import TestimonialsBig from "./TestimonialsBig.tsx";
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
   useEffect(() => {
@@ -29,6 +31,8 @@ function App() {
           <Route path="search" element={<SearchBar />} />
           <Route path="create" element={<CreateRecipe />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="recipes/:recipe_id" element={<RecipeDetail />} />
+          <Route path="testimonials" element={<TestimonialsBig />} />
         </Routes>
       </Box>
       <Footer />

@@ -10,7 +10,7 @@ import { useColorModeValue } from '@chakra-ui/react'
 const Main = () => {
     return (
         <>
-            <Box bg={useColorModeValue("gray.100", "gray.700")} m="auto" w="45vh" h="32vh"
+            <Box bg={useColorModeValue("gray.100", "gray.700")} m="auto" w="50vh" h="40vh"
                 alignItems="center" rounded="xl" >
                 <Heading as="h1" fontSize={{ base: '5xl', md: '7xl' }} mt={{ base: '50px', md: '100px' }}>
                     Your Ingredients, Your Recipes

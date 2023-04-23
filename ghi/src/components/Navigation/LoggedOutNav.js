@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import {
-    Text,
     Flex,
     Spacer,
     Button,
@@ -31,11 +30,6 @@ const LogoutNav = () => {
     window.addEventListener("scroll", changeScroll);
 
     const display = useBreakpointValue({ base: "none", md: "flex" });
-
-    const activeLinkStyle = {
-        textDecoration: "underline",
-        textDecorationColor: "#4299E1",
-    };
 
     return (
         <Flex
@@ -97,12 +91,12 @@ const LogoutNav = () => {
                         variant="outline"
                     />
                     <MenuList>
-                        <NavLink to="/login">
-                            <MenuItem>Login</MenuItem>
-                        </NavLink>
-                        <NavLink to="/signup">
-                            <MenuItem>Signup</MenuItem>
-                        </NavLink>
+                        <MenuItem as={NavLink} to="/login">
+                            Login
+                        </MenuItem>
+                        <MenuItem as={NavLink} to="/signup">
+                            Signup
+                        </MenuItem>
                         <IconButton
                             aria-label="Toggle dark mode"
                             icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}

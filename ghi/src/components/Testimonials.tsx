@@ -11,6 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Testimonial = ({ children }: { children: ReactNode }) => {
   return <Box>{children}</Box>;
@@ -142,7 +143,11 @@ function Testimonials() {
         </Stack>
       </Container>
       <Heading>
-        <Button mb={4}>See the full list of testimonials</Button>
+        <Link to="testimonials">
+          <Button ml={4} mb={4}>
+            See the full list of testimonials
+          </Button>
+        </Link>
       </Heading>
     </Box>
   );
