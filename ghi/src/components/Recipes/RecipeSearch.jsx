@@ -30,6 +30,10 @@ const SearchBar = () => {
     }
   };
   const handleSearch = async () => {
+    if (!searchTerm) {
+      setRecipes([]);
+      return;
+    }
     try {
       const response = await axios.get(
         `http://localhost:8000/search?ingredient=${searchTerm}`
@@ -53,7 +57,7 @@ const SearchBar = () => {
             placeholder="Enter ingredient"
           />
         </FormControl>
-        <Button colorScheme="blue" onClick={handleSearch}>
+        <Button colorscheme="blue" onClick={handleSearch}>
           Search
         </Button>
 
@@ -66,7 +70,7 @@ const SearchBar = () => {
               {recipes.map((recipe) => (
                 <AccordionItem key={recipe.id}>
                   <h2>
-                    <AccordionButton>
+                    <AccordionButton colorscheme="blue">
                       <Box flex="1" textAlign="left">
                         {recipe.recipe_name}
                       </Box>

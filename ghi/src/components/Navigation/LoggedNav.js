@@ -111,13 +111,17 @@ const LoggedNav = () => {
 
 
                         <MenuList>
-
                             <MenuItem rounded={'full'}
                                 as={NavLink} to="/update">Update Profile</MenuItem>
                             <MenuDivider />
-                            <button onClick={logout}>
-                                <MenuItem rounded={'full'} fontSize="lg" mr="5">Logout</MenuItem>
-                            </button>
+                            <MenuItem
+                                rounded={'full'}
+                                fontSize="lg"
+                                mr="5"
+                                onClick={logout}
+                            >
+                                Logout
+                            </MenuItem>
                         </MenuList>
 
                     </Menu>

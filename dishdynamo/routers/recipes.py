@@ -1,7 +1,14 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException
 from typing import List, Optional, Union
-from queries.recipes import Error, RecipeIn, RecipeOut, RecipeRepository, RecipeOutWithUser, RecipeOutWithAdditionalData, RecipeInWithIngredients
-
+from queries.recipes import (
+    Error,
+    RecipeIn,
+    RecipeOut,
+    RecipeRepository,
+    RecipeOutWithUser,
+    RecipeOutWithAdditionalData,
+    RecipeInWithIngredients,
+)
 
 router = APIRouter()
 
@@ -39,15 +46,18 @@ def delete_recipe(
     return repo.delete(recipe_id)
 
 
-@router.get("/recipes/{recipe_id}", response_model=Optional[RecipeOutWithUser])
+@router.get(
+    "/recipes/{recipe_id}",
+    response_model=Optional[RecipeOutWithAdditionalData],
+)
 def get_one_recipe(
     recipe_id: int,
     response: Response,
     repo: RecipeRepository = Depends(),
-) -> RecipeOut:
+) -> Optional[RecipeOutWithAdditionalData]:
     recipe = repo.get_one(recipe_id)
     if recipe is None:
-        response.status_code = 404
+        raise HTTPException(status_code=404, detail="Recipe not found")
     return recipe
 
 
@@ -59,16 +69,21 @@ def get_recipe_by_user(
     user_id: int,
     response: Response,
     repo: RecipeRepository = Depends(),
-) -> RecipeOut:
+) -> Union[List[RecipeOutWithUser], Error]:
     recipe = repo.get_by_user_id(user_id)
     if recipe is None:
-        response.status_code = 404
+        raise HTTPException(
+            status_code=404, detail="No recipes found for this user"
+        )
     return recipe
 
 
-@router.get("/search", response_model=Union[List[RecipeOut], Error])
-def search_recipes(
+@router.get(
+    "/search", response_model=Union[List[RecipeOutWithAdditionalData], Error]
+)
+def search_by_ingredient_name(
     ingredient: str,
     repo: RecipeRepository = Depends(),
-) -> Union[List[RecipeOut], Error]:
-    return repo.search_by_ingredient(ingredient)
+) -> Union[List[RecipeOutWithAdditionalData], Error]:
+    recipes = repo.search_by_ingredient_name(ingredient)
+    return recipes
