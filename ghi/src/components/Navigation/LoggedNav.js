@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
     Text,
@@ -41,15 +42,13 @@ const LoggedNav = () => {
 
     const display = useBreakpointValue({ base: "none", md: "flex" });
 
-    const activeLinkStyle = {
-        textDecoration: "underline",
-        textDecorationColor: "#4299E1",
-    };
+
 
     return (
         <>
             <Flex
-                h="10vh"
+                bg="brand.700"
+                h="15vh"
                 alignItems="center"
                 p="6"
                 boxShadow={scroll ? "base" : "none"}
@@ -63,10 +62,10 @@ const LoggedNav = () => {
                     <Img
                         src={Logo4}
                         alt="Logo"
-                        w={{ base: "25%", md: "20%" }}
+                        w={{ base: "20%", md: "20%" }}
                         h="auto"
-                        marginTop="5"
-                        marginBottom="5"
+                        marginTop="auto"
+                        marginBottom="auto"
                         rounded="lg"
                         position="relative"
                         marginLeft="-18px"
@@ -76,12 +75,24 @@ const LoggedNav = () => {
                 <Spacer />
 
                 <Flex alignItems="center" display={display}>
-                    <NavLink to="/create" activestyle={activeLinkStyle}>
-                        <Text fontSize="lg" mr="5">Create Recipe</Text>
-                    </NavLink>
-                    <NavLink to="/search" activestyle={activeLinkStyle}>
-                        <Text fontSize="lg" mr="5">Recipe Search</Text>
-                    </NavLink>
+                    <ChakraLink
+                        as={NavLink}
+                        to="/create"
+                        fontSize="lg"
+                        mr="5"
+                        _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                    >
+                        Create Recipe
+                    </ChakraLink>
+                    <ChakraLink
+                        as={NavLink}
+                        to="/search"
+                        fontSize="lg"
+                        mr="5"
+                        _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                    >
+                        Recipe Search
+                    </ChakraLink>
                     <NavLink to="/update" activestyle={activeLinkStyle}>
                         <Text fontSize="lg" mr="5">Update Profile</Text>
                     </NavLink>
@@ -101,12 +112,20 @@ const LoggedNav = () => {
                             variant="outline"
                         />
                         <MenuList>
-                            <NavLink to="/create">
-                                <MenuItem>Create Recipe</MenuItem>
-                            </NavLink>
-                            <NavLink to="/search">
-                                <MenuItem>Recipe Search</MenuItem>
-                            </NavLink>
+                            <MenuItem
+                                as={NavLink}
+                                to="/create"
+                                _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                            >
+                                Create Recipe
+                            </MenuItem>
+                            <MenuItem
+                                as={NavLink}
+                                to="/search"
+                                _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                            >
+                                Recipe Search
+                            </MenuItem>
                             <NavLink to="/update">
                                 <MenuItem>Update Profile</MenuItem>
                             </NavLink>
@@ -115,8 +134,10 @@ const LoggedNav = () => {
                                 aria-label="Toggle dark mode"
                                 icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                 onClick={toggleColorMode}
-                                variant="ghost" />
+                                variant="ghost"
+                            />
                         </MenuList>
+
                     </Menu>
                 </Box>
             </Flex>
