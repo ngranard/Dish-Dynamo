@@ -17,12 +17,13 @@ import {
     MenuDivider,
     IconButton,
     useBreakpointValue,
-    useColorMode
+    useColorMode,
+    Avatar,
+    Icon
 
 } from '@chakra-ui/react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
-import { ChevronDownIcon } from '@chakra-ui/icons'
-import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon, HamburgerIcon, ChevronDownIcon, ArrowForwardIcon, SettingsIcon, AtSignIcon } from "@chakra-ui/icons";
 import Logo4 from "../../assets/Logo4.png";
 
 const LoggedNav = () => {
@@ -76,21 +77,15 @@ const LoggedNav = () => {
                 <Spacer />
 
                 <Flex alignItems="center" display={display}>
+
+                    <Spacer />
                     <NavLink to="/create" activestyle={activeLinkStyle}>
                         <Text fontSize="lg" mr="5">Create Recipe</Text>
                     </NavLink>
                     <NavLink to="/search" activestyle={activeLinkStyle}>
                         <Text fontSize="lg" mr="5">Recipe Search</Text>
                     </NavLink>
-                    <NavLink to="/update" activestyle={activeLinkStyle}>
-                        <Text fontSize="lg" mr="5">Update Profile</Text>
-                    </NavLink>
-                    <button onClick={logout}>
-                        <Text fontSize="lg" mr="5">Logout</Text>
-                    </button>
-                    <Button onClick={toggleColorMode}>
-                        {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
+
                 </Flex>
                 <Box display={{ base: "block", md: "none" }}>
                     <Menu>
@@ -101,24 +96,44 @@ const LoggedNav = () => {
                             variant="outline"
                         />
                         <MenuList>
+                            <IconButton
+                                aria-label="Toggle dark mode"
+                                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                                onClick={toggleColorMode}
+                                variant="ghost" />
                             <NavLink to="/create">
                                 <MenuItem>Create Recipe</MenuItem>
                             </NavLink>
                             <NavLink to="/search">
                                 <MenuItem>Recipe Search</MenuItem>
                             </NavLink>
-                            <NavLink to="/update">
-                                <MenuItem>Update Profile</MenuItem>
-                            </NavLink>
-                            <MenuItem onClick={logout}>Logout</MenuItem>
-                            <IconButton
-                                aria-label="Toggle dark mode"
-                                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                                onClick={toggleColorMode}
-                                variant="ghost" />
+
                         </MenuList>
                     </Menu>
                 </Box>
+                <Menu>
+                    <MenuButton as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
+                    <MenuList>
+                        <NavLink to="/my-recipes">
+                            <MenuItem>
+                                <Icon as={AtSignIcon} mr="2" />
+                                My Recipes
+                            </MenuItem>
+                        </NavLink>
+                        <NavLink to="/update">
+                            <MenuItem>
+                                <Icon as={SettingsIcon} mr="2" />Update Profile
+                            </MenuItem>
+                        </NavLink>
+                        <MenuItem onClick={logout}>
+                            <ArrowForwardIcon mr="2" />
+                            Logout
+                        </MenuItem>
+                        <MenuItem onClick={toggleColorMode}>
+                            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </Flex>
         </>
     );
