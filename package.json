@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "fastapi": "^0.0.8"
+    "@chakra-ui/react": "^2.5.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "fastapi": "^0.0.8",
+    "framer-motion": "^6.5.1"
   }
 }

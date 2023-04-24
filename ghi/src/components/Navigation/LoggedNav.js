@@ -11,18 +11,26 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
     IconButton,
     useBreakpointValue,
-} from "@chakra-ui/react";
-import useToken from "@galvanize-inc/jwtdown-for-react";
+    useColorMode
+
+} from '@chakra-ui/react';
+import useToken from '@galvanize-inc/jwtdown-for-react';
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { useColorMode } from "@chakra-ui/react";
 import Logo4 from "../../assets/Logo4.png";
 
 const LoggedNav = () => {
     const [scroll, setScroll] = useState(false);
     const { logout } = useToken();
     const { colorMode, toggleColorMode } = useColorMode();
+
+
 
     const changeScroll = () =>
         document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
@@ -74,6 +82,9 @@ const LoggedNav = () => {
                     <NavLink to="/search" activestyle={activeLinkStyle}>
                         <Text fontSize="lg" mr="5">Recipe Search</Text>
                     </NavLink>
+                    <NavLink to="/update" activestyle={activeLinkStyle}>
+                        <Text fontSize="lg" mr="5">Update Profile</Text>
+                    </NavLink>
                     <button onClick={logout}>
                         <Text fontSize="lg" mr="5">Logout</Text>
                     </button>
@@ -95,6 +106,9 @@ const LoggedNav = () => {
                             </NavLink>
                             <NavLink to="/search">
                                 <MenuItem>Recipe Search</MenuItem>
+                            </NavLink>
+                            <NavLink to="/update">
+                                <MenuItem>Update Profile</MenuItem>
                             </NavLink>
                             <MenuItem onClick={logout}>Logout</MenuItem>
                             <IconButton
