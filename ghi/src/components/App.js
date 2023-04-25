@@ -14,6 +14,7 @@ import UserRecipes from "./Recipes/UserRecipes";
 import Contact from "./Contact";
 import RecipeDetail from "./Recipes/RecipeDetail";
 import TestimonialsBig from "./TestimonialsBig.tsx";
+import ScrollToTop from "./Navigation/ScrollToTop";
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
   useEffect(() => {
@@ -22,10 +23,12 @@ function App() {
     }
   }, []);
 
+
   return (
     <>
       <Box>
         <Nav />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Main footerHeight={footerHeight} />} />
           <Route path="login" element={<LoginForm />} />

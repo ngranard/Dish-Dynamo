@@ -6,8 +6,35 @@ import {
   Icon,
   SimpleGrid,
   useColorModeValue,
+  keyframes,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { FaHeart } from "react-icons/fa";
+const MotionFlex = motion(Flex);
 
+const hoverAnimation = {
+  rest: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.05,
+    boxShadow: "rgba(0, 0, 0, 0.2) 0px 6px 16px 0px",
+  },
+};
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 2;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
 const testimonials = [
   {
     name: "Dan Flashes",
@@ -64,6 +91,14 @@ const testimonials = [
     avatar:
       "https://play-images-prod-catalog.tech.tvnz.co.nz/31541453-31541549.png?width=1200&height=630",
   },
+  {
+    name: "Thomas Gracey",
+    role: "Operations Manager at The Angels",
+    content:
+      "Phenomenal. I will recommend you to my colleagues. I love Dish Dynamo.",
+    avatar:
+      "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/234247948_2137436316396932_6296351707301415067_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Yp4D-AgurXsAX8S8B05&_nc_oc=AQmSBL359X70fMTYfNLVbqGGUx8Xxw4pwpy39Q42RKVQsLUh94hLkNgrzfS6Js3keqc&_nc_ht=scontent-lax3-2.xx&oh=00_AfDgHz0rkITBDGqxzQZ50gFpvC-nMptdrPsHpfRHBRzdsA&oe=644C73A1",
+  },
 ];
 
 const backgrounds = [
@@ -84,7 +119,11 @@ interface TestimonialCardProps {
 function TestimonialCard(props: TestimonialCardProps) {
   const { name, role, content, avatar, index } = props;
   return (
-    <Flex
+    <MotionFlex
+      whileHover={{ scale: 1.2 }}
+      transition={{ duration: 0.2 }}
+      animate="rest"
+      variants={hoverAnimation}
       boxShadow={"lg"}
       maxW={"640px"}
       direction={{ base: "column-reverse", md: "row" }}
@@ -143,13 +182,13 @@ function TestimonialCard(props: TestimonialCardProps) {
         alignSelf={"center"}
         m={{ base: "0 0 35px 0", md: "0 0 0 50px" }}
       />
-    </Flex>
+    </MotionFlex>
   );
 }
 
 export default function TestimonialsBig() {
   return (
-    <Flex
+    <MotionFlex
       textAlign={"center"}
       pt={10}
       justifyContent={"center"}
@@ -206,13 +245,24 @@ export default function TestimonialsBig() {
         ))}
       </SimpleGrid>
       <Box>
-        <Icon viewBox="0 0 40 35" mt={14} boxSize={10} color={"purple.400"}>
+        <Icon
+          as={FaHeart}
+          boxSize={10}
+          color={useColorModeValue("purple.500", "purple.500")}
+          ml={{ base: 2, md: 0 }}
+          mt={{ base: 0, md: 2 }}
+          css={{
+            animation: `${pulseAnimation} 3s infinite`,
+          }}
+        >
           <path
-            fill={"currentColor"}
-            d="M10.7964 5.04553e-07C8.66112 -0.000123335 6.57374 0.632971 4.79827 1.81922C3.0228 3.00547 1.63898 4.69158 0.82182 6.66433C0.00466116 8.63708 -0.209132 10.8079 0.207477 12.9021C0.624087 14.9964 1.65239 16.9201 3.16233 18.4299L19.1153 34.3828C19.2395 34.5074 19.3871 34.6062 19.5496 34.6736C19.7121 34.741 19.8863 34.7757 20.0622 34.7757C20.2381 34.7757 20.4123 34.741 20.5748 34.6736C20.7373 34.6062 20.8848 34.5074 21.0091 34.3828L36.962 18.4272C38.9319 16.3917 40.0228 13.6636 39.9996 10.8311C39.9764 7.99858 38.8409 5.28867 36.838 3.28573C34.835 1.28279 32.1251 0.147283 29.2926 0.124081C26.4601 0.100879 23.732 1.19184 21.6965 3.1617L20.0622 4.79337L18.4305 3.1617C17.4276 2.15892 16.237 1.36356 14.9267 0.821064C13.6163 0.278568 12.2119 -0.000433066 10.7937 5.04553e-07H10.7964Z"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M1 4h14M1 8l3-4m10 4L13 4"
           />
         </Icon>
       </Box>
-    </Flex>
+    </MotionFlex>
   );
 }

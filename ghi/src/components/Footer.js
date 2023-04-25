@@ -27,6 +27,7 @@ function Footer() {
                     direction={{ base: 'column', md: 'row' }}
                     spacing={{ base: '4', md: '20' }}
                     mt={{ base: '6', md: '12' }}
+                    mb={{ base: '6', md: '12' }}
                     justifyContent="center"
                     alignItems="center"
                 >
