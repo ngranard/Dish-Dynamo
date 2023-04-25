@@ -91,6 +91,26 @@ class DifficultyRepository:
             print(e)
             return {"message:": "Could not get all difficulties"}
 
+    def get_difficulty_name(self, difficulty_id: int) -> Optional[str]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT name
+                        FROM difficulty
+                        WHERE id = %s
+                        """,
+                        [difficulty_id],
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return record[0]
+        except Exception as e:
+            print(e)
+            return None
+
     def create(self, difficulty: DifficultyIn) -> Union[DifficultyOut, Error]:
         try:
             with pool.connection() as conn:

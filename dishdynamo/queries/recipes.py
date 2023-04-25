@@ -1,15 +1,21 @@
 from pydantic import BaseModel
 from typing import List, Optional, Union
 from queries.pool import pool
+import logging
+from fastapi import HTTPException  # Import HTTPException
+
+logger = logging.getLogger(__name__)
 
 
 class Error(BaseModel):
     message: str
 
+
 class IngredientIn(BaseModel):
     quantity: int
     measurement: str
     name: str
+
 
 class RecipeIn(BaseModel):
     recipe_name: str
@@ -20,8 +26,10 @@ class RecipeIn(BaseModel):
     user_id: int
     difficulty_id: int
 
+
 class RecipeInWithIngredients(RecipeIn):
     ingredients: List[IngredientIn]
+
 
 class RecipeOut(BaseModel):
     id: int
@@ -33,11 +41,13 @@ class RecipeOut(BaseModel):
     user_id: int
     difficulty_id: int
 
+
 class RecipeOutWithUser(RecipeOut):
     user_first_name: str
     user_last_name: str
     user_email: str
     difficulty: str
+
 
 class RecipeOutWithAdditionalData(RecipeOut):
     ingredient_quantity: Optional[int]
@@ -51,7 +61,9 @@ class RecipeOutWithAdditionalData(RecipeOut):
 
 
 class RecipeRepository:
-    def get_by_user_id(self, user_id: int) -> Union[Error, List[RecipeOutWithUser]]:
+    def get_by_user_id(
+        self, user_id: int
+    ) -> List[Union[Error, RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -103,7 +115,9 @@ class RecipeRepository:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_recipe_out_with_additional_data(record)
+                    return self.record_to_recipe_out_with_additional_data(
+                        record
+                    )
         except Exception as e:
             print(e)
             return {"message": "Could not get that recipe"}
@@ -158,7 +172,7 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not update that recipe"}
 
-    def get_all(self) ->  Union[Error, List[RecipeOutWithUser]]:
+    def get_all(self) -> Union[Error, List[RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -177,14 +191,15 @@ class RecipeRepository:
                         """,
                     )
                     return [
-                        self.record_to_recipe_out(record)
-                        for record in result
+                        self.record_to_recipe_out(record) for record in result
                     ]
         except Exception as e:
             print(e)
             return {"message": "Could not get all recipes"}
 
-    def create(self, recipe: RecipeInWithIngredients) -> Union[RecipeOut, Error]:
+    def create(
+        self, recipe: RecipeInWithIngredients
+    ) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -239,7 +254,9 @@ class RecipeRepository:
         except Exception:
             return {"message": "Create did not work"}
 
-    def recipe_in_to_out_with_ingredients(self, id: int, recipe: RecipeInWithIngredients):
+    def recipe_in_to_out_with_ingredients(
+        self, id: int, recipe: RecipeInWithIngredients
+    ):
         old_data = recipe.dict()
         return RecipeOut(id=id, **old_data)
 
@@ -268,6 +285,8 @@ class RecipeRepository:
         )
 
     def record_to_recipe_out(self, record):
+        print(f"Record: {record}")
+
         return RecipeOutWithUser(
             id=record[0],
             recipe_name=record[1],
@@ -283,9 +302,9 @@ class RecipeRepository:
             difficulty=record[11],
         )
 
-    def search_by_ingredient(
-        self, ingredient: str
-    ) -> Union[Error, List[RecipeOut]]:
+    def search_by_ingredient_name(
+        self, ingredient_name: str
+    ) -> Union[Error, List[RecipeOutWithAdditionalData]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -298,17 +317,49 @@ class RecipeRepository:
                             , r.instructions
                             , r.cooking_time
                             , r.user_id
-                            , r.difficulty_id
+                            , r.difficulty_id,
+                            u.first_name, u.last_name, u.email, d.name AS difficulty
                         FROM recipes r
                         JOIN ingredients i ON r.id = i.recipe_id
+                        LEFT JOIN users u ON r.user_id = u.id
+                        LEFT JOIN difficulty d ON r.difficulty_id = d.id
                         WHERE LOWER(i.name) LIKE %s
                         ORDER BY r.recipe_name;
                         """,
-                        [f"%{ingredient.lower()}%"],
+                        [f"%{ingredient_name.lower()}%"],
                     )
                     return [
                         self.record_to_recipe_out(record) for record in result
                     ]
         except Exception as e:
-            print(e)
-            return {"message": "Could not search recipes by ingredient"}
+            logger.error(f"Error searching recipes by ingredient: {e}")
+            return Error(message="Could not search recipes by ingredient")
+
+    def search_by_recipe_name(
+        self, recipe_name: str
+    ) -> Union[Error, List[RecipeOutWithUser]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                            SELECT r.id, r.recipe_name, r.description,
+                                r.image_url, r.instructions, r.rating,
+                                r.cooking_time, r.user_id, r.difficulty_id,
+                                u.first_name, u.last_name, u.email, d.name AS difficulty
+                            FROM recipes AS r
+                            LEFT OUTER JOIN users AS u
+                                ON (r.user_id = u.id)
+                            LEFT OUTER JOIN difficulty AS d
+                                ON (r.difficulty_id = d.id)
+                            WHERE LOWER(r.recipe_name) LIKE %s
+                            ORDER BY recipe_name;
+                            """,
+                        [f"%{recipe_name.lower()}%"],
+                    )
+                    return [
+                        self.record_to_recipe_out(record) for record in result
+                    ]
+        except Exception as e:
+            logger.error(f"Error searching recipes by name: {e}")
+            return Error(message="Could not search recipes by name")

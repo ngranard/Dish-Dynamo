@@ -12,3 +12,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.app-logo:hover {
+  animation: bounce 1s infinite;
+  animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+}
