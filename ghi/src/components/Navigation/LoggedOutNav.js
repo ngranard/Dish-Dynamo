@@ -5,7 +5,6 @@ import {
     Flex,
     Spacer,
     Img,
-    Box,
     Menu,
     MenuButton,
     MenuList,

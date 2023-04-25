@@ -33,6 +33,7 @@ function Footer() {
                 >
                     <Text>Privacy</Text>
                     <Text>About</Text>
+                    <NavLink to="premium">Premium</NavLink>
 
                     <NavLink to="/contact"> Contact Us</NavLink>
                 </Stack>

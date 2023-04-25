@@ -1,3 +1,11 @@
+## April 25, 2023
+
+Today I worked on:
+
+- UI/UX Styling, attempted search update
+
+I spent the day working on styling the UI/UX. I also attempted to update the search form to handle searching by multiple ingredients, but was unsuccessful. I will continue to work on this later as we have designated it for a stretch goal. I worked on issues and merge requests related to the work I've done in the frontend.
+
 ## April 24, 2023
 
 Today I worked on:
