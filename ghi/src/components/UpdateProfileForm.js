@@ -14,6 +14,9 @@ import {
   useColorModeValue,
   useToast,
   Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +24,8 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from './useUser';
 const UpdateProfileForm = () => {
   const token = useToken();
-  const user = useUser(token);
+  const userToken = useUser(token);
+  const [user, setUser] = useState("");
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -40,13 +44,30 @@ const UpdateProfileForm = () => {
     setEmail(value);
   }
 
+  const fetchUser = async () => {
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
+    const response = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setUser(data.account);
+    }
+  };
+  useEffect(() => {
+    fetchUser();
+  }, [token]);
+
+
+
   const handleSubmit = async (event) => {
     const accountData = {}
     accountData.first_name = firstName;
     accountData.last_name = lastName;
     accountData.email = email;
     accountData.username = email;
-    const url = `http://localhost:8000/api/accounts/${user.id}`;
+    const url = `http://localhost:8000/api/accounts/${userToken.id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(accountData),
