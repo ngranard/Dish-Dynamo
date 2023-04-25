@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import CreateRecipe from "./Recipes/CreateRecipe";
 import { Box } from "@chakra-ui/react";
 import UpdateProfile from "./UpdateProfileForm";
+import UserRecipes from "./Recipes/UserRecipes";
 import Contact from "./Contact";
 import RecipeDetail from "./Recipes/RecipeDetail";
 import TestimonialsBig from "./TestimonialsBig.tsx";
@@ -35,6 +36,7 @@ function App() {
           <Route path="recipes/:recipe_id" element={<RecipeDetail />} />
           <Route path="testimonials" element={<TestimonialsBig />} />
           <Route path="update" element={<UpdateProfile />} />
+          <Route path="my-recipes" element={<UserRecipes />} />
         </Routes>
       </Box>
       <Footer />

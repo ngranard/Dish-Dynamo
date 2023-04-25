@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import {
+    Avatar,
     Flex,
     Spacer,
-    Button,
-    Image,
+    Img,
     Box,
     Menu,
     MenuButton,
@@ -33,7 +33,8 @@ const LogoutNav = () => {
 
     return (
         <Flex
-            h="10vh"
+            mt="fit-content"
+            h="0px"
             alignItems="center"
             p="6"
             boxShadow={scroll ? "base" : "none"}
@@ -44,12 +45,14 @@ const LogoutNav = () => {
             backgroundColor={colorMode === "light" ? "white" : "gray.800"}
         >
             <NavLink to="/">
-                <Image
+                <Img
+                    boxShadow="2xl"
+                    dropShadow={{ base: "lg", md: "xl" }}
                     src={Logo4}
                     alt="Logo"
-                    w={{ base: "45%", md: "20%" }}
-                    h="auto"
-                    marginTop="5"
+                    w={{ base: "25%", md: "20%" }}
+                    h="fill"
+                    marginTop="20"
                     marginBottom="5"
                     rounded="lg"
                     position="relative"
@@ -59,7 +62,7 @@ const LogoutNav = () => {
 
             <Spacer />
 
-            <Flex alignItems="center" display={display}>
+            <Flex mt={1} alignItems="center" display={display}>
                 <ChakraLink
                     as={NavLink}
                     to="/login"
@@ -78,9 +81,15 @@ const LogoutNav = () => {
                 >
                     Signup
                 </ChakraLink>
-                <Button onClick={toggleColorMode}>
-                    {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                </Button>
+
+                <Menu>
+                    <MenuButton mt={1} cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
+                    <MenuList>
+                        <MenuItem onClick={toggleColorMode}>
+                            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </Flex>
             <Box display={{ base: "block", md: "none" }}>
                 <Menu>

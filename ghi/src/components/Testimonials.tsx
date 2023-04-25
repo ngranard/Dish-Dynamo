@@ -144,7 +144,14 @@ function Testimonials() {
       </Container>
       <Heading>
         <Link to="testimonials">
-          <Button ml={4} mb={4}>
+          <Button
+            _hover={{
+              bgGradient: "linear(to-r, blue.400, blue.600)",
+            }}
+            bg="blue.300"
+            ml={4}
+            mb={4}
+          >
             See the full list of testimonials
           </Button>
         </Link>

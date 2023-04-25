@@ -80,8 +80,7 @@ class DifficultyRepository:
                     result = db.execute(
                         """
                         SELECT id, name
-                        FROM difficulty
-                        ORDER BY name;
+                        FROM difficulty;
                         """
                     )
                     return [

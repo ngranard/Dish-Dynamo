@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
-    Avatar,
+    Text,
     Flex,
     Spacer,
     Button,
@@ -12,17 +11,17 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
+    MenuDivider,
     IconButton,
     useBreakpointValue,
     useColorMode,
-    MenuDivider,
-
+    Avatar,
+    Icon
 
 } from '@chakra-ui/react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
-import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon, HamburgerIcon, ArrowForwardIcon, SettingsIcon, AtSignIcon } from "@chakra-ui/icons";
 import Logo4 from "../../assets/Logo4.png";
-
 
 const LoggedNav = () => {
     const [scroll, setScroll] = useState(false);
@@ -40,13 +39,16 @@ const LoggedNav = () => {
 
     const display = useBreakpointValue({ base: "none", md: "flex" });
 
-
+    const activeLinkStyle = {
+        textDecoration: "underline",
+        textDecorationColor: "#4299E1",
+    };
 
     return (
         <>
             <Flex
-                bg="brand.700"
-                h="15vh"
+                mt="fit-content"
+                h="0px"
                 alignItems="center"
                 p="6"
                 boxShadow={scroll ? "base" : "none"}
@@ -58,12 +60,14 @@ const LoggedNav = () => {
             >
                 <NavLink to="/">
                     <Img
+                        boxShadow="2xl"
+                        dropShadow={{ base: "lg", md: "xl" }}
                         src={Logo4}
                         alt="Logo"
-                        w={{ base: "20%", md: "20%" }}
-                        h="auto"
-                        marginTop="auto"
-                        marginBottom="auto"
+                        w={{ base: "25%", md: "20%" }}
+                        h="fill"
+                        marginTop="20"
+                        marginBottom="5"
                         rounded="lg"
                         position="relative"
                         marginLeft="-18px"
@@ -72,61 +76,15 @@ const LoggedNav = () => {
 
                 <Spacer />
 
-                <Flex alignItems="center" display={display}>
-                    <ChakraLink
-                        as={NavLink}
-                        to="/create"
-                        fontSize="lg"
-                        mr="5"
-                        _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
-                    >
-                        Create Recipe
-                    </ChakraLink>
-                    <ChakraLink
-                        as={NavLink}
-                        to="/search"
-                        fontSize="lg"
-                        mr="5"
-                        _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
-                    >
-                        Recipe Search
-                    </ChakraLink>
+                <Flex mt={1} alignItems="center" display={display}>
 
-                    <Button onClick={toggleColorMode} mr="5">
-                        {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
-                    <Menu mr="5">
-                        <MenuButton
-                            rounded={'full'}
-                            variant={'link'}
-                            cursor={'pointer'}
-                            minW={0}>
-                            <Avatar
-                                size={'sm'}
-                                src={
-                                    'https://imgs.search.brave.com/cSS5RedQNaeS5Qp15pLfnM9yAA4xwCvyZDHD9XeLq6s/rs:fit:400:400:1/g:ce/aHR0cHM6Ly9yZXMu/Y2xvdWRpbmFyeS5j/b20vY2xvc2VicmFj/ZS9pbWFnZS91cGxv/YWQvd180MDAvdjE0/OTEzMTUwMDcvdXNl/cmljb25faWQ3NnJi/LnBuZw'
-                                }
-                            />
-                        </MenuButton>
-
-
-                        <MenuList>
-                            <MenuItem rounded={'full'}
-                                as={NavLink} to="/update">Update Profile</MenuItem>
-                            <MenuDivider />
-                            <MenuItem
-                                rounded={'full'}
-                                fontSize="lg"
-                                mr="5"
-                                onClick={logout}
-                            >
-                                Logout
-                            </MenuItem>
-                        </MenuList>
-
-                    </Menu>
-
-
+                    <Spacer />
+                    <NavLink to="/create" activestyle={activeLinkStyle}>
+                        <Text fontSize="lg" mr="5">Create Recipe</Text>
+                    </NavLink>
+                    <NavLink to="/search" activestyle={activeLinkStyle}>
+                        <Text fontSize="lg" mr="5">Recipe Search</Text>
+                    </NavLink>
 
                 </Flex>
                 <Box display={{ base: "block", md: "none" }}>
@@ -137,50 +95,45 @@ const LoggedNav = () => {
                             icon={<HamburgerIcon />}
                             variant="outline"
                         />
-                        <MenuList>
-                            <MenuItem
-                                rounded={'full'}
-                                as={NavLink}
-                                to="/create"
-                                _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
-                            >
-                                Create Recipe
-                            </MenuItem>
-                            <MenuItem
-                                rounded={'full'}
-                                as={NavLink}
-                                to="/search"
-                                _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
-                            >
-                                Recipe Search
-                            </MenuItem>
-
+                        <MenuList >
                             <IconButton
                                 aria-label="Toggle dark mode"
                                 icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                                 onClick={toggleColorMode}
-                                variant="ghost"
-                            />
-                            <MenuItem as={NavLink}
-                                rounded={'full'}
-                                variant={'link'}
-                                cursor={'pointer'}
-                                minW={0}>
-                                <Avatar
-                                    size={'sm'}
-                                    src={
-                                        'https://imgs.search.brave.com/cSS5RedQNaeS5Qp15pLfnM9yAA4xwCvyZDHD9XeLq6s/rs:fit:400:400:1/g:ce/aHR0cHM6Ly9yZXMu/Y2xvdWRpbmFyeS5j/b20vY2xvc2VicmFj/ZS9pbWFnZS91cGxv/YWQvd180MDAvdjE0/OTEzMTUwMDcvdXNl/cmljb25faWQ3NnJi/LnBuZw'
-                                    }
-                                />
-                            </MenuItem>
-                            <MenuDivider />
+                                variant="ghost" />
+                            <NavLink to="/create">
+                                <MenuItem>Create Recipe</MenuItem>
+                            </NavLink>
+                            <NavLink to="/search">
+                                <MenuItem>Recipe Search</MenuItem>
+                            </NavLink>
 
-                            <MenuItem rounded={'full'}
-                                onClick={logout}>Logout</MenuItem>
                         </MenuList>
-
                     </Menu>
                 </Box>
+                <Menu >
+                    <MenuButton mt={1} cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
+                    <MenuList>
+                        <NavLink to="/my-recipes">
+                            <MenuItem>
+                                <Icon as={AtSignIcon} mr="2" />
+                                My Recipes
+                            </MenuItem>
+                        </NavLink>
+                        <NavLink to="/update">
+                            <MenuItem>
+                                <Icon as={SettingsIcon} mr="2" />Update Profile
+                            </MenuItem>
+                        </NavLink>
+                        <MenuItem onClick={logout}>
+                            <ArrowForwardIcon mr="2" />
+                            Logout
+                        </MenuItem>
+                        <MenuItem onClick={toggleColorMode}>
+                            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </Flex>
         </>
     );
