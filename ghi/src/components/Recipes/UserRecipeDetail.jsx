@@ -1,41 +1,28 @@
-import { Box, Image, Text, Button } from "@chakra-ui/react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Image } from "@chakra-ui/image";
+import { Box, Text } from "@chakra-ui/layout";
+import { Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function RecipeDetail() {
-    const { recipe_id } = useParams();
-    const navigate = useNavigate();
+function RecipeDetails() {
+    const { recipeId } = useParams();
     const [recipe, setRecipe] = useState(null);
-
-    const fetchRecipeData = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`);
-            const data = await response.json();
-            setRecipe(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const [ingredients, setIngredients] = useState(null);
 
     useEffect(() => {
-        fetchRecipeData();
-    }, []);
+        fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipeId}`)
+            .then((response) => response.json())
+            .then((data) => setRecipe(data));
+    }, [recipeId]);
 
-    const deleteRecipe = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                navigate('/');
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipeId}`)
+            .then((response) => response.json())
+            .then((data) => setIngredients(data));
+    }, [recipeId]);
 
-
-    if (!recipe) {
-        return null;
+    if (!recipe || !ingredients) {
+        return <div>Loading...</div>;
     }
 
     return (
@@ -46,17 +33,37 @@ function RecipeDetail() {
             </Text>
             <Text mb={4}>{recipe.description}</Text>
             <Text mb={4}>
-                <strong>Cooking time:</strong> {recipe.cooking_time}
+                <strong>Cooking time:</strong> {recipe.cooking_time} minutes
             </Text>
             <Text mb={4}>
                 <strong>Difficulty:</strong> {recipe.difficulty}
             </Text>
+            <Table variant="simple" mb={4}>
+                <Thead>
+                    <Tr>
+                        <Th>Quantity</Th>
+                        <Th>Measurement</Th>
+                        <Th>Name</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {ingredients.map((ingredient) => (
+                        <Tr key={ingredient.id}>
+                            <Td>{ingredient.quantity}</Td>
+                            <Td>{ingredient.measurement}</Td>
+                            <Td>{ingredient.name}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
             <Text mb={4}>
                 <strong>Instructions:</strong> {recipe.instructions}
             </Text>
-            <Button colorScheme="red" onClick={deleteRecipe}>
+            {/* <Button colorScheme="red" onClick={deleteRecipe}>
                 Delete recipe
-            </Button>
+            </Button> */}
         </Box>
     );
 }
+
+export default RecipeDetails;

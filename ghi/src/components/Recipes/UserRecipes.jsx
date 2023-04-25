@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import useUser from "../useUser";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
-function RecipeCard({ recipe, onDelete }) {
+const RecipeCard = ({ recipe, onDelete }) => {
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -32,8 +32,14 @@ function RecipeCard({ recipe, onDelete }) {
     };
 
     const handleDelete = () => {
-        onClose();
-        onDelete(recipe.id);
+        onOpen(); // show the Modal component
+        // do not call `onClose()` here
+        // instead, call it inside the Modal component
+    };
+
+    const handleConfirmDelete = () => {
+        onClose(); // hide the Modal component
+        onDelete(recipe.id); // delete the recipe
     };
 
     return (
@@ -60,7 +66,7 @@ function RecipeCard({ recipe, onDelete }) {
                         Are you sure you want to delete the recipe "{recipe.recipe_name}"?
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={handleDelete}>
+                        <Button colorScheme="blue" mr={3} onClick={handleConfirmDelete}>
                             Delete
                         </Button>
                         <Button variant="ghost" onClick={onClose}>
@@ -71,7 +77,8 @@ function RecipeCard({ recipe, onDelete }) {
             </Modal>
         </Box>
     );
-}
+};
+
 
 
 function UserRecipes() {
