@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, Text, Stack, Button, Slide } from '@chakra-ui/react'
-import { useDisclosure } from '@chakra-ui/hooks'
+import { Box, Text, Stack, } from '@chakra-ui/react'
+import { NavLink } from 'react-router-dom'
+
 
 
 function Footer() {
-    const { isOpen, onToggle } = useDisclosure()
 
     return (
         <footer id="footer" position="sticky" bottom="0">
@@ -27,13 +27,14 @@ function Footer() {
                     direction={{ base: 'column', md: 'row' }}
                     spacing={{ base: '4', md: '20' }}
                     mt={{ base: '6', md: '12' }}
+                    mb={{ base: '6', md: '12' }}
                     justifyContent="center"
                     alignItems="center"
                 >
                     <Text>Privacy</Text>
-
                     <Text>About</Text>
-                    <Text>Contact Us</Text>
+
+                    <NavLink to="/contact"> Contact Us</NavLink>
                 </Stack>
             </Box>
         </footer>
