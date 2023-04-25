@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import {
-    Text,
     Flex,
     Spacer,
     Button,
@@ -17,6 +16,7 @@ import {
 import { useColorMode } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Logo4 from "../../assets/Logo4.png";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 const LogoutNav = () => {
     const [scroll, setScroll] = useState(false);
@@ -30,11 +30,6 @@ const LogoutNav = () => {
     window.addEventListener("scroll", changeScroll);
 
     const display = useBreakpointValue({ base: "none", md: "flex" });
-
-    const activeLinkStyle = {
-        textDecoration: "underline",
-        textDecorationColor: "#4299E1",
-    };
 
     return (
         <Flex
@@ -65,12 +60,24 @@ const LogoutNav = () => {
             <Spacer />
 
             <Flex alignItems="center" display={display}>
-                <NavLink to="/login" activestyle={activeLinkStyle}>
-                    <Text fontSize="lg" mr="10">Login</Text>
-                </NavLink>
-                <NavLink to="/signup" activestyle={activeLinkStyle}>
-                    <Text fontSize="lg" mr="10">Signup</Text>
-                </NavLink>
+                <ChakraLink
+                    as={NavLink}
+                    to="/login"
+                    fontSize="lg"
+                    mr="5"
+                    _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                >
+                    Login
+                </ChakraLink>
+                <ChakraLink
+                    as={NavLink}
+                    to="/signup"
+                    fontSize="lg"
+                    mr="5"
+                    _activeLink={{ textDecoration: "underline", textDecorationColor: "#4299E1" }}
+                >
+                    Signup
+                </ChakraLink>
                 <Button onClick={toggleColorMode}>
                     {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                 </Button>
@@ -84,12 +91,12 @@ const LogoutNav = () => {
                         variant="outline"
                     />
                     <MenuList>
-                        <NavLink to="/login">
-                            <MenuItem>Login</MenuItem>
-                        </NavLink>
-                        <NavLink to="/signup">
-                            <MenuItem>Signup</MenuItem>
-                        </NavLink>
+                        <MenuItem as={NavLink} to="/login">
+                            Login
+                        </MenuItem>
+                        <MenuItem as={NavLink} to="/signup">
+                            Signup
+                        </MenuItem>
                         <IconButton
                             aria-label="Toggle dark mode"
                             icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}

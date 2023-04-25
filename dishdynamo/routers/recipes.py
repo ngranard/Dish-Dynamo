@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List, Optional, Union
 from queries.recipes import Error, RecipeIn, RecipeOut, RecipeRepository, RecipeOutWithUser, RecipeOutWithAdditionalData, RecipeInWithIngredients
-from authenticator import authenticator
 
 
 router = APIRouter()
@@ -53,7 +52,8 @@ def get_one_recipe(
 
 
 @router.get(
-    "/recipes/user/{user_id}", response_model=Union[List[RecipeOutWithUser], Error]
+    "/recipes/user/{user_id}",
+    response_model=Union[List[RecipeOutWithUser], Error],
 )
 def get_recipe_by_user(
     user_id: int,
