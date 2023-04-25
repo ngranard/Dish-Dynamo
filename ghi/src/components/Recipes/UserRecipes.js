@@ -32,14 +32,12 @@ const RecipeCard = ({ recipe, onDelete }) => {
     };
 
     const handleDelete = () => {
-        onOpen(); // show the Modal component
-        // do not call `onClose()` here
-        // instead, call it inside the Modal component
+        onOpen();
     };
 
     const handleConfirmDelete = () => {
-        onClose(); // hide the Modal component
-        onDelete(recipe.id); // delete the recipe
+        onClose();
+        onDelete(recipe.id);
     };
 
     return (
