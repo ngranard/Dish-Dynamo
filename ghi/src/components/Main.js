@@ -62,7 +62,8 @@ const Main = () => {
                     <Text
                         p="3"
                         pl={3}
-                        fontSize={{ base: "lg", md: "xl" }}
+                        fontSize={{ base: "lg", md: "2xl" }}
+                        fontStyle="italic"
                         mt={{ base: "20px", md: "320px" }}
                     >
                         Never struggle again with what to eat! Dish Dynamo is a recipe app
