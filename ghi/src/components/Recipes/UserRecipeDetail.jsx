@@ -47,6 +47,7 @@ function RecipeDetails() {
                     </Tr>
                 </Thead>
                 <Tbody>
+                    <strong>Ingredients:</strong>
                     {ingredients.map((ingredient) => (
                         <Tr key={ingredient.id}>
                             <Td>{ingredient.quantity}</Td>
@@ -59,9 +60,6 @@ function RecipeDetails() {
             <Text mb={4}>
                 <strong>Instructions:</strong> {recipe.instructions}
             </Text>
-            {/* <Button colorScheme="red" onClick={deleteRecipe}>
-                Delete recipe
-            </Button> */}
         </Box>
     );
 }
