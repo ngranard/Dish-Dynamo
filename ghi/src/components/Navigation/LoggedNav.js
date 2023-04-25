@@ -14,7 +14,6 @@ import {
     MenuItem,
     IconButton,
     Avatar,
-    ArrowForwardIcon,
     Icon,
     useBreakpointValue,
 } from "@chakra-ui/react";
@@ -22,6 +21,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { MoonIcon, SunIcon, HamburgerIcon, SettingsIcon, AtSignIcon } from "@chakra-ui/icons";
 import { useColorMode } from "@chakra-ui/react";
 import Logo4 from "../../assets/Logo4.png";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 const LoggedNav = () => {
     const [scroll, setScroll] = useState(false);
@@ -91,9 +91,7 @@ const LoggedNav = () => {
                     <button onClick={logout}>
                         <Text fontSize="lg" mr="5">Logout</Text>
                     </button>
-                    <Button onClick={toggleColorMode}>
-                        {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
+
                 </Flex>
                 <Box display={{ base: "block", md: "none" }}>
                     <Menu>
@@ -119,18 +117,13 @@ const LoggedNav = () => {
                                 Recipe Search
                             </MenuItem>
                             <MenuItem onClick={logout}>Logout</MenuItem>
-                            <IconButton
-                                aria-label="Toggle dark mode"
-                                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                                onClick={toggleColorMode}
-                                variant="ghost"
-                            />
+
                         </MenuList>
 
                     </Menu>
                 </Box>
                 <Menu>
-                    <MenuButton as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
+                    <MenuButton cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
                     <MenuList>
                         <NavLink to="/my-recipes">
                             <MenuItem>

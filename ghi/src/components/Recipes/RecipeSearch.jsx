@@ -17,18 +17,18 @@ import {
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
-  const getDifficultyLevel = (id) => {
-    switch (id) {
-      case 1:
-        return "Easy";
-      case 2:
-        return "Medium";
-      case 3:
-        return "Hard";
-      default:
-        return "Unknown";
-    }
-  };
+  // const getDifficultyLevel = (id) => {
+  //   switch (id) {
+  //     case 1:
+  //       return "Easy";
+  //     case 2:
+  //       return "Medium";
+  //     case 3:
+  //       return "Hard";
+  //     default:
+  //       return "Unknown";
+  //   }
+  // };
   const handleSearch = async () => {
     try {
       const response = await axios.get(
@@ -77,9 +77,7 @@ const SearchBar = () => {
                     <VStack spacing={4}>
                       <Text>{recipe.description}</Text>
                       <Text>Cooking Time: {recipe.cooking_time} mins</Text>
-                      <Text>
-                        Difficulty: {getDifficultyLevel(recipe.difficulty_id)}
-                      </Text>
+                      <Text>Difficulty: {recipe.difficulty_id}</Text>
                     </VStack>
                   </AccordionPanel>
                 </AccordionItem>
