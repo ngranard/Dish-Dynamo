@@ -22,7 +22,6 @@ class RecipeIn(BaseModel):
     description: str
     image_url: str
     instructions: str
-    rating: Optional[int]
     cooking_time: str
     user_id: int
     difficulty_id: int
@@ -38,7 +37,6 @@ class RecipeOut(BaseModel):
     description: str
     image_url: str
     instructions: str
-    rating: Optional[int]
     cooking_time: str
     user_id: int
     difficulty_id: int
@@ -72,9 +70,9 @@ class RecipeRepository:
                     result = db.execute(
                         """
                         SELECT r.id, r.recipe_name, r.description,
-                            r.image_url, r.instructions, r.rating,
-                            r.cooking_time, r.user_id, r.difficulty_id,
-                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                            r.image_url, r.instructions, r.cooking_time,
+                            r.user_id, r.difficulty_id, u.first_name,
+                            u.last_name, u.email, d.name AS difficulty
                         FROM recipes AS r
                         LEFT OUTER JOIN users AS u
                             ON (r.user_id = u.id)
@@ -99,8 +97,8 @@ class RecipeRepository:
                     result = db.execute(
                         """
                         SELECT r.id, r.recipe_name, r.description,
-                            r.image_url, r.instructions, r.rating,
-                            r.cooking_time, r.user_id, r.difficulty_id,
+                            r.image_url, r.instructions, r.cooking_time,
+                            r.user_id, r.difficulty_id,
                             i.quantity, i.measurement, i.name, i.recipe_id,
                             u.first_name, u.last_name, u.email, d.name AS difficulty
                         FROM recipes AS r
@@ -153,7 +151,6 @@ class RecipeRepository:
                             , description = %s
                             , image_url = %s
                             , instructions = %s
-                            , rating = %s
                             , cooking_time = %s
                             , user_id = %s
                             , difficulty_id = %s
@@ -164,7 +161,6 @@ class RecipeRepository:
                             recipe.description,
                             recipe.image_url,
                             recipe.instructions,
-                            recipe.rating,
                             recipe.cooking_time,
                             recipe.user_id,
                             recipe.difficulty_id,
@@ -183,7 +179,7 @@ class RecipeRepository:
                     result = db.execute(
                         """
                         SELECT r.id, r.recipe_name, r.description,
-                            r.image_url, r.instructions, r.rating,
+                            r.image_url, r.instructions,
                             r.cooking_time, r.user_id, r.difficulty_id,
                             u.first_name, u.last_name, u.email, d.name AS difficulty
                         FROM recipes AS r
@@ -215,13 +211,12 @@ class RecipeRepository:
                                 description,
                                 image_url,
                                 instructions,
-                                rating,
                                 cooking_time,
                                 user_id,
                                 difficulty_id
                             )
                         VALUES
-                            (%s, %s, %s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
@@ -229,7 +224,6 @@ class RecipeRepository:
                             recipe.description,
                             recipe.image_url,
                             recipe.instructions,
-                            recipe.rating,
                             recipe.cooking_time,
                             recipe.user_id,
                             recipe.difficulty_id,
@@ -277,18 +271,17 @@ class RecipeRepository:
             description=record[2],
             image_url=record[3],
             instructions=record[4],
-            rating=record[5],
-            cooking_time=record[6],
-            user_id=record[7],
-            difficulty_id=record[8],
-            ingredient_quantity=record[9],
-            ingredient_measurement=record[10],
-            ingredient_name=record[11],
-            ingredient_recipe_id=record[12],
-            user_first_name=record[13],
-            user_last_name=record[14],
-            user_email=record[15],
-            difficulty=record[16],
+            cooking_time=record[5],
+            user_id=record[6],
+            difficulty_id=record[7],
+            ingredient_quantity=record[8],
+            ingredient_measurement=record[9],
+            ingredient_name=record[10],
+            ingredient_recipe_id=record[11],
+            user_first_name=record[12],
+            user_last_name=record[13],
+            user_email=record[14],
+            difficulty=record[15],
         )
 
     def record_to_recipe_out(self, record):
@@ -300,14 +293,13 @@ class RecipeRepository:
             description=record[2],
             image_url=record[3],
             instructions=record[4],
-            rating=record[5],
-            cooking_time=record[6],
-            user_id=record[7],
-            difficulty_id=record[8],
-            user_first_name=record[9],
-            user_last_name=record[10],
-            user_email=record[11],
-            difficulty=record[12],
+            cooking_time=record[5],
+            user_id=record[6],
+            difficulty_id=record[7],
+            user_first_name=record[8],
+            user_last_name=record[9],
+            user_email=record[10],
+            difficulty=record[11],
         )
 
     def search_by_ingredient_name(
@@ -323,7 +315,6 @@ class RecipeRepository:
                             , r.description
                             , r.image_url
                             , r.instructions
-                            , r.rating
                             , r.cooking_time
                             , r.user_id
                             , r.difficulty_id,
