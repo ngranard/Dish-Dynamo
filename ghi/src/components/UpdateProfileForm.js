@@ -1,24 +1,23 @@
 
 import {
   Flex,
+  Icon,
   Box,
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
   HStack,
-  InputRightElement,
   Stack,
   Button,
   Heading,
   useColorModeValue,
   useToast,
-  Editable,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from './useUser';
+import { FaUserCircle } from 'react-icons/fa';
 const UpdateProfileForm = () => {
   const token = useToken();
   const user = useUser(token);
@@ -67,11 +66,6 @@ const UpdateProfileForm = () => {
       navigate("/update");
     }
 
-
-
-
-
-
   };
 
   return (
@@ -82,6 +76,7 @@ const UpdateProfileForm = () => {
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
+          <Icon as={FaUserCircle} w={24} h={24} />
           <Heading fontSize={'4xl'} textAlign={'center'}>
             Update Profile
           </Heading>

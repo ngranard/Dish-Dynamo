@@ -8,7 +8,7 @@ import {
   Heading,
   Flex,
 } from "@chakra-ui/react";
-
+import IngredientsForm from "./Ingredients/IngredientsForm";
 import RecipeForm from "./RecipeForm";
 import RecipeDetailsForm from "./RecipeDetailsForm";
 import useToken from "@galvanize-inc/jwtdown-for-react";
@@ -22,17 +22,22 @@ function Multistep() {
       "instructions",
       "cooking_time",
     ];
-    return requiredFields.every((field) => recipe[field]);
+    return requiredFields.every((field) => !!recipe[field]);
   };
 
+  const validateIngredients = () => {
+    return ingredients.length > 0;
+  };
+  const [ingredients, setIngredients] = useState([]);
   const toast = useToast();
-  const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(50);
+  const [step, setStep] = useState(0);
+  const [progress, setProgress] = useState(33);
   const initialRecipe = {
     recipe_name: "",
     description: "",
     instructions: "",
     cooking_time: "",
+    ingredients: [],
     difficulty_id: 0,
     rating: "",
     image_url: "",
@@ -43,9 +48,35 @@ function Multistep() {
 
   const handleNext = (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (step === 0) {
+      if (validateForm()) {
+        setStep(1);
+        setProgress(66);
+      } else {
+        toast({
+          title: "Error!",
+          description: "Please fill in all fields.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } else if (step === 1) {
+      if (validateIngredients()) {
+        setStep(2);
+        setProgress(99);
+      } else {
+        toast({
+          title: "Error!",
+          description: "Please add at least one ingredient.",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } else if (validateForm()) {
       setStep(step + 1);
-      setProgress(progress + 50);
+      setProgress(100);
     } else {
       toast({
         title: "Error!",
@@ -57,9 +88,11 @@ function Multistep() {
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
+      setProgress(100)
       const recipeWithUserId = { ...recipe, user_id: user.id };
       console.log(recipe);
       try {
@@ -122,9 +155,18 @@ function Multistep() {
         <Heading as="h2" size="xl" mb="5%" textAlign="center">
           Enter Recipe Info
         </Heading>
-        {step === 1 ? (
+        {step === 0 && (
           <RecipeForm recipe={recipe} setRecipe={setRecipe} />
-        ) : (
+        )}
+        {step === 1 && (
+          <IngredientsForm
+            recipe={recipe}
+            setRecipe={setRecipe}
+            ingredients={ingredients}
+            setIngredients={setIngredients}
+          />
+        )}
+        {step === 2 && (
           <RecipeDetailsForm recipe={recipe} setRecipe={setRecipe} />
         )}
         <Progress
@@ -140,9 +182,9 @@ function Multistep() {
               <Button
                 onClick={() => {
                   setStep(step - 1);
-                  setProgress(progress - 50);
+                  setProgress(progress - 33);
                 }}
-                isDisabled={step === 1}
+                isDisabled={step === 0}
                 colorScheme="teal"
                 variant="solid"
                 w="7rem"
@@ -150,9 +192,9 @@ function Multistep() {
               >
                 Back
               </Button>
-              {step === 1 ? (
+              {step !== 2 ? (
                 <Button
-                  type="submit"
+                  type="button"
                   w="7rem"
                   onClick={handleNext}
                   colorScheme="teal"
@@ -176,6 +218,7 @@ function Multistep() {
       </Box>
     </>
   );
+
 }
 
 export default Multistep;

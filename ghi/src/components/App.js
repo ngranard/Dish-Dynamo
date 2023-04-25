@@ -12,7 +12,6 @@ import CreateRecipe from "./Recipes/CreateRecipe";
 import { Box } from "@chakra-ui/react";
 import UpdateProfile from "./UpdateProfileForm";
 import UserRecipes from "./Recipes/UserRecipes";
-import RecipeDetails from "./Recipes/UserRecipeDetail";
 
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
@@ -34,8 +33,6 @@ function App() {
           <Route path="create" element={<CreateRecipe />} />
           <Route path="update" element={<UpdateProfile />} />
           <Route path="my-recipes" element={<UserRecipes />} />
-          <Route path="recipes/:recipeId" element={<RecipeDetails />} />
-
         </Routes>
       </Box>
       <Footer />

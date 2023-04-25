@@ -58,3 +58,10 @@ def get_one_difficulty(
     if difficulty is None:
         response.status_code = 404
     return difficulty
+
+@router.get("/difficulty/name/{difficulty_id}", response_model=Optional[str])
+def get_difficulty_name(
+    difficulty_id: int,
+    repo: DifficultyRepository = Depends(),
+) -> Optional[str]:
+    return repo.get_difficulty_name(difficulty_id)
