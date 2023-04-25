@@ -38,16 +38,17 @@ function RecipeDetails() {
             <Text mb={4}>
                 <strong>Difficulty:</strong> {recipe.difficulty}
             </Text>
+            <strong>Ingredients:</strong>
             <Table variant="simple" mb={4}>
                 <Thead>
                     <Tr>
                         <Th>Quantity</Th>
                         <Th>Measurement</Th>
-                        <Th>Name</Th>
+                        <Th>Ingredient</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <strong>Ingredients:</strong>
+
                     {ingredients.map((ingredient) => (
                         <Tr key={ingredient.id}>
                             <Td>{ingredient.quantity}</Td>
