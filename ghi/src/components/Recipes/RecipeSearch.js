@@ -6,6 +6,8 @@ import {
   FormControl,
   Input,
   Text,
+  Switch,
+  HStack,
   VStack,
   Accordion,
   AccordionItem,
@@ -16,6 +18,7 @@ import {
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchByRecipe, setSearchByRecipe] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const getDifficultyLevel = (id) => {
     switch (id) {
@@ -35,26 +38,48 @@ const SearchBar = () => {
       return;
     }
     try {
-      const response = await axios.get(
-        `http://localhost:8000/search?ingredient=${searchTerm}`
-      );
+      let response;
+      if (searchByRecipe) {
+        response = await axios.get('http://localhost:8000/search_recipe_name', {
+          params: {
+            recipe_name: searchTerm
+          }
+        });
+      } else {
+        response = await axios.get('http://localhost:8000/search', {
+          params: {
+            ingredient: searchTerm
+          }
+        });
+      }
       setRecipes(response.data);
     } catch (error) {
       console.error("Error fetching recipes:", error);
+      console.error("Error response:", error.response);
     }
   };
+
   return (
     <Box width="100%" maxWidth="500px" mx="auto" mt="8">
       <VStack spacing={4}>
         <Text fontSize="2xl" fontWeight="bold">
-          Search recipes by ingredient
+          {searchByRecipe
+            ? "Search recipes by recipe name"
+            : "Search recipes by ingredient"}
         </Text>
+        <HStack>
+          <Text>Search by recipe</Text>
+          <Switch
+            isChecked={searchByRecipe}
+            onChange={() => setSearchByRecipe(!searchByRecipe)}
+          />
+        </HStack>
         <FormControl>
           <Input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Enter ingredient"
+            placeholder={searchByRecipe ? "Enter recipe name" : "Enter ingredient"}
           />
         </FormControl>
         <Button colorscheme="blue" onClick={handleSearch}>

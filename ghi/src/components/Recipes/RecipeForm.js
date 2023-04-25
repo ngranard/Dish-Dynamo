@@ -2,7 +2,9 @@ import React from "react";
 import { Box, FormControl, FormLabel, Input, Textarea } from "@chakra-ui/react";
 
 const CreateRecipe = ({ recipe, setRecipe }) => {
+
   const handleChange = (e) => {
+
     setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
 

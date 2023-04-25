@@ -343,3 +343,32 @@ class RecipeRepository:
         except Exception as e:
             logger.error(f"Error searching recipes by ingredient: {e}")
             return Error(message="Could not search recipes by ingredient")
+
+    def search_by_recipe_name(
+        self, recipe_name: str
+    ) -> Union[Error, List[RecipeOutWithUser]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                            SELECT r.id, r.recipe_name, r.description,
+                                r.image_url, r.instructions, r.rating,
+                                r.cooking_time, r.user_id, r.difficulty_id,
+                                u.first_name, u.last_name, u.email, d.name AS difficulty
+                            FROM recipes AS r
+                            LEFT OUTER JOIN users AS u
+                                ON (r.user_id = u.id)
+                            LEFT OUTER JOIN difficulty AS d
+                                ON (r.difficulty_id = d.id)
+                            WHERE LOWER(r.recipe_name) LIKE %s
+                            ORDER BY recipe_name;
+                            """,
+                        [f"%{recipe_name.lower()}%"],
+                    )
+                    return [
+                        self.record_to_recipe_out(record) for record in result
+                    ]
+        except Exception as e:
+            logger.error(f"Error searching recipes by name: {e}")
+            return Error(message="Could not search recipes by name")

@@ -10,12 +10,12 @@ import { useColorModeValue } from '@chakra-ui/react'
 const Main = () => {
     return (
         <>
-            <Box bg={useColorModeValue("gray.100", "gray.700")} m="auto" w="50vh" h="40vh"
+            <Box bg={useColorModeValue("gray.100", "gray.700")} m="auto" w="50vh" h="60vh"
                 alignItems="center" rounded="xl" >
-                <Heading as="h1" fontSize={{ base: '5xl', md: '7xl' }} mt={{ base: '50px', md: '100px' }}>
+                <Heading as="h1" p="3" fontSize={{ base: '5xl', md: '7xl' }} mt={{ base: '50px', md: '100px' }}>
                     Your Ingredients, Your Recipes
                 </Heading>
-                <Text fontSize={{ base: 'lg', md: 'xl' }} mt={{ base: '20px', md: '30px' }}>
+                <Text p="3" fontSize={{ base: 'lg', md: 'xl' }} mt={{ base: '20px', md: '30px' }}>
                     Never struggle again with what to eat! Dish Dynamo is a recipe app that allows you to search for recipes based on the ingredients you have on hand.
                 </Text>
                 <Flex width="100%" justifyContent="center">

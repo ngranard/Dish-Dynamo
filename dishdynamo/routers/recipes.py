@@ -11,6 +11,7 @@ from queries.recipes import (
 )
 
 router = APIRouter()
+from fastapi.responses import JSONResponse
 
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
@@ -86,4 +87,16 @@ def search_by_ingredient_name(
     repo: RecipeRepository = Depends(),
 ) -> Union[List[RecipeOutWithAdditionalData], Error]:
     recipes = repo.search_by_ingredient_name(ingredient)
+    return recipes
+
+
+@router.get(
+    "/search_recipe_name",
+    response_model=Union[List[RecipeOutWithUser], Error],
+)
+def search_by_recipe_name(
+    recipe_name: str,
+    repo: RecipeRepository = Depends(),
+) -> Union[List[RecipeOutWithUser], Error]:
+    recipes = repo.search_by_recipe_name(recipe_name)
     return recipes
