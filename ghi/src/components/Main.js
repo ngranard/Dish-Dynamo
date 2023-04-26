@@ -4,7 +4,7 @@ import React from "react";
 import art_3 from "../assets/art_3.jpg";
 import art_5 from "../assets/art_5.jpg";
 import { SearchIcon } from "@chakra-ui/icons";
-import Testimonials from "./Testimonials.tsx";
+import Testimonials from "./Footer/Testimonials.tsx";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 

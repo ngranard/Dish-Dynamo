@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Nav from "./Navigation/Nav";
 import LoginForm from "./Navigation/LoginForm.js";
 import Main from "./Main";
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
 import SearchBar from "./Recipes/RecipeSearch";
 import { useEffect, useState } from "react";
 import CreateRecipe from "./Recipes/CreateRecipe";
@@ -13,8 +13,9 @@ import UpdateProfile from "./UpdateProfileForm";
 import UserRecipes from "./Recipes/UserRecipes";
 import Contact from "./Contact";
 import RecipeDetail from "./Recipes/RecipeDetail";
-import TestimonialsBig from "./TestimonialsBig.tsx";
+import TestimonialsBig from "./Footer/TestimonialsBig.tsx";
 import ScrollToTop from "./Navigation/ScrollToTop";
+
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
   useEffect(() => {
