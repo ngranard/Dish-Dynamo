@@ -8,16 +8,18 @@ import {
   Input,
   HStack,
   Stack,
+  Center,
   Button,
   Heading,
   useColorModeValue,
   useToast,
+  keyframes,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from './useUser';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaHeart } from 'react-icons/fa';
 const UpdateProfileForm = () => {
   const token = useToken();
   const user = useUser(token);
@@ -67,10 +69,23 @@ const UpdateProfileForm = () => {
     }
 
   };
-
+  const pulseAnimation = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 2;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
   return (
     <Flex
-      minH={'100vh'}
+      minH={'70vh'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -118,8 +133,35 @@ const UpdateProfileForm = () => {
                 Save changes
               </Button>
             </Stack>
+
           </Stack>
+
         </Box >
+        <Center>
+          <Heading fontSize="lg">
+            We're glad you're here.
+          </Heading>
+
+        </Center>
+        <Center>
+          <Icon
+            as={FaHeart}
+            boxSize={10}
+            color={useColorModeValue("purple.500", "purple.500")}
+            ml={{ base: 2, md: 0 }}
+            mt={{ base: 2, md: 4 }}
+            css={{
+              animation: `${pulseAnimation} 3s infinite`,
+            }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M1 4h14M1 8l3-4m10 4L13 4"
+            />
+          </Icon>
+        </Center>
       </Stack >
     </Flex >
   );

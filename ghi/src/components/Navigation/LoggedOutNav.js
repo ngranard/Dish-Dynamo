@@ -5,7 +5,6 @@ import {
     Flex,
     Spacer,
     Img,
-    Box,
     Menu,
     MenuButton,
     MenuList,
@@ -21,6 +20,7 @@ import { Link as ChakraLink } from "@chakra-ui/react";
 const LogoutNav = () => {
     const [scroll, setScroll] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
+    const isMobile = useBreakpointValue({ base: true, md: false });
 
     const changeScroll = () =>
         document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
@@ -86,21 +86,31 @@ const LogoutNav = () => {
             </Flex>
 
             <Menu>
-                <MenuButton mr={5} mt={1} cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
-                <MenuList>
-                    <MenuItem as={NavLink} to="/login">
-                        Login
-                    </MenuItem>
-                    <MenuItem as={NavLink} to="/signup">
-                        Signup
-                    </MenuItem>
+                {isMobile && (
+                    <>
+                        <MenuButton mr={5} mt={1} cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
+                        <MenuList>
 
-                </MenuList>
+                            <MenuItem mr={2} as={NavLink} to="/login">
+                                Login
+                            </MenuItem>
+                            <MenuItem as={NavLink} to="/signup">
+                                Signup
+                            </MenuItem>
+
+                        </MenuList>
+
+                    </>
+                )}
+
                 <IconButton onClick={toggleColorMode}>
                     {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                 </IconButton>
 
+
+
             </Menu>
+
 
         </Flex>
     );

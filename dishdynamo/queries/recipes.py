@@ -126,6 +126,15 @@ class RecipeRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    # delete related records from ingredients table
+                    db.execute(
+                        """
+                        DELETE FROM ingredients
+                        WHERE recipe_id = %s
+                        """,
+                        [recipe_id],
+                    )
+                    # delete recipe from recipes table
                     db.execute(
                         """
                         DELETE FROM recipes

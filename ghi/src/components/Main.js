@@ -32,7 +32,7 @@ const Main = () => {
                 m="auto"
                 boxShadow="md"
                 w="fit-content"
-                h="60vh"
+                h={{ base: "80vh", md: "50vh" }}
                 alignItems="center"
                 rounded="xl"
 
@@ -41,6 +41,7 @@ const Main = () => {
                 <Stack
                     bg={useColorModeValue("gray.300", "gray.500")}
                     m="auto"
+                    mt={{ base: "50px", md: "0px" }}
                     w="fit-content"
                     h={{ base: "35vh", md: "25vh" }}
                     alignItems="center"
@@ -48,12 +49,12 @@ const Main = () => {
 
                 >
                     <Heading
-                        mb={{ base: "10px", md: "200px" }}
+                        mb={{ base: "20px", md: "200px" }}
 
                         as="h1"
                         p="1"
                         fontSize={{ base: "5xl", md: "7xl" }}
-                        mt={{ base: "20px", md: "100px" }}
+                        mt={{ base: "10px", md: "100px" }}
                     >
                         <Center>
                             Your Ingredients, Your Recipes
@@ -101,7 +102,7 @@ const Main = () => {
                     borderRadius="lg"
                     boxShadow="lg"
                     overflow="hidden"
-                    mt={-5}
+                    mt={{ base: "-80px", md: "50px" }}
                     ml={{ base: "20px", md: "20%" }}
                     p={2}
                     maxW={{ base: "90%", md: "80%", lg: "60%" }}
