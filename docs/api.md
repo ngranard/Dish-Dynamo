@@ -120,12 +120,23 @@ Successful response (200 status code):
 }
 ```
 
-![JSON-recipes-get-all](/docs/api/JSON-recipes-get-all.png)
-
-![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
-
-![recipes-get-one-recipe](/docs/api/recipes-get-one-recipe.png)
-
-![recipes-get-recipe-by-user](/docs/api/recipes-get-recipe-by-user.png)
+![recipes-get-one-recipe](/docs/api/recipes-get-onev2.png)
+This endpoint sends a `GET` request to get one recipe, enter the recipe id, in the example recipe id is 3
 
 ![recipes-update-recipe](/docs/api/recipes-update-recipe.png)
+This endpoint sends a `PUT` requst to update a recipe
+
+![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
+This endpoint sends a `DELETE` request to delete a recipe
+
+![delete-recipe-execute](/docs/api/recipes-delete-execute.png)
+Enter recipe id you wish to delete, in the example reciep id is 3
+
+![delete-recipe-success](/docs/api/delete-recipe-success.png)
+Returns true upon successful deletion of recipe
+
+![recipes-get-recipe-by-user](/docs/api/recipes-get-recipe-by-userv2.png)
+This endpoint sends a `GET` request to get one recipe by user id
+
+Success response 200:
+![recipes-get-recipe-by-user](/docs/api/recipes-get-recipe-by-userv2-success.png)
