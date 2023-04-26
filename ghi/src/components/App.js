@@ -16,6 +16,7 @@ import TestimonialsBig from "./Footer/TestimonialsBig.tsx";
 import ScrollToTop from "./Navigation/ScrollToTop";
 import Premium from "./Footer/Premium.tsx";
 import RecipeDetails from "./Recipes/UserRecipeDetail";
+import AboutPage from "./Footer/About/About.tsx";
 
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
@@ -42,6 +43,7 @@ function App() {
           <Route path="update" element={<UpdateProfile />} />
           <Route path="my-recipes" element={<UserRecipes />} />
           <Route path="premium" element={<Premium />} />
+          <Route path="about" element={<AboutPage />} />
         </Routes>
       </Box>
       <Footer />

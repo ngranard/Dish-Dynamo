@@ -1,3 +1,19 @@
+## April 26, 2023
+
+Today I worked on:
+
+- Login form minor upgrade, deployment tests/fixes with linting
+
+## Apri 25, 2023
+
+Today I worked on:
+
+- Styling, attempted upgrades to the search form and login form. Built extra pages
+
+I spent a lot of time trying to improve the search and login forms, but ultimately had to revert back to their default, functioning state. Searching by multiple ingredients would require a rewrite of the query and router, which I don't have time for. I also tried to add error handling to the login form, but it was not successful. I did add some styling to the main page, which was nice.
+
+For fun, I also made a "Premium" page which shows a mock subscription model with different tiers. I helped John with the recipe details page, too.
+
 ## April 24, 2023
 
 Today I worked on:
