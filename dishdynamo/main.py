@@ -19,6 +19,7 @@ app.include_router(ingredients.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:8000",
         "http://localhost:3000",
         "https://team-scrumtious.gitlab.io",
         os.environ.get("CORS_HOST", None),

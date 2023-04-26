@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from typing import List, Optional, Union
 from queries.pool import pool
 import logging
-from fastapi import HTTPException  # Import HTTPException
 
 logger = logging.getLogger(__name__)
 
@@ -353,7 +352,7 @@ class RecipeRepository:
                     result = db.execute(
                         """
                             SELECT r.id, r.recipe_name, r.description,
-                                r.image_url, r.instructions, r.rating,
+                                r.image_url, r.instructions,
                                 r.cooking_time, r.user_id, r.difficulty_id,
                                 u.first_name, u.last_name, u.email, d.name AS difficulty
                             FROM recipes AS r

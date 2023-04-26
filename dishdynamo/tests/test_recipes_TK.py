@@ -46,7 +46,7 @@ def test_create_recipe():
                 "measurement": "cups",
                 "name": "heavy cream",
             }
-        ]
+        ],
     }
 
     expected = {

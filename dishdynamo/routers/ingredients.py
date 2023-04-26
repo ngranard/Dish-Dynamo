@@ -63,7 +63,8 @@ def get_one_ingredient(
 
 
 @router.get(
-    "/ingredient/recipe/{recipe_id}", response_model=Union[List[IngredientOut], Error]
+    "/ingredient/recipe/{recipe_id}",
+    response_model=Union[List[IngredientOut], Error],
 )
 def get_ingredients_by_recipe(
     recipe_id: int,

@@ -11,7 +11,6 @@ from queries.recipes import (
 )
 
 router = APIRouter()
-from fastapi.responses import JSONResponse
 
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
