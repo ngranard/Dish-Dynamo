@@ -1,6 +1,6 @@
 # FastAPI Endpoints
 
-## Recipes
+## Recipes Endpoints
 
 ![recipes-get-all](/docs/api/recipes-get-all.png)
 This endpoint sends a `GET` request to get all recipes
@@ -129,7 +129,7 @@ This endpoint sends a `PUT` requst to update a recipe
 ![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
 This endpoint sends a `DELETE` request to delete a recipe
 
-![delete-recipe-execute](/docs/api/delete-recipes-execute.png)
+![delete-recipe-execute](/docs/api/delete-recipe-execute.png)
 Enter recipe id you wish to delete, in the example reciep id is 3
 Returns true upon successful deletion of recipe
 
@@ -140,3 +140,44 @@ This endpoint sends a `GET` request to get one recipe by user id
 
 Success response 200:
 ![recipes-get-recipe-by-user](/docs/api/recipe-get-recipe-by-userv2-success.png)
+
+## Search Endpoints
+
+This endopint sends a `GET` request to search by ingredient name, enter the ingredient as a string for example 'Shrimp'
+![Get-search-by-ingredient-name](/docs/api/Get-search-by-ingredient-name.png)
+
+# User Endpoints
+
+## User (Token)
+
+This endpoint sends a `Get` request to get user by token, enter session_getter(query) and fast_api(cookie) token (in this example 1 and 1)
+![Get-token-user-token](/docs/api/get-token-user-token.png)
+
+This endpoint sends a `POST` request to Login the user, enter username and password (in this example username:c@c.com password:c)
+![post-token-login](/docs/api/post-token-login.png)
+
+This endpoint sends a `DELETE` request to logout the user, enter session_getter and fastapi_token (in this example 1 and 1)
+![delete-token-logout](/docs/api/delete-token-logout.png)
+
+## User (Accounts)
+
+This endpoint sends a `POST` request to Create an account
+![post-create-account](/docs/api/Post-Create-Account.png)
+
+This endpoints sends a `GET` request to get all accounts
+![get-all-accounts](/docs/api/Get-Get-All-Accounts.png)
+
+This endpoint sends a `GET` request to get one account, enter id, in this example 2
+![get-one-account](/docs/api/get-one-account.png)
+
+This endpoint sends a `PUT` request to update an account, enter id, in this example 2
+![post-update-one-account](/docs/api/post-update-one-account.png)
+
+This endpoint sends a `DELETE` request to delete an account, enter id, in this example 2
+![delete-one-account](/docs/api/Delete-one-account.png)
+
+## Ingredients Endpoints
+
+## Difficulty Endpoints
+
+## User Endpoints
