@@ -60,9 +60,7 @@ class RecipeOutWithAdditionalData(RecipeOut):
 
 
 class RecipeRepository:
-    def get_by_user_id(
-        self, user_id: int
-    ) -> List[Union[Error, RecipeOutWithUser]]:
+    def get_by_user_id(self, user_id: int) -> List[Union[Error, RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -82,9 +80,7 @@ class RecipeRepository:
                         """,
                         [user_id],
                     )
-                    return [
-                        self.record_to_recipe_out(record) for record in result
-                    ]
+                    return [self.record_to_recipe_out(record) for record in result]
         except Exception as e:
             print(e)
             return {"message": "Could not get list of recipes for this user"}
@@ -99,7 +95,8 @@ class RecipeRepository:
                             r.image_url, r.instructions, r.cooking_time,
                             r.user_id, r.difficulty_id,
                             i.quantity, i.measurement, i.name, i.recipe_id,
-                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                            u.first_name, u.last_name, u.email,
+                            d.name AS difficulty
                         FROM recipes AS r
                         LEFT OUTER JOIN users AS u
                             ON (r.user_id = u.id)
@@ -114,9 +111,7 @@ class RecipeRepository:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_recipe_out_with_additional_data(
-                        record
-                    )
+                    return self.record_to_recipe_out_with_additional_data(record)
         except Exception as e:
             print(e)
             return {"message": "Could not get that recipe"}
@@ -146,9 +141,7 @@ class RecipeRepository:
             print(e)
             return False
 
-    def update(
-        self, recipe_id: int, recipe: RecipeIn
-    ) -> Union[RecipeOut, Error]:
+    def update(self, recipe_id: int, recipe: RecipeIn) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -189,7 +182,8 @@ class RecipeRepository:
                         SELECT r.id, r.recipe_name, r.description,
                             r.image_url, r.instructions,
                             r.cooking_time, r.user_id, r.difficulty_id,
-                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                            u.first_name, u.last_name, u.email,
+                            d.name AS difficulty
                         FROM recipes AS r
                         LEFT OUTER JOIN users AS u
                             ON (r.user_id = u.id)
@@ -198,16 +192,12 @@ class RecipeRepository:
                         ORDER BY recipe_name;
                         """,
                     )
-                    return [
-                        self.record_to_recipe_out(record) for record in result
-                    ]
+                    return [self.record_to_recipe_out(record) for record in result]
         except Exception as e:
             print(e)
             return {"message": "Could not get all recipes"}
 
-    def create(
-        self, recipe: RecipeInWithIngredients
-    ) -> Union[RecipeOut, Error]:
+    def create(self, recipe: RecipeInWithIngredients) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -262,9 +252,7 @@ class RecipeRepository:
         except Exception:
             return {"message": "Create did not work"}
 
-    def recipe_in_to_out_with_ingredients(
-        self, id: int, recipe: RecipeInWithIngredients
-    ):
+    def recipe_in_to_out_with_ingredients(self, id: int, recipe: RecipeInWithIngredients):
         old_data = recipe.dict()
         return RecipeOut(id=id, **old_data)
 
@@ -326,7 +314,8 @@ class RecipeRepository:
                             , r.cooking_time
                             , r.user_id
                             , r.difficulty_id,
-                            u.first_name, u.last_name, u.email, d.name AS difficulty
+                            u.first_name, u.last_name, u.email,
+                            d.name AS difficulty
                         FROM recipes r
                         JOIN ingredients i ON r.id = i.recipe_id
                         LEFT JOIN users u ON r.user_id = u.id
@@ -336,16 +325,12 @@ class RecipeRepository:
                         """,
                         [f"%{ingredient_name.lower()}%"],
                     )
-                    return [
-                        self.record_to_recipe_out(record) for record in result
-                    ]
+                    return [self.record_to_recipe_out(record) for record in result]
         except Exception as e:
             logger.error(f"Error searching recipes by ingredient: {e}")
             return Error(message="Could not search recipes by ingredient")
 
-    def search_by_recipe_name(
-        self, recipe_name: str
-    ) -> Union[Error, List[RecipeOutWithUser]]:
+    def search_by_recipe_name(self, recipe_name: str) -> Union[Error, List[RecipeOutWithUser]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -354,7 +339,8 @@ class RecipeRepository:
                             SELECT r.id, r.recipe_name, r.description,
                                 r.image_url, r.instructions,
                                 r.cooking_time, r.user_id, r.difficulty_id,
-                                u.first_name, u.last_name, u.email, d.name AS difficulty
+                                u.first_name, u.last_name, u.email,
+                                d.name AS difficulty
                             FROM recipes AS r
                             LEFT OUTER JOIN users AS u
                                 ON (r.user_id = u.id)
@@ -365,9 +351,7 @@ class RecipeRepository:
                             """,
                         [f"%{recipe_name.lower()}%"],
                     )
-                    return [
-                        self.record_to_recipe_out(record) for record in result
-                    ]
+                    return [self.record_to_recipe_out(record) for record in result]
         except Exception as e:
             logger.error(f"Error searching recipes by name: {e}")
             return Error(message="Could not search recipes by name")

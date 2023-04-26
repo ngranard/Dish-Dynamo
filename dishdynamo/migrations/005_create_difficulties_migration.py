@@ -12,7 +12,8 @@ steps = [
         """,
         # "Down" SQL statement
         """
-        SELECT setval('difficulty_id_seq', (SELECT MAX(id) + 1 FROM difficulty));
+        SELECT setval('difficulty_id_seq',
+        (SELECT MAX(id) + 1 FROM difficulty));
         """,
     ],
 ]
