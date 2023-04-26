@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from "react";
 import {
     Box,
     Image,
     Text,
-    Link,
     Menu,
     MenuButton,
     MenuList,
@@ -19,11 +17,12 @@ import {
     Button,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import useUser from "../useUser";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import { useState, useEffect } from "react";
 
-const RecipeCard = ({ recipe, onDelete }) => {
+const RecipeCard = ({ recipe, onDelete, setRecipes }) => {
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,13 +30,12 @@ const RecipeCard = ({ recipe, onDelete }) => {
         navigate(`/recipes/${recipe.id}`);
     };
 
-    const handleDelete = () => {
-        onOpen();
-    };
-
-    const handleConfirmDelete = () => {
+    const handleDelete = async () => {
         onClose();
-        onDelete(recipe.id);
+        const response = await onDelete(recipe.id);
+        if (response.ok) {
+            setRecipes((prevRecipes) => prevRecipes.filter((item) => item.id !== recipe.id));
+        }
     };
 
     return (
@@ -45,7 +43,7 @@ const RecipeCard = ({ recipe, onDelete }) => {
             <Menu>
                 <MenuButton as={IconButton} aria-label="Options" icon={<FaEllipsisV />} position="absolute" top={0} right={0} />
                 <MenuList>
-                    <MenuItem onClick={handleDelete}>Delete Recipe</MenuItem>
+                    <MenuItem onClick={onOpen}>Delete Recipe</MenuItem>
                 </MenuList>
             </Menu>
             <Image src={recipe.image_url} alt={recipe.recipe_name} mb={4} />
@@ -64,7 +62,7 @@ const RecipeCard = ({ recipe, onDelete }) => {
                         Are you sure you want to delete the recipe "{recipe.recipe_name}"?
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={handleConfirmDelete}>
+                        <Button colorScheme="blue" mr={3} onClick={handleDelete}>
                             Delete
                         </Button>
                         <Button variant="ghost" onClick={onClose}>
@@ -78,12 +76,10 @@ const RecipeCard = ({ recipe, onDelete }) => {
 };
 
 
-
 function UserRecipes() {
     const token = useToken();
     const user = useUser(token);
     const [recipes, setRecipes] = useState([]);
-    const navigate = useNavigate();
 
     const handleDelete = async (recipe_id) => {
         const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`;
@@ -91,10 +87,7 @@ function UserRecipes() {
             method: "DELETE",
             credentials: "include",
         });
-        if (response.ok) {
-            navigate('/my-recipes');
-            fetchUserRecipes(user.id);
-        }
+        return response;
     };
 
     const fetchUserRecipes = async (user_id) => {
@@ -131,13 +124,11 @@ function UserRecipes() {
             </Text>
             {recipes.map((recipe) => (
                 <Box key={recipe.id} position="relative">
-                    <RecipeCard recipe={recipe} onDelete={handleDelete} />
+                    <RecipeCard recipe={recipe} onDelete={handleDelete} setRecipes={setRecipes} />
                 </Box>
             ))}
         </Box>
     );
 }
-
-
 
 export default UserRecipes;
