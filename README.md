@@ -26,7 +26,7 @@ The DishDyamo app utilizes FastAPI which allows logged-in users to create, updat
 
 # FastAPI endpoints
 
-- [API](https://gitlab.com/team-scrumtious/dish-dynamo/-/blob/readme/docs/api.md)
+- [API](https://gitlab.com/team-scrumtious/dish-dynamo/-/blob/read-me/docs/api.md)
 
 | Action           | Method | URL                                      |
 | ---------------- | ------ | ---------------------------------------- |
