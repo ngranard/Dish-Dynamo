@@ -120,18 +120,20 @@ Successful response (200 status code):
 }
 ```
 
-![recipes-get-one-recipe](/docs/api/recipes-get-onev2.png)
 This endpoint sends a `GET` request to get one recipe, enter the recipe id, in the example recipe id is 3
+![recipes-get-one-recipe](/docs/api/recipes-get-onev2.png)
 
-![recipes-update-recipe](/docs/api/recipes-update-recipe.png)
 This endpoint sends a `PUT` requst to update a recipe
+![recipes-update-recipe](/docs/api/recipes-update-recipe.png)
 
-![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
+<!-- could not update recipe for screenshot -->
+
 This endpoint sends a `DELETE` request to delete a recipe
+![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
 
-![delete-recipe-execute](/docs/api/delete-recipe-execute.png)
 Enter recipe id you wish to delete, in the example reciep id is 3
 Returns true upon successful deletion of recipe
+![delete-recipe-execute](/docs/api/delete-recipe-execute.png)
 
 ![delete-recipe-success](/docs/api/delete-recipe-success.png)
 
@@ -143,8 +145,12 @@ Success response 200:
 
 ## Search Endpoints
 
-This endopint sends a `GET` request to search by ingredient name, enter the ingredient as a string for example 'Shrimp'
+This endpoint sends a `GET` request to search by ingredient name, enter the ingredient as a string for example 'Shrimp'
 ![Get-search-by-ingredient-name](/docs/api/Get-search-by-ingredient-name.png)
+
+This endpoint sends a `GET` reqeust to search by recipe name, enter name of the recipe as a string
+
+<!-- could not get recipe by recipe name -->
 
 # User Endpoints
 
@@ -176,8 +182,32 @@ This endpoint sends a `PUT` request to update an account, enter id, in this exam
 This endpoint sends a `DELETE` request to delete an account, enter id, in this example 2
 ![delete-one-account](/docs/api/Delete-one-account.png)
 
+## User (Difficulties)
+
+This endpoint sends a `GET` request to get all difficulties
+![get-difficulty-all](/docs/api/get-difficulty-all.png)
+
+This endpoint sends a `POST` request to create a difficulty
+
+<!-- couldn't create difficulty for screenshot -->
+
+This endpoint sends a `PUT` request to update a difficulty
+
+This endpoint sends a `DELETE` request to delete a difficulty
+
+This endpoint sends a `GET` request to get difficulty name by difficulty_id
+![get-difficulty-by-id](/docs/api/get-difficulty-by-id.png)
+
 ## Ingredients Endpoints
 
-## Difficulty Endpoints
+This endpoint sends a `GET` request to Get One ingredient
+![get-one-ingredient](/docs/api/get-one-ingredient.png)
 
-## User Endpoints
+This endpoint sends a `PUT` request to Update one ingredient
+![get-one-ingredient](/docs/api/update-ingredient.png)
+
+This endpoint sends a `DELETE` request to delete one ingredient
+![get-one-ingredient](/docs/api/delete-ingredient.png)
+
+This endpoint sends a `GET` request to get ingredients by recipe
+![get-one-ingredient](/docs/api/get-ingredient-by-recipe.png)

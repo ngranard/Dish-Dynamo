@@ -21,7 +21,7 @@ The DishDyamo app utilizes FastAPI which allows logged-in users to create, updat
 
 - John Agni (@ohtheagni)
 - Noah Granard (@ngranard)
-- Tenzing Khantse (@TenzingKO)
+- Tenzing Khantse (@TenzingK0)
 - Brandon Souvannarath (@brandonsouv)
 
 # FastAPI endpoints
