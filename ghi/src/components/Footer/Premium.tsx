@@ -5,7 +5,6 @@ import {
   HStack,
   Heading,
   Text,
-  Flex,
   VStack,
   useColorModeValue,
   List,
