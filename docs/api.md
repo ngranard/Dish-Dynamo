@@ -2,8 +2,8 @@
 
 ## Recipes Endpoints
 
-![recipes-get-all](/docs/api/get-all-recipes.png)
 This endpoint sends a `GET` request to get all recipes
+![recipes-get-all](/docs/api/get-all-recipes.png)
 
 This endpoint creates a `POST` request to create a recipe
 ![Recipe-create-recipe](/docs/api/create-recipe.png)
