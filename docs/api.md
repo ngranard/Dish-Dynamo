@@ -2,4 +2,4 @@
 
 ## Recipes
 
-![Recipe-create-recipe](/recipes-create-recipe.png)
+![Recipe-create-recipe](/docs/api/recipes-create-recipe.png)

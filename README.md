@@ -11,7 +11,7 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 
 # Design
 
-- [API](docs/api/api.md)
+- [API](docs/api.md)
 
 # API
 
