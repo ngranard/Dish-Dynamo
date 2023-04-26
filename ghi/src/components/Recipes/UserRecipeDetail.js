@@ -1,25 +1,26 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/layout";
-import { Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+
 function RecipeDetails() {
-    const { recipeId } = useParams();
+    const { recipe_id } = useParams();
     const [recipe, setRecipe] = useState(null);
     const [ingredients, setIngredients] = useState(null);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipeId}`)
+        fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`)
             .then((response) => response.json())
             .then((data) => setRecipe(data));
-    }, [recipeId]);
+    }, [recipe_id]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipeId}`)
+        fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipe_id}`)
             .then((response) => response.json())
             .then((data) => setIngredients(data));
-    }, [recipeId]);
+    }, [recipe_id]);
 
     if (!recipe || !ingredients) {
         return <div>Loading...</div>;
@@ -44,11 +45,10 @@ function RecipeDetails() {
                     <Tr>
                         <Th>Quantity</Th>
                         <Th>Measurement</Th>
-                        <Th>Ingredient</Th>
+                        <Th>Name</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-
                     {ingredients.map((ingredient) => (
                         <Tr key={ingredient.id}>
                             <Td>{ingredient.quantity}</Td>

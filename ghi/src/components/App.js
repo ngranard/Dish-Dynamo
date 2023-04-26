@@ -12,7 +12,7 @@ import { Box } from "@chakra-ui/react";
 import UpdateProfile from "./UpdateProfileForm";
 import UserRecipes from "./Recipes/UserRecipes";
 import Contact from "./Contact";
-import RecipeDetail from "./Recipes/RecipeDetail";
+import RecipeDetails from "./Recipes/UserRecipeDetail";
 import TestimonialsBig from "./TestimonialsBig.tsx";
 import ScrollToTop from "./Navigation/ScrollToTop";
 function App() {
@@ -36,7 +36,7 @@ function App() {
           <Route path="search" element={<SearchBar />} />
           <Route path="create" element={<CreateRecipe />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="recipes/:recipe_id" element={<RecipeDetail />} />
+          <Route path="recipes/:recipe_id" element={<RecipeDetails />} />
           <Route path="testimonials" element={<TestimonialsBig />} />
           <Route path="update" element={<UpdateProfile />} />
           <Route path="my-recipes" element={<UserRecipes />} />
