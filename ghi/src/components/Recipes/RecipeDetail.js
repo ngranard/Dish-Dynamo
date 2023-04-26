@@ -26,7 +26,7 @@ function RecipeDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `http://localhost:8000/recipes/${recipe_id}`;
+      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`;
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
@@ -69,9 +69,6 @@ function RecipeDetail() {
         <Text fontWeight="bold">Instructions:</Text>
         <Text>{recipe.instructions}</Text>
         <Box>
-          <Tag size="md" mr={2}>
-            <TagLabel>Rating: {recipe.rating}</TagLabel>
-          </Tag>
           <Tag size="md" mr={2}>
             <TagLabel>Cooking Time: {recipe.cooking_time} mins</TagLabel>
           </Tag>

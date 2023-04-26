@@ -4,21 +4,21 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import LoggedNav from "./LoggedNav";
 
 function Nav() {
-    const { token } = useToken();
+  const { token } = useToken();
 
-    if (!token) {
-        return (
-            <>
-                <LogoutNav />
-            </>
-        );
-    }
-
+  if (!token) {
     return (
-        <>
-            <LoggedNav />
-        </>
+      <>
+        <LogoutNav />
+      </>
     );
+  }
+
+  return (
+    <>
+      <LoggedNav />
+    </>
+  );
 }
 
 export default Nav;

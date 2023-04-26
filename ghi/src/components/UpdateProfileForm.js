@@ -1,4 +1,3 @@
-
 import {
   Flex,
   Icon,
@@ -14,40 +13,40 @@ import {
   useColorModeValue,
   useToast,
   keyframes,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import useUser from './useUser';
-import { FaUserCircle, FaHeart } from 'react-icons/fa';
+import useUser from "./useUser";
+import { FaUserCircle, FaHeart } from "react-icons/fa";
 const UpdateProfileForm = () => {
   const token = useToken();
   const user = useUser(token);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
   const handleFirstName = (event) => {
     const value = event.target.value;
     setFirstName(value);
-  }
+  };
   const handleLastName = (event) => {
     const value = event.target.value;
     setLastName(value);
-  }
+  };
   const handleEmail = (event) => {
     const value = event.target.value;
     setEmail(value);
-  }
+  };
 
   const handleSubmit = async (event) => {
-    const accountData = {}
+    const accountData = {};
     accountData.first_name = firstName;
     accountData.last_name = lastName;
     accountData.email = email;
     accountData.username = email;
-    const url = `http://localhost:8000/api/accounts/${user.id}`;
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}api/accounts/${user.id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(accountData),
@@ -67,7 +66,6 @@ const UpdateProfileForm = () => {
       });
       navigate("/update");
     }
-
   };
   const pulseAnimation = keyframes`
   0% {
@@ -85,34 +83,44 @@ const UpdateProfileForm = () => {
 `;
   return (
     <Flex
-      minH={'70vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
+      minH={"70vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
           <Icon as={FaUserCircle} w={24} h={24} />
-          <Heading fontSize={'4xl'} textAlign={'center'}>
+          <Heading fontSize={"4xl"} textAlign={"center"}>
             Update Profile
           </Heading>
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}>
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
+        >
           <Stack spacing={4}>
             <HStack>
               <Box>
                 <FormControl id="firstName">
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" onChange={handleFirstName} value={firstName} />
+                  <Input
+                    type="text"
+                    onChange={handleFirstName}
+                    value={firstName}
+                  />
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName">
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" onChange={handleLastName} value={lastName} />
+                  <Input
+                    type="text"
+                    onChange={handleLastName}
+                    value={lastName}
+                  />
                 </FormControl>
               </Box>
             </HStack>
@@ -125,23 +133,19 @@ const UpdateProfileForm = () => {
                 onClick={handleSubmit}
                 loadingText="Submitting"
                 size="lg"
-                bg={'blue.400'}
-                color={'white'}
+                bg={"blue.400"}
+                color={"white"}
                 _hover={{
-                  bg: 'blue.500',
-                }}>
+                  bg: "blue.500",
+                }}
+              >
                 Save changes
               </Button>
             </Stack>
-
           </Stack>
-
-        </Box >
+        </Box>
         <Center>
-          <Heading fontSize="lg">
-            We're glad you're here.
-          </Heading>
-
+          <Heading fontSize="lg">We're glad you're here.</Heading>
         </Center>
         <Center>
           <Icon
@@ -162,9 +166,9 @@ const UpdateProfileForm = () => {
             />
           </Icon>
         </Center>
-      </Stack >
-    </Flex >
+      </Stack>
+    </Flex>
   );
-}
+};
 
 export default UpdateProfileForm;

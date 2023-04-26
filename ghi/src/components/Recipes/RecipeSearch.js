@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -16,12 +17,19 @@ import {
   AccordionPanel,
   AccordionIcon,
   useColorModeValue,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchByRecipe, setSearchByRecipe] = useState(false);
   const [recipes, setRecipes] = useState([]);
+  const navigate = useNavigate();
+
+  const handleRecipeDetails = (recipeId) => {
+    navigate(`/recipes/${recipeId}`);
+  };
+
+  // const bgColor = useColorModeValue('gray.50', 'gray.700');
 
   const handleSearch = async () => {
     if (!searchTerm) {
@@ -31,26 +39,32 @@ const SearchBar = () => {
     try {
       let response;
       if (searchByRecipe) {
-        response = await axios.get('http://localhost:8000/search_recipe_name', {
-          params: {
-            recipe_name: searchTerm,
+        response = await axios.get(
+          `${process.env.REACT_APP_USER_SERVICE_API_HOST}/search_recipe_name`,
+          {
+            params: {
+              recipe_name: searchTerm,
+            },
           },
-        });
+        );
       } else {
-        response = await axios.get('http://localhost:8000/search', {
-          params: {
-            ingredient: searchTerm,
+        response = await axios.get(
+          `${process.env.REACT_APP_USER_SERVICE_API_HOST}/search`,
+          {
+            params: {
+              ingredient: searchTerm,
+            },
           },
-        });
+        );
       }
       setRecipes(response.data);
     } catch (error) {
-      console.error('Error fetching recipes:', error);
-      console.error('Error response:', error.response);
+      console.error("Error fetching recipes:", error);
+      console.error("Error response:", error.response);
     }
   };
 
-  const bgColor = useColorModeValue('gray.50', 'gray.700');
+  const bgColor = useColorModeValue("gray.50", "gray.700");
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -58,8 +72,8 @@ const SearchBar = () => {
         width="100%"
         maxWidth="500px"
         mx="auto"
-        mt="90px"
-        mb="650px"
+        mt="-5px"
+        mb="570px"
         p={6}
         borderRadius="md"
         boxShadow="md"
@@ -68,8 +82,8 @@ const SearchBar = () => {
         <VStack spacing={4}>
           <Text fontSize="2xl" fontWeight="bold">
             {searchByRecipe
-              ? 'Search recipes by recipe name'
-              : 'Search recipes by ingredient'}
+              ? "Search recipes by recipe name"
+              : "Search recipes by ingredient"}
           </Text>
           <HStack>
             <Text>Search by recipe</Text>
@@ -83,7 +97,9 @@ const SearchBar = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder={searchByRecipe ? 'Enter recipe name' : 'Enter ingredient'}
+              placeholder={
+                searchByRecipe ? "Enter recipe name" : "Enter ingredient"
+              }
             />
           </FormControl>
           <Button colorScheme="blue" onClick={handleSearch}>
@@ -111,16 +127,22 @@ const SearchBar = () => {
                         <Text>{recipe.description}</Text>
                         <Text>Cooking Time: {recipe.cooking_time} mins</Text>
                         <Text>Difficulty: {recipe.difficulty}</Text>
+                        <Button
+                          colorScheme="teal"
+                          onClick={() => handleRecipeDetails(recipe.id)}
+                        >
+                          View Recipe Details
+                        </Button>
                       </VStack>
                     </AccordionPanel>
-                  </AccordionItem >
+                  </AccordionItem>
                 ))}
-              </Accordion >
-            </Box >
+              </Accordion>
+            </Box>
           )}
-        </VStack >
-      </Box >
-    </motion.div >
+        </VStack>
+      </Box>
+    </motion.div>
   );
 };
 

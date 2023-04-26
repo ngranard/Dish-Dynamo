@@ -16,7 +16,7 @@ const RecipeDetailsForm = ({ recipe, setRecipe }) => {
   const [difficulties, setDifficulties] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/difficulty")
+    fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/difficulty`)
       .then((response) => response.json())
       .then((data) => setDifficulties(data))
       .catch((error) => console.error(error));

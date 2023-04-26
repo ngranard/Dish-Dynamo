@@ -88,22 +88,24 @@ function Multistep() {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      setProgress(100)
+      setProgress(100);
       const recipeWithUserId = { ...recipe, user_id: user.id };
       console.log(recipe);
       try {
-        const response = await fetch("http://localhost:8000/recipes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            Authorization: `Bearer ${token}`,
+        const response = await fetch(
+          `${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(recipeWithUserId),
           },
-          body: JSON.stringify(recipeWithUserId),
-        });
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -155,9 +157,7 @@ function Multistep() {
         <Heading as="h2" size="xl" mb="5%" textAlign="center">
           Enter Recipe Info
         </Heading>
-        {step === 0 && (
-          <RecipeForm recipe={recipe} setRecipe={setRecipe} />
-        )}
+        {step === 0 && <RecipeForm recipe={recipe} setRecipe={setRecipe} />}
         {step === 1 && (
           <IngredientsForm
             recipe={recipe}
@@ -218,7 +218,6 @@ function Multistep() {
       </Box>
     </>
   );
-
 }
 
 export default Multistep;
