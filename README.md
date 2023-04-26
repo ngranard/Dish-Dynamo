@@ -4,14 +4,14 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 
 # Key Features - MVP
 
-1. Users acan sign-up, login, and logout
+1. Users can sign-up, login, and logout
 2. Users can search for recipe by ingredient
 3. Logged-in users can create a recipe, see a list of recipes they created, update their recipes and delete their recipes
 4. Users can see a detail recipe page
 
 # Design
 
-- [API]
+- [API](docs/api/api.md)
 
 # API
 
