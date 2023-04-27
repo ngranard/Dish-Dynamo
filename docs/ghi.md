@@ -24,7 +24,7 @@ Wireframes created with excalidraw during the planning of DishDynamo
 
 ## Detail Recipe (Guest)
 
-![DetailRecipe](/docs/wireframes/Wf-detail-recipe-page-guest.png)
+![DetailRecipeGuest](/docs/wireframes/WF-detail-recipe-page-guest.png)
 
 ## Sign up
 
