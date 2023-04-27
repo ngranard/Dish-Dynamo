@@ -2,14 +2,13 @@ from fastapi import APIRouter, Depends, Response, HTTPException
 from typing import List, Optional, Union
 from queries.recipes import (
     Error,
-    RecipeIn,
     RecipeOut,
     RecipeRepository,
     RecipeOutWithUser,
     RecipeOutWithAdditionalData,
     RecipeInWithIngredients,
 )
-from authenticator import authenticator
+
 
 router = APIRouter()
 

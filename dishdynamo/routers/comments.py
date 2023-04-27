@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends, Response, HTTPException
-from typing import List, Optional, Union
+from fastapi import APIRouter, Depends, HTTPException
+from typing import List, Union
 from queries.comments import Error, CommentIn, CommentOut, CommentRepository
-from authenticator import authenticator
 
 router = APIRouter()
 
