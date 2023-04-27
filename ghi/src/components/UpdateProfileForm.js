@@ -7,7 +7,6 @@ import {
   Input,
   InputGroup,
   HStack,
-  InputRightElement,
   Stack,
   Button,
   Heading,
@@ -15,8 +14,8 @@ import {
   useToast,
   Editable,
   EditableInput,
-  EditableTextarea,
   EditablePreview,
+
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +24,6 @@ import useUser from './useUser';
 const UpdateProfileForm = () => {
   const token = useToken();
   const userToken = useUser(token);
-  const [user, setUser] = useState("");
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -44,20 +42,6 @@ const UpdateProfileForm = () => {
     setEmail(value);
   }
 
-  const fetchUser = async () => {
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
-    const response = await fetch(url, {
-      method: "GET",
-      credentials: "include",
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setUser(data.account);
-    }
-  };
-  useEffect(() => {
-    fetchUser();
-  }, [token]);
 
 
 
@@ -95,6 +79,7 @@ const UpdateProfileForm = () => {
 
   };
 
+
   return (
     <Flex
       minH={'100vh'}
@@ -115,22 +100,22 @@ const UpdateProfileForm = () => {
           <Stack spacing={4}>
             <HStack>
               <Box>
-                <FormControl id="firstName">
-                  <FormLabel>First Name</FormLabel>
-                  <Input type="text" onChange={handleFirstName} value={firstName} />
-                </FormControl>
+                <Editable value='{firstName}'>
+                  <EditablePreview />
+                  <EditableInput onChange={handleFirstName} />
+                </Editable>
               </Box>
               <Box>
-                <FormControl id="lastName">
-                  <FormLabel>Last Name</FormLabel>
-                  <Input type="text" onChange={handleLastName} value={lastName} />
-                </FormControl>
+                <Editable value={lastName}>
+                  <EditablePreview />
+                  <EditableInput onChange={handleLastName} />
+                </Editable>
               </Box>
             </HStack>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" onChange={handleEmail} value={email} />
-            </FormControl>
+            <Editable value={email}>
+              <EditablePreview />
+              <EditableInput onChange={handleEmail} />
+            </Editable>
             <Stack spacing={10} pt={2}>
               <Button
                 onClick={handleSubmit}
