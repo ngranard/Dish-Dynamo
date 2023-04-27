@@ -2,14 +2,14 @@
 
 ## Recipes Endpoints
 
-| Action               | Method | URL                                      |
-| -------------------- | ------ | ---------------------------------------- |
-| List all recipes     | GET    | http://localhost:8000/recipes            |
-| Create a recipe      | POST   | http://localhost:8000/recipes            |
-| Get a one recipe     | GET    | http://localhost:8000/recipes/           |
-| Update a recipe      | PUT    | http://localhost:8000/recipes/:recipe_id |
-| Delete a recipe      | DELETE | http://localhost:8000/recipes/:recipe_id |
-| Get a recipe by user | GET    | http://localhost:8000/recipes/user/:id   |
+| Action               | Method | URL                                          |
+| -------------------- | ------ | -------------------------------------------- |
+| List all recipes     | GET    | http://localhost:8000/recipes                |
+| Create a recipe      | POST   | http://localhost:8000/recipes                |
+| Get a one recipe     | GET    | http://localhost:8000/recipes/               |
+| Update a recipe      | PUT    | http://localhost:8000/recipes/{recipe_id}    |
+| Delete a recipe      | DELETE | http://localhost:8000/recipes/{recipe_id}    |
+| Get a recipe by user | GET    | http://localhost:8000/recipes/user/{user_id} |
 
 This endpoint sends a `GET` request to get all recipes
 ![recipes-get-all](/docs/api/get-all-recipes.png)
@@ -22,9 +22,7 @@ This endpoint sends a `GET` request to get one recipe, enter the recipe id, in t
 ![recipes-get-one-recipe](/docs/api/get-one-recipe.png)
 
 This endpoint sends a `PUT` requst to update a recipe
-![recipes-update-recipe](/docs/api/recipes-update-recipe.png)
-
-<!-- could not update recipe for screenshot -->
+![recipes-update-recipe](/docs/api/update-recipe.png)
 
 This endpoint sends a `DELETE` request to delete a recipe
 ![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
@@ -49,8 +47,7 @@ This endpoint sends a `GET` request to search by ingredient name, enter the ingr
 ![Get-search-by-ingredient-name](/docs/api/Get-search-by-ingredient-name.png)
 
 This endpoint sends a `GET` reqeust to search by recipe name, enter name of the recipe as a string
-
-<!-- could not get recipe by recipe name -->
+![search-recipe-name](/docs/api/search_recipe_name.png)
 
 # User Endpoints
 
