@@ -48,7 +48,7 @@ const UpdateProfileForm = () => {
     accountData.last_name = lastName;
     accountData.email = email;
     accountData.username = email;
-    const url = `http://localhost:8000/api/accounts/${userToken.id}`;
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${userToken.id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(accountData),
