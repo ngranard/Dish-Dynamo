@@ -17,7 +17,7 @@ function RecipeDetails() {
 
   useEffect(() => {
     fetch(
-      `${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipe_id}`,
+      `${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipe_id}`
     )
       .then((response) => response.json())
       .then((data) => setIngredients(data));

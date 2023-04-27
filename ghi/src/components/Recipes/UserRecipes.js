@@ -35,7 +35,7 @@ const RecipeCard = ({ recipe, onDelete, setRecipes }) => {
     const response = await onDelete(recipe.id);
     if (response.ok) {
       setRecipes((prevRecipes) =>
-        prevRecipes.filter((item) => item.id !== recipe.id),
+        prevRecipes.filter((item) => item.id !== recipe.id)
       );
     }
   };

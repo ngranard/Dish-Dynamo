@@ -94,7 +94,6 @@ function Multistep() {
     if (validateForm()) {
       setProgress(100);
       const recipeWithUserId = { ...recipe, user_id: user.id };
-      console.log(recipe);
       try {
         const response = await fetch(
           `${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes`,
@@ -105,7 +104,7 @@ function Multistep() {
               Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(recipeWithUserId),
-          },
+          }
         );
 
         if (!response.ok) {
@@ -176,7 +175,6 @@ function Multistep() {
           p={10}
           m="10px auto"
           as="form"
-
           onSubmit={handleSubmit}
         >
           <Heading as="h2" size="xl" mb="5%" textAlign="center">

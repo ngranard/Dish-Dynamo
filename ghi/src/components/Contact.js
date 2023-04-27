@@ -23,13 +23,13 @@ import { MdEmail, MdOutlineEmail } from "react-icons/md";
 
 const confetti = {
   light: {
-    primary: "4299E1", // blue.400
-    secondary: "BEE3F8", // blue.100
+    primary: "4299E1",
+    secondary: "BEE3F8",
   },
 
   dark: {
-    primary: "1A365D", // blue.900
-    secondary: "2A4365", // blue.800
+    primary: "1A365D",
+    secondary: "2A4365",
   },
 };
 

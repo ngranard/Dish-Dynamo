@@ -15,7 +15,7 @@ const useUser = (token) => {
         {
           method: "get",
           credentials: "include",
-        },
+        }
       );
       const { account: user } = await result.json();
       setUser(user);

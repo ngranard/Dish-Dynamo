@@ -99,16 +99,13 @@ class UserQueries:
                         """
                     )
                     return [
-                        self.record_to_user_out_without_password(record)
-                        for record in db.fetchall()
+                        self.record_to_user_out_without_password(record) for record in db.fetchall()
                     ]
         except Exception as e:
             print(e)
             return {"message": "Error getting users"}
 
-    def create(
-        self, account: UserIn, hashed_password: str
-    ) -> UserOutWithPassword:
+    def create(self, account: UserIn, hashed_password: str) -> UserOutWithPassword:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -131,9 +128,7 @@ class UserQueries:
                     if id is None:
                         return None
                     old_data = account.dict()
-                    return UserOutWithPassword(
-                        id=id, **old_data, hashed_password=hashed_password
-                    )
+                    return UserOutWithPassword(id=id, **old_data, hashed_password=hashed_password)
         except Exception as e:
             print(e)
             return {"message": "Error creating user"}
