@@ -32,6 +32,7 @@ export function DeveloperCard({ developer }: DeveloperCardProps) {
   return (
     <Center>
       <Box
+        border="solid 1px"
         maxW={"270px"}
         w={"full"}
         bg={useColorModeValue("gray.100", "gray.700")}

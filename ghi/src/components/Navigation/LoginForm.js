@@ -20,11 +20,6 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-
-
-
-
-
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState('');

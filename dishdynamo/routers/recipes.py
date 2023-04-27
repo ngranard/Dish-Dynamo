@@ -11,6 +11,7 @@ from queries.recipes import (
 )
 
 router = APIRouter()
+from authenticator import authenticator
 
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
@@ -33,7 +34,7 @@ def get_all(
 def update_recipe(
     recipe_id: int,
     recipe: RecipeIn,
-    repo: RecipeRepository = Depends(),
+    repo: RecipeRepository = Depends(authenticator.try_get_current_account_data),
 ) -> Union[Error, RecipeOut]:
     return repo.update(recipe_id, recipe)
 

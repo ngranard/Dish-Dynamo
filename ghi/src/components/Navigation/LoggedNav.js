@@ -55,7 +55,7 @@ const LoggedNav = () => {
         top="0"
         zIndex="100"
         w="full"
-        backgroundColor={colorMode === "light" ? "white" : "gray.800"}
+        backgroundColor={colorMode === "light" ? "gray.100" : "gray.800"}
       >
         <NavLink to="/">
           <Img
