@@ -9,9 +9,9 @@ from queries.recipes import (
     RecipeOutWithAdditionalData,
     RecipeInWithIngredients,
 )
+from authenticator import authenticator
 
 router = APIRouter()
-from authenticator import authenticator
 
 
 @router.post("/recipes", response_model=Union[RecipeOut, Error])
