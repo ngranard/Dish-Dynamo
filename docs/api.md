@@ -22,7 +22,7 @@ This endpoint sends a `GET` request to get one recipe, enter the recipe id, in t
 ![recipes-get-one-recipe](/docs/api/get-one-recipe.png)
 
 This endpoint sends a `PUT` requst to update a recipe
-![recipes-update-recipe](/docs/api/update-recipe.png)
+![recipes-update-recipe](/docs/api/update_recipe.png)
 
 This endpoint sends a `DELETE` request to delete a recipe
 ![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
