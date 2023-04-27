@@ -38,6 +38,7 @@ def test_create_ingredients():
     }
 
     expected = {
+        "id": 1,
         "quantity": 1,
         "measurement": "test measurement",
         "name": "test name",

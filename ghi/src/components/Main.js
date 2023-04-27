@@ -1,4 +1,4 @@
-import { Heading, Text, Box, Button, Flex, Img, Divider, VStack, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Heading, Text, Box, Button, Flex, Img, Divider, VStack, useColorModeValue, Center, Stack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React from "react";
 import art_3 from "../assets/art_3.jpg";
@@ -9,9 +9,12 @@ import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 
 const Main = () => {
-    const { ref, inView } = useInView({
-        threshold: 0.1,
-    });
+    const [ref1, inView1] = useInView({ threshold: 0.1 });
+    const [ref2, inView2] = useInView({ threshold: 0.05 });
+    const [refTestimonials, inViewTestimonials] = useInView({ threshold: 0.2 });
+
+
+
     return (
         <Box
             bg={useColorModeValue("gray.100", "gray.700")}
@@ -20,39 +23,48 @@ const Main = () => {
             h="fit-content"
             alignItems="center"
             rounded="xl"
+
             pb={1}
         >
             <Box
                 p="50px"
                 bg={useColorModeValue("gray.100", "gray.700")}
                 m="auto"
+                boxShadow="md"
                 w="fit-content"
                 h="60vh"
                 alignItems="center"
                 rounded="xl"
+
+
             >
-                <Box
+                <Stack
                     bg={useColorModeValue("gray.300", "gray.500")}
                     m="auto"
                     w="fit-content"
                     h={{ base: "35vh", md: "25vh" }}
                     alignItems="center"
                     rounded="xl"
+
                 >
                     <Heading
+                        mb={{ base: "10px", md: "200px" }}
 
                         as="h1"
                         p="1"
                         fontSize={{ base: "5xl", md: "7xl" }}
-                        mt={{ base: "50px", md: "100px" }}
+                        mt={{ base: "20px", md: "100px" }}
                     >
-                        Your Ingredients, Your Recipes
+                        <Center>
+                            Your Ingredients, Your Recipes
+                        </Center>
                     </Heading>
                     <Text
                         p="3"
                         pl={3}
-                        fontSize={{ base: "lg", md: "xl" }}
-                        mt={{ base: "20px", md: "30px" }}
+                        fontSize={{ base: "lg", md: "2xl" }}
+                        fontStyle="italic"
+                        mt={{ base: "20px", md: "320px" }}
                     >
                         Never struggle again with what to eat! Dish Dynamo is a recipe app
                         that allows you to search for recipes based on the ingredients you
@@ -80,9 +92,9 @@ const Main = () => {
                             </Button>
                         </Link>
                     </Flex>
-                </Box>
+                </Stack>
             </Box>
-            <Box mt={-20} w="fit-content" h="fit-content" mx="auto">
+            <Box w="fit-content" h="fit-content" mx="auto" mt={{ base: "150px", md: "50px" }}>
                 <Box
                     border="1px solid"
                     borderColor={useColorModeValue("gray.200", "gray.600")}
@@ -96,30 +108,44 @@ const Main = () => {
                 >
                     <VStack columns={{ base: 1, md: 2 }} spacing={4}>
 
-                        <Img
-                            src={art_5}
-                            alt="Hero image"
-                            objectFit="cover"
-                            w="100%"
-                            h={{ base: "350px", md: "600px" }}
-                        />
+                        <motion.div
+                            ref={ref1}
+                            initial={{ x: "100%" }}
+                            animate={{ x: inView1 ? 1 : "70%" }}
+                            transition={{ duration: 1 }}
+                        >
+                            <Img
+                                src={art_5}
+                                alt="Hero image"
+                                objectFit="cover"
+                                w="100%"
+                                h={{ base: "350px", md: "600px" }}
+                            />
+                        </motion.div>
 
-                        <Img
-                            src={art_3}
-                            alt="Hero image"
-                            objectFit="cover"
-                            w="100%"
-                            h={{ base: "350px", md: "800px" }}
-                        />
+                        <motion.div
+                            ref={ref2}
+                            initial={{ x: "100%" }}
+                            animate={{ x: inView2 ? 1 : "70%" }}
+                            transition={{ duration: 1 }}
+                        >
+                            <Img
+                                src={art_3}
+                                alt="Hero image"
+                                objectFit="cover"
+                                w="100%"
+                                h={{ base: "350px", md: "800px" }}
+                            />
+                        </motion.div>
 
                     </VStack>
                 </Box>
             </Box>
             <Divider />
             <motion.div
-                ref={ref}
+                ref={refTestimonials}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: inView ? 1 : 0 }}
+                animate={{ opacity: inViewTestimonials ? 1 : 0 }}
                 transition={{ duration: 1 }}
             >
                 <Testimonials />

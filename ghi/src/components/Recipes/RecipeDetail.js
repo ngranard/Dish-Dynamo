@@ -1,89 +1,67 @@
-import React, { useEffect, useState } from "react";
+import { Image } from "@chakra-ui/image";
+import { Box, Text } from "@chakra-ui/layout";
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Center,
-  VStack,
-  Heading,
-  Text,
-  Image,
-  Tag,
-  TagLabel,
-} from "@chakra-ui/react";
 
-function RecipeDetail() {
-  const [isLoading, setIsLoading] = useState(true);
+
+function RecipeDetails() {
   const { recipe_id } = useParams();
-  const [recipe, setRecipe] = useState({
-    recipe_name: "",
-    image_url: "",
-    description: "",
-    instructions: "",
-    rating: "",
-    cooking_time: "",
-    difficulty_id: "",
-  });
+  const [recipe, setRecipe] = useState(null);
+  const [ingredients, setIngredients] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const url = `http://localhost:8000/recipes/${recipe_id}`;
-      const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        setRecipe(data);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
+    fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`)
+      .then((response) => response.json())
+      .then((data) => setRecipe(data));
   }, [recipe_id]);
 
-  const getDifficultyLevel = (id) => {
-    switch (id) {
-      case 1:
-        return "Easy";
-      case 2:
-        return "Medium";
-      case 3:
-        return "Hard";
-      default:
-        return "Unknown";
-    }
-  };
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipe_id}`)
+      .then((response) => response.json())
+      .then((data) => setIngredients(data));
+  }, [recipe_id]);
 
-  if (isLoading) {
-    return <Center>Loading...</Center>;
+  if (!recipe || !ingredients) {
+    return <div>Loading...</div>;
   }
   return (
-    <Center>
-      <VStack spacing={6} w="full" maxW="2xl">
-        <Heading>{recipe.recipe_name}</Heading>
-        <Image
-          src={recipe.image_url}
-          alt={recipe.recipe_name}
-          borderRadius="md"
-          w="full"
-        />
-        <Text>{recipe.description}</Text>
-        <Text fontWeight="bold">Instructions:</Text>
-        <Text>{recipe.instructions}</Text>
-        <Box>
-          <Tag size="md" mr={2}>
-            <TagLabel>Rating: {recipe.rating}</TagLabel>
-          </Tag>
-          <Tag size="md" mr={2}>
-            <TagLabel>Cooking Time: {recipe.cooking_time} mins</TagLabel>
-          </Tag>
-          <Tag size="md">
-            <TagLabel>
-              Difficulty: {getDifficultyLevel(recipe.difficulty_id)}
-            </TagLabel>
-          </Tag>
-        </Box>
-      </VStack>
-    </Center>
+    <Box maxW="600px" mx="auto">
+      <Image src={recipe.image_url} alt={recipe.recipe_name} mb={4} />
+      <Text fontSize="xl" fontWeight="bold" mb={2}>
+        {recipe.recipe_name}
+      </Text>
+      <Text mb={4}>{recipe.description}</Text>
+      <Text mb={4}>
+        <strong>Cooking time:</strong> {recipe.cooking_time} minutes
+      </Text>
+      <Text mb={4}>
+        <strong>Difficulty:</strong> {recipe.difficulty}
+      </Text>
+      <strong>Ingredients:</strong>
+      <Table variant="simple" mb={4}>
+        <Thead>
+          <Tr>
+            <Th>Quantity</Th>
+            <Th>Measurement</Th>
+            <Th>Name</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {ingredients.map((ingredient) => (
+            <Tr key={ingredient.id}>
+              <Td>{ingredient.quantity}</Td>
+              <Td>{ingredient.measurement}</Td>
+              <Td>{ingredient.name}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+      <Text mb={4}>
+        <strong>Instructions:</strong> {recipe.instructions}
+      </Text>
+    </Box>
   );
 }
 
-export default RecipeDetail;
+export default RecipeDetails;

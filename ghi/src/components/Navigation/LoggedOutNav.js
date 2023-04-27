@@ -5,7 +5,6 @@ import {
     Flex,
     Spacer,
     Img,
-    Box,
     Menu,
     MenuButton,
     MenuList,
@@ -14,13 +13,14 @@ import {
     useBreakpointValue,
 } from "@chakra-ui/react";
 import { useColorMode } from "@chakra-ui/react";
-import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Logo4 from "../../assets/Logo4.png";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
 const LogoutNav = () => {
     const [scroll, setScroll] = useState(false);
     const { colorMode, toggleColorMode } = useColorMode();
+    const isMobile = useBreakpointValue({ base: true, md: false });
 
     const changeScroll = () =>
         document.body.scrollTop > 80 || document.documentElement.scrollTop > 80
@@ -82,39 +82,36 @@ const LogoutNav = () => {
                     Signup
                 </ChakraLink>
 
-                <Menu>
-                    <MenuButton mt={1} cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
-                    <MenuList>
-                        <MenuItem onClick={toggleColorMode}>
-                            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                        </MenuItem>
-                    </MenuList>
-                </Menu>
+
             </Flex>
-            <Box display={{ base: "block", md: "none" }}>
-                <Menu>
-                    <MenuButton
-                        as={IconButton}
-                        aria-label="Options"
-                        icon={<HamburgerIcon />}
-                        variant="outline"
-                    />
-                    <MenuList>
-                        <MenuItem as={NavLink} to="/login">
-                            Login
-                        </MenuItem>
-                        <MenuItem as={NavLink} to="/signup">
-                            Signup
-                        </MenuItem>
-                        <IconButton
-                            aria-label="Toggle dark mode"
-                            icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                            onClick={toggleColorMode}
-                            variant="ghost"
-                        />
-                    </MenuList>
-                </Menu>
-            </Box>
+
+            <Menu>
+                {isMobile && (
+                    <>
+                        <MenuButton mr={5} mt={1} cursor="pointer" as={Avatar} size="sm" src="https://thumb.ac-illust.com/6c/6c45218ebb1010c201da153f9f439d3d_t.jpeg" />
+                        <MenuList>
+
+                            <MenuItem mr={2} as={NavLink} to="/login">
+                                Login
+                            </MenuItem>
+                            <MenuItem as={NavLink} to="/signup">
+                                Signup
+                            </MenuItem>
+
+                        </MenuList>
+
+                    </>
+                )}
+
+                <IconButton onClick={toggleColorMode}>
+                    {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                </IconButton>
+
+
+
+            </Menu>
+
+
         </Flex>
     );
 };
