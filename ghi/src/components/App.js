@@ -12,15 +12,10 @@ import { Box } from "@chakra-ui/react";
 import UpdateProfile from "./UpdateProfileForm";
 import UserRecipes from "./Recipes/UserRecipes";
 import Contact from "./Contact";
-<<<<<<< HEAD
 import TestimonialsBig from "./Footer/TestimonialsBig.tsx";
-=======
 import RecipeDetails from "./Recipes/RecipeDetail";
-import TestimonialsBig from "./TestimonialsBig.tsx";
->>>>>>> main
 import ScrollToTop from "./Navigation/ScrollToTop";
 import Premium from "./Footer/Premium.tsx";
-import RecipeDetails from "./Recipes/UserRecipeDetail";
 import AboutPage from "./Footer/About/About.tsx";
 
 function App() {
