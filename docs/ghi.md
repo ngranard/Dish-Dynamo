@@ -12,7 +12,7 @@ Wireframes created with excalidraw during the planning of DishDynamo
 
 ## Recipe Search (Guest)
 
-![RecipeSearch](/docs/wireframes/WF-recipe-search-guest.png.png)
+![RecipeSearch](/docs/wireframes/WF-recipe-search-guest.png)
 
 ## Detail Recipe (User)
 
@@ -24,11 +24,11 @@ Wireframes created with excalidraw during the planning of DishDynamo
 
 ## Detail Recipe (Guest)
 
-![DetailRecipe](/docs/wireframes/Wf-detail-page-guest.png)
+![DetailRecipe](/docs/wireframes/Wf-detail-recipe-page-guest.png)
 
 ## Sign up
 
-![Signup](/docs/wireframes/wf-sign-up-page.png)
+![Signup](/docs/wireframes/wf-signup-page.png)
 
 ## List Recipes
 
@@ -36,11 +36,11 @@ Wireframes created with excalidraw during the planning of DishDynamo
 
 ## User's Recipes
 
-![UserRecipes](/docs/wireframes/wf-user-recipe-page.png.png)
+![UserRecipes](/docs/wireframes/wf-user-recipe-page.png)
 
 ## Update Recipe
 
-![UpdateRecipe](/docs/wireframes/wf-update-recipe-paeg.png)
+![UpdateRecipe](/docs/wireframes/wf-update-recipe-page.png)
 
 ## Edit Profile
 
