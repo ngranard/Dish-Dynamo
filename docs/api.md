@@ -19,7 +19,7 @@ This endpoint creates a `POST` request to create a recipe
 ![recipe-success](/docs/api/create-recipe-success.png)
 
 This endpoint sends a `GET` request to get one recipe, enter the recipe id, in the example recipe id is 3
-![recipes-get-one-recipe](/docs/api/recipes-get-onev2.png)
+![recipes-get-one-recipe](/docs/api/get-one-recipe.png)
 
 This endpoint sends a `PUT` requst to update a recipe
 ![recipes-update-recipe](/docs/api/recipes-update-recipe.png)
@@ -29,17 +29,14 @@ This endpoint sends a `PUT` requst to update a recipe
 This endpoint sends a `DELETE` request to delete a recipe
 ![recipes-delete-recipe](/docs/api/recipes-delete-recipe.png)
 
-Enter recipe id you wish to delete, in the example reciep id is 3
+Enter recipe id you wish to delete, in the example recipe id is 3
 Returns true upon successful deletion of recipe
 ![delete-recipe-execute](/docs/api/delete-recipe-execute.png)
 
 ![delete-recipe-success](/docs/api/delete-recipe-success.png)
 
-![recipes-get-recipe-by-user](/docs/api/recipe-get-recipe-by-userv2.png)
 This endpoint sends a `GET` request to get one recipe by user id
-
-Success response 200:
-![recipes-get-recipe-by-user](/docs/api/recipe-get-recipe-by-userv2-success.png)
+![recipes-get-recipe-by-user](/docs/api/get-recipe-by-user.png)
 
 ## Search Endpoints
 
