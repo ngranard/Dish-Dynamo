@@ -33,8 +33,8 @@ def get_all(
 @router.put("/recipes/{recipe_id}", response_model=Union[RecipeOut, Error])
 def update_recipe(
     recipe_id: int,
-    recipe: RecipeIn,
-    repo: RecipeRepository = Depends(authenticator.try_get_current_account_data),
+    recipe: RecipeInWithIngredients,
+    repo: RecipeRepository = Depends(),
 ) -> Union[Error, RecipeOut]:
     return repo.update(recipe_id, recipe)
 

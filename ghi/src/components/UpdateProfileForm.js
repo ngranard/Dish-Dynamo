@@ -21,10 +21,10 @@ import useUser from "./useUser";
 import { FaUserCircle, FaHeart } from "react-icons/fa";
 const UpdateProfileForm = () => {
   const token = useToken();
-  const user = useUser(token);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const userToken = useUser(token);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const toast = useToast();
   const handleFirstName = (event) => {
@@ -38,7 +38,7 @@ const UpdateProfileForm = () => {
   const handleEmail = (event) => {
     const value = event.target.value;
     setEmail(value);
-  };
+  }
 
   const handleSubmit = async (event) => {
     const accountData = {};
@@ -46,7 +46,7 @@ const UpdateProfileForm = () => {
     accountData.last_name = lastName;
     accountData.email = email;
     accountData.username = email;
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}api/accounts/${user.id}`;
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${userToken.id}`;
     const fetchConfig = {
       method: "PUT",
       body: JSON.stringify(accountData),

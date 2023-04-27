@@ -141,7 +141,7 @@ class RecipeRepository:
             print(e)
             return False
 
-    def update(self, recipe_id: int, recipe: RecipeIn) -> Union[RecipeOut, Error]:
+    def update(self, recipe_id: int, recipe: RecipeInWithIngredients) -> Union[RecipeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -168,7 +168,34 @@ class RecipeRepository:
                             recipe_id,
                         ],
                     )
-                    return self.recipe_in_to_out(recipe_id, recipe)
+                    result = db.execute(
+                        """
+                        SELECT i.id
+                        FROM ingredients AS i
+                        WHERE i.recipe_id = %s
+                        """,
+                        [recipe_id],
+                    )
+                    id_list = [record[0] for record in result]
+                    for id, ingredient in zip(id_list, recipe.ingredients):
+                        db.execute(
+                            """
+                            UPDATE ingredients
+                            SET quantity = %s
+                                , measurement = %s
+                                , name = %s
+                                , recipe_id = %s
+                            WHERE id = %s
+                            """,
+                            [
+                                ingredient.quantity,
+                                ingredient.measurement,
+                                ingredient.name,
+                                recipe_id,
+                                id,
+                            ],
+                        )
+                    return self.recipe_in_to_out_with_ingredients(recipe_id, recipe)
         except Exception as e:
             print(e)
             return {"message": "Could not update that recipe"}
