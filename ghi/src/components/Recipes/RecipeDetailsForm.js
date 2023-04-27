@@ -39,30 +39,7 @@ const RecipeDetailsForm = ({ recipe, setRecipe }) => {
           placeholder="Enter the image URL"
         />
       </FormControl>
-      <FormControl id="rating">
-        <FormLabel>Rating</FormLabel>
-        <NumberInput
-          min={0}
-          max={5}
-          step={1}
-          value={recipe.rating}
-          onChange={(value) =>
-            setRecipe({
-              ...recipe,
-              rating: value === "" ? "" : parseInt(value),
-            })
-          }
-        >
-          <NumberInputField
-            name="rating"
-            placeholder="Enter a rating between 0 and 5"
-          />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </FormControl>
+
       <FormControl id="difficulty">
         <FormLabel>Difficulty</FormLabel>
         <Select

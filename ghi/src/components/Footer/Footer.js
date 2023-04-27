@@ -29,7 +29,7 @@ function Footer() {
           alignItems="center"
         >
           <Text>Privacy</Text>
-          <Text>About</Text>
+          <NavLink to="/about">About</NavLink>
           <NavLink to="/premium">Premium</NavLink>
 
           <NavLink to="/contact"> Contact Us</NavLink>

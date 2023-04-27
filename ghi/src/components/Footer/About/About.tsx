@@ -2,9 +2,11 @@ import {
   Heading,
   Container,
   Box,
+  VStack,
   Center,
   Text,
   useColorModeValue,
+  Divider,
 } from "@chakra-ui/react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Developer, DeveloperCard } from "./DeveloperCard.tsx";
@@ -44,7 +46,7 @@ export default function AboutPage() {
       name: "Brandon",
       role: "Fullstack Engineer",
       avatar:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+        "https://media.licdn.com/dms/image/D5603AQGgg85iuDL4CQ/profile-displayphoto-shrink_800_800/0/1671564341578?e=1687996800&v=beta&t=vFWg2YW-Rr_vmRqgA8zb7vjt7fFIYlzkqPszHurCvAw",
       backgroundImage:
         "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
       linkedinUrl: "https://www.linkedin.com/in/brandon-souvannarath/",
@@ -54,7 +56,7 @@ export default function AboutPage() {
       name: "John",
       role: "Fullstack Engineer",
       avatar:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+        "https://media.licdn.com/dms/image/D5635AQGsAl-8s0f3NA/profile-framedphoto-shrink_800_800/0/1662515617888?e=1683151200&v=beta&t=ZBRlZ831h8ObfR0g5d2x03JvLEp3eKs0jbno16OtSTo",
       backgroundImage:
         "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
       linkedinUrl: "https://www.linkedin.com/in/john-agni/",
@@ -66,7 +68,7 @@ export default function AboutPage() {
       avatar:
         "https://media.licdn.com/dms/image/D4D03AQHq6MiwPEqIKQ/profile-displayphoto-shrink_800_800/0/1680584185804?e=1687996800&v=beta&t=_0FVbLOZGVlsgGK7ib27fgrNTLw9CJ3DiOWc_jZQHRI",
       backgroundImage:
-        "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+        "https://media.licdn.com/dms/image/D5616AQFAojzP2SD9rg/profile-displaybackgroundimage-shrink_350_1400/0/1680643153881?e=1687996800&v=beta&t=8eYuJBDJDyXd9Aat3GwSYFHiOgDaN5nUuMX3ATbAqRI",
       linkedinUrl: "https://www.linkedin.com/in/noahgranard/",
       gitlabUrl: "https://gitlab.com/ngranard",
     },
@@ -83,19 +85,24 @@ export default function AboutPage() {
   ];
 
   return (
-    <Box
+    <VStack
       bgGradient={useColorModeValue(
         "linear(to-r, blue.100, purple.700)",
         "linear(to-r, gray.300, purple.900)"
       )}
+      minHeight="100vh"
+      spacing={12}
+      py={7}
     >
-      {" "}
-      <Center py={6}>
-        <Heading as="h1" size="2xl" mb={6}>
-          About DishDynamo
-        </Heading>
+      <Center>
+        <VStack spacing={3}>
+          <Heading as="h1" size="2xl" fontWeight="Medium">
+            About Dish Dynamo
+          </Heading>
+          <Divider borderColor="gray.500" w="100%" />
+        </VStack>
       </Center>
-      <Container maxW="container.lg" mb={12}>
+      <Container maxW="container.lg">
         <Box
           p={6}
           borderRadius="md"
@@ -103,17 +110,19 @@ export default function AboutPage() {
           boxShadow="base"
         >
           <Text fontSize="lg">
-            DishDynamo is an app that helps users figure out what to eat.
+            Dish Dynamo is an app that helps users figure out what to eat.
             Developed by a talented team of engineers, the app aims to
-            revolutionize the way people explore and share their passion for
-            food.
+            revolutionize the way people think about cooking.
           </Text>
         </Box>
       </Container>
-      <Center py={6}>
-        <Heading as="h2" size="xl" mb={6}>
-          Meet the Team
-        </Heading>
+      <Center>
+        <VStack spacing={3}>
+          <Heading as="h2" size="xl" fontWeight="light">
+            Meet the Team
+          </Heading>
+          <Divider borderColor="gray.500" w="100%" />
+        </VStack>
       </Center>
       <Box
         position="relative"
@@ -127,13 +136,13 @@ export default function AboutPage() {
           width="100%"
           maxWidth="container.lg"
           margin="auto"
+          pb="20px"
         >
           <Box display="flex">
             {developers.map((developer) => (
               <Box
                 key={developer.name}
                 width="100%"
-                paddingLeft={375}
                 paddingBottom={5}
                 flex="0 0 auto"
               >
@@ -158,6 +167,6 @@ export default function AboutPage() {
           />
         ))}
       </Center>
-    </Box>
+    </VStack>
   );
 }

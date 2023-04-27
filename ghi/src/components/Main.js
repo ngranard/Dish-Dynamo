@@ -41,34 +41,33 @@ const Main = () => {
         m="auto"
         boxShadow="md"
         w="fit-content"
-        h={{ base: "80vh", md: "50vh" }}
+        h={{ base: "60vh", md: "70vh" }}
         alignItems="center"
         rounded="xl"
       >
         <Stack
           bg={useColorModeValue("gray.300", "gray.500")}
           m="auto"
-          mt={{ base: "50px", md: "0px" }}
+          mt={{ base: "50px", md: "2px" }}
           w="fit-content"
-          h={{ base: "35vh", md: "25vh" }}
+          h={{ base: "40vh", md: "60vh" }}
           alignItems="center"
           rounded="xl"
         >
           <Heading
-            mb={{ base: "20px", md: "200px" }}
+            mb={{ base: "0px", md: "-10px" }}
             as="h1"
             p="1"
             fontSize={{ base: "5xl", md: "7xl" }}
-            mt={{ base: "10px", md: "100px" }}
+            mt={{ base: "5px", md: "5px" }}
           >
             <Center>Your Ingredients, Your Recipes</Center>
           </Heading>
           <Text
-            p="3"
+            p="5"
             pl={3}
             fontSize={{ base: "lg", md: "2xl" }}
             fontStyle="italic"
-            mt={{ base: "20px", md: "320px" }}
           >
             Never struggle again with what to eat! Dish Dynamo is a recipe app
             that allows you to search for recipes based on the ingredients you
@@ -84,7 +83,7 @@ const Main = () => {
                 px="20x"
                 bg="blue.300"
                 borderRadius="10px"
-                mt="8"
+                mt={{ base: "30px", md: "70px" }}
                 fontWeight="bold"
                 color="white"
                 fontSize="xl"
@@ -96,6 +95,7 @@ const Main = () => {
               </Button>
             </Link>
           </Flex>
+
         </Stack>
       </Box>
       <Box

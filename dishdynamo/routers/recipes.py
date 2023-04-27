@@ -72,15 +72,11 @@ def get_recipe_by_user(
 ) -> Union[List[RecipeOutWithUser], Error]:
     recipe = repo.get_by_user_id(user_id)
     if recipe is None:
-        raise HTTPException(
-            status_code=404, detail="No recipes found for this user"
-        )
+        raise HTTPException(status_code=404, detail="No recipes found for this user")
     return recipe
 
 
-@router.get(
-    "/search", response_model=Union[List[RecipeOutWithAdditionalData], Error]
-)
+@router.get("/search", response_model=Union[List[RecipeOutWithAdditionalData], Error])
 def search_by_ingredient_name(
     ingredient: str,
     repo: RecipeRepository = Depends(),
