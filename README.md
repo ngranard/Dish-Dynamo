@@ -13,6 +13,7 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 
 - [API](/docs/api.md)
 - [Wireframe](docs/wireframe.md)
+- [Schemas](docs/schemas.md)
 
 # API
 
@@ -25,16 +26,32 @@ The DishDyamo app utilizes FastAPI which allows logged-in users to create, updat
 - Tenzing Khantse (@TenzingK0)
 - Brandon Souvannarath (@brandonsouv)
 
-# FastAPI endpoints
+# Getting started
 
-- [API](https://gitlab.com/team-scrumtious/dish-dynamo/-/blob/read-me/docs/api.md)
+1. Download and start Docker Desktop
+2. Fork the repository then clone in your terminal: `git clone https://gitlab.com/team-scrumtious/dish-dynamo.git`
+3. Change directory to new project directory
 
-## Getting started
+## Using Docker
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+In the new project directory, using docker, please run the following commands:
+
+1. `docker volume create dishdynamo-data`
+2. `docker-compose build`
+3. `docker-compose up`
+<details>
+<summary>View of running Docker containers</summary>
+<br>
+![dockercontainers](/docs/docker-containers.png)
+</details>
+
+## Accessing Front End
+
+Go to http://localhost:3000 in your browser to view the front end
+
+## API reference
+
+Go to http://localhost:8000/docs for API documentation and reference
 
 ## Install Extensions
 
