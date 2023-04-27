@@ -22,9 +22,9 @@ import { FaUserCircle, FaHeart } from "react-icons/fa";
 const UpdateProfileForm = () => {
   const token = useToken();
   const userToken = useUser(token);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
   const handleFirstName = (event) => {
@@ -38,7 +38,7 @@ const UpdateProfileForm = () => {
   const handleEmail = (event) => {
     const value = event.target.value;
     setEmail(value);
-  }
+  };
 
   const handleSubmit = async (event) => {
     const accountData = {};

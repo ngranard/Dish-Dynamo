@@ -2,19 +2,23 @@ from pydantic import BaseModel
 from typing import List, Optional, Union
 from queries.pool import pool
 
+
 class Error(BaseModel):
     message: str
+
 
 class CommentIn(BaseModel):
     comment: str
     user_id: int
     recipe_id: int
 
+
 class CommentOut(BaseModel):
     id: int
     comment: str
     user_id: int
     recipe_id: int
+
 
 class CommentRepository:
     def get_one(self, id: int) -> Optional[CommentOut]:
@@ -54,12 +58,8 @@ class CommentRepository:
                         FROM comments;
                         """
                     )
-                    return [
-                        self.record_to_comment_out(record)
-                        for record in db
-                    ]
+                    return [self.record_to_comment_out(record) for record in db]
         except Exception:
-
             return {"message": "Could not get comments"}
 
     def delete(self, comment_id: int) -> bool:
@@ -117,14 +117,12 @@ class CommentRepository:
                             comment.comment,
                             comment.user_id,
                             comment.recipe_id,
-
                         ],
                     )
                     id = result.fetchone()[0]
                     return self.comment_in_to_out(id, comment)
         except Exception:
             return {"message": "Unable to create comment"}
-
 
     def comment_in_to_out(self, id: int, comment: CommentIn):
         old_data = comment.dict()

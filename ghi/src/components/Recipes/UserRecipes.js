@@ -22,7 +22,6 @@ import useUser from "../useUser";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState, useEffect } from "react";
 
-
 const RecipeCard = ({ recipe, onDelete, setRecipes }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -129,7 +128,7 @@ function UserRecipes() {
   }
 
   return (
-    <Box maxW="600px" mx="auto"  >
+    <Box maxW="600px" mx="auto">
       <Text fontSize="3xl" fontWeight="bold" textAlign="center" my={8}>
         {user.first_name}'s Recipes
       </Text>
