@@ -93,22 +93,22 @@ const UpdateProfileForm = () => {
           <Stack spacing={4}>
             <HStack>
               <Box>
-                <Editable value='{firstName}'>
-                  <EditablePreview />
-                  <EditableInput onChange={handleFirstName} />
-                </Editable>
+                <FormControl id="firstName">
+                  <FormLabel>First Name</FormLabel>
+                  <Input type="text" onChange={handleFirstName} value={firstName} />
+                </FormControl>
               </Box>
               <Box>
-                <Editable value={lastName}>
-                  <EditablePreview />
-                  <EditableInput onChange={handleLastName} />
-                </Editable>
+                <FormControl id="lastName">
+                  <FormLabel>Last Name</FormLabel>
+                  <Input type="text" onChange={handleLastName} value={lastName} />
+                </FormControl>
               </Box>
             </HStack>
-            <Editable value={email}>
-              <EditablePreview />
-              <EditableInput onChange={handleEmail} />
-            </Editable>
+            <FormControl id="email">
+              <FormLabel>Email address</FormLabel>
+              <Input type="email" onChange={handleEmail} value={email} />
+            </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
                 onClick={handleSubmit}
@@ -128,5 +128,6 @@ const UpdateProfileForm = () => {
     </Flex >
   );
 }
+
 
 export default UpdateProfileForm;
