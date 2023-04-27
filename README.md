@@ -12,6 +12,7 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 # Design
 
 - [API](/docs/api.md)
+- [GHI](docs/ghi.md)
 
 # API
 
@@ -27,19 +28,6 @@ The DishDyamo app utilizes FastAPI which allows logged-in users to create, updat
 # FastAPI endpoints
 
 - [API](https://gitlab.com/team-scrumtious/dish-dynamo/-/blob/read-me/docs/api.md)
-
-| Action           | Method | URL                                      |
-| ---------------- | ------ | ---------------------------------------- |
-| List all recipes | GET    | http://localhost:8000/recipes            |
-| Create a recipe  | POST   | http://localhost:8000/recipes            |
-| Get a one recipe | GET    | http://localhost:8000/recipes/           |
-| Update a recipe  | PUT    | http://localhost:8000/recipes/:recipe_id |
-| Delete a recipe  | DELETE | http://localhost:8000/recipes/:recipe_id |
-| List all recipes | GET    | http://localhost:8000/recipes            |
-| Create a recipe  | POST   | http://localhost:8000/recipes            |
-| Get a one recipe | GET    | http://localhost:8000/recipes/           |
-| Update a recipe  | PUT    | http://localhost:8000/recipes/:recipe_id |
-| Delete a recipe  | DELETE | http://localhost:8000/recipes/:recipe_id |
 
 ## Getting started
 
