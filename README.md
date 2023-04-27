@@ -2,6 +2,13 @@
 
 DishDynamo is a webapplication for individuals looking for and creating recipes based on ingredients they have on hand.
 
+# Maintainers
+
+- John Agni (@ohtheagni)
+- Noah Granard (@ngranard)
+- Tenzing Khantse (@TenzingK0)
+- Brandon Souvannarath (@brandonsouv)
+
 # Key Features - MVP
 
 1. Users can sign-up, login, and logout
@@ -18,13 +25,6 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 # API
 
 The DishDyamo app utilizes FastAPI which allows logged-in users to create, update, and delete recipes they've created. Users who are not logged in can view recipes.
-
-# Maintainers
-
-- John Agni (@ohtheagni)
-- Noah Granard (@ngranard)
-- Tenzing Khantse (@TenzingK0)
-- Brandon Souvannarath (@brandonsouv)
 
 # Getting started
 
