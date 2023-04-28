@@ -59,7 +59,7 @@ const IngredientsForm = ({
         <FormControl id="quantity" isRequired>
           <FormLabel>Quantity</FormLabel>
           <Input
-            type="number"
+            type="text"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
           />

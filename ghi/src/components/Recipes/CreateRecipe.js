@@ -40,7 +40,6 @@ function Multistep() {
     cooking_time: "",
     ingredients: [],
     difficulty_id: 0,
-    rating: "",
     image_url: "",
   };
   const [recipe, setRecipe] = useState(initialRecipe);
