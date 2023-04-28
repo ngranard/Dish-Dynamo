@@ -39,8 +39,10 @@ function App() {
           <Route path="search" element={<SearchBar />} />
           <Route path="create" element={<CreateRecipe />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="recipes/:recipe_id" element={<RecipeDetails />} />
-          <Route path="recipes/edit/:recipe_id" element={<EditRecipe />} />
+          <Route path="recipes">
+            <Route path=":recipe_id" element={<RecipeDetails />} />
+            <Route path="edit/:recipe_id" element={<EditRecipe />} />
+          </Route>
           <Route path="testimonials" element={<TestimonialsBig />} />
           <Route path="update" element={<UpdateProfile />} />
           <Route path="my-recipes" element={<UserRecipes />} />
