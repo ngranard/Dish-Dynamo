@@ -46,9 +46,7 @@ def account_override():
 
 def test_get_all_accounts():
     app.dependency_overrides[UserQueries] = EmptyUserQueries
-    app.dependency_overrides[
-        authenticator.try_get_current_account_data
-    ] = account_override
+    app.dependency_overrides[authenticator.try_get_current_account_data] = account_override
 
     response = client.get("/api/accounts/all")
     assert response.status_code == 200
@@ -59,9 +57,7 @@ def test_get_all_accounts():
 
 def test_update_account():
     app.dependency_overrides[UserQueries] = EmptyUserQueries
-    app.dependency_overrides[
-        authenticator.try_get_current_account_data
-    ] = account_override
+    app.dependency_overrides[authenticator.try_get_current_account_data] = account_override
 
     account_id = 1
     json = {

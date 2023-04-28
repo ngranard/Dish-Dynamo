@@ -4,7 +4,6 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-
 function RecipeDetails() {
   const { recipe_id } = useParams();
   const [recipe, setRecipe] = useState(null);
@@ -17,7 +16,9 @@ function RecipeDetails() {
   }, [recipe_id]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipe_id}`)
+    fetch(
+      `${process.env.REACT_APP_USER_SERVICE_API_HOST}/ingredient/recipe/${recipe_id}`
+    )
       .then((response) => response.json())
       .then((data) => setIngredients(data));
   }, [recipe_id]);

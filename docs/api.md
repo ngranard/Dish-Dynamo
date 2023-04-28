@@ -1,5 +1,7 @@
 # FastAPI Endpoints
 
+DishDynamo uses FastAPI to facilitate communication between the front end and the back end using RESTful API.
+
 ## Recipes Endpoints
 
 | Action               | Method | URL                                          |

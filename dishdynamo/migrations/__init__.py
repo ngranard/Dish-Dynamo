@@ -40,13 +40,7 @@ class MigrationFile(MigrationRecord):
 
 async def read_migrations(dir: str) -> list[MigrationFile]:
     migrations = []
-    files = sorted(
-        [
-            file
-            for file in Path(dir).iterdir()
-            if not str(file.name).startswith("__")
-        ]
-    )
+    files = sorted([file for file in Path(dir).iterdir() if not str(file.name).startswith("__")])
     hash = hashlib.sha256()
     for file in files:
         if file.suffix == ".py":

@@ -54,9 +54,7 @@ class DifficultyRepository:
             print(e)
             return False
 
-    def update(
-        self, difficulty_id: int, difficulty: DifficultyIn
-    ) -> Union[DifficultyOut, Error]:
+    def update(self, difficulty_id: int, difficulty: DifficultyIn) -> Union[DifficultyOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -83,10 +81,7 @@ class DifficultyRepository:
                         FROM difficulty;
                         """
                     )
-                    return [
-                        self.record_to_difficulty_out(record)
-                        for record in result
-                    ]
+                    return [self.record_to_difficulty_out(record) for record in result]
         except Exception as e:
             print(e)
             return {"message:": "Could not get all difficulties"}

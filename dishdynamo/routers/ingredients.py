@@ -11,6 +11,7 @@ from queries.ingredients import (
     Error,
 )
 
+
 router = APIRouter()
 
 
@@ -29,9 +30,7 @@ def get_all(
     return repo.get_all()
 
 
-@router.put(
-    "/ingredient/{ingredient_id}", response_model=Union[IngredientOut, Error]
-)
+@router.put("/ingredient/{ingredient_id}", response_model=Union[IngredientOut, Error])
 def update_ingredient(
     ingredient_id: int,
     ingredient: IngredientIn,
@@ -48,9 +47,7 @@ def delete_ingredient(
     return repo.delete(ingredient_id)
 
 
-@router.get(
-    "/ingredient/{ingredient_id}", response_model=Optional[IngredientOut]
-)
+@router.get("/ingredient/{ingredient_id}", response_model=Optional[IngredientOut])
 def get_one_ingredient(
     ingredient_id: int,
     response: Response,
@@ -63,7 +60,8 @@ def get_one_ingredient(
 
 
 @router.get(
-    "/ingredient/recipe/{recipe_id}", response_model=Union[List[IngredientOut], Error]
+    "/ingredient/recipe/{recipe_id}",
+    response_model=Union[List[IngredientOut], Error],
 )
 def get_ingredients_by_recipe(
     recipe_id: int,
