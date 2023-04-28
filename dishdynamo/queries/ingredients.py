@@ -8,7 +8,7 @@ class Error(BaseModel):
 
 
 class IngredientIn(BaseModel):
-    quantity: int
+    quantity: str
     measurement: str
     name: str
     recipe_id: int
@@ -16,7 +16,7 @@ class IngredientIn(BaseModel):
 
 class IngredientOut(BaseModel):
     id: int
-    quantity: int
+    quantity: str
     measurement: str
     name: str
     recipe_id: int
