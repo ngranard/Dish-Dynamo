@@ -15,6 +15,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:8000",
         "http://localhost:3000",
+        "https://team-scrumtious.gitlab.io/dish-dynamo",
         os.environ.get("CORS_HOST", None),
     ],
     allow_credentials=True,
