@@ -15,6 +15,7 @@ import Contact from "./Contact";
 import RecipeDetails from "./Recipes/RecipeDetail";
 import TestimonialsBig from "./TestimonialsBig.tsx";
 import ScrollToTop from "./Navigation/ScrollToTop";
+import EditRecipe from "./Recipes/EditRecipeForm";
 function App() {
   const [footerHeight, setFooterHeight] = useState(0);
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
           <Route path="create" element={<CreateRecipe />} />
           <Route path="contact" element={<Contact />} />
           <Route path="recipes/:recipe_id" element={<RecipeDetails />} />
+          <Route path="recipes/edit/:recipe_id" element={<EditRecipe />} />
           <Route path="testimonials" element={<TestimonialsBig />} />
           <Route path="update" element={<UpdateProfile />} />
           <Route path="my-recipes" element={<UserRecipes />} />
