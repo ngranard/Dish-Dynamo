@@ -1,1 +1,1 @@
-![Schemas](/docs/schemas/schemas.png)
+![Schemas](/docs/schemas1/schemas.png)
