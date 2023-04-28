@@ -20,11 +20,11 @@ Wireframes created with excalidraw during the planning of DishDynamo
 
 ## Recipe Search (Logged-in)
 
-![RecipeSearch](/docs/wireframes/Recipe-Search-Logged_In.png)
+![RecipeSearch](/docs/wireframes/Recipe-Search-Logged-In.png)
 
-## Recipe Detail Recipe (User)
+## Detail Recipe (User)
 
-![DetailRecipe](/docs/wireframes/Recipe-Detail-Logged-In.png)
+![DetailRecipe](/docs/wireframes/Recipe-Detail-LoggedIn-Page.png)
 
 ## User Recipe Page
 
