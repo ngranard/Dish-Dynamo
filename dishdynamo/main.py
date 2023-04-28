@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from authenticator import authenticator
 from routers import users, difficulty, recipes, ingredients, comments
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:8000",
         "http://localhost:3000",
+        "https://team-scrumtious.gitlab.io",
         os.environ.get("CORS_HOST", None),
     ],
     allow_credentials=True,

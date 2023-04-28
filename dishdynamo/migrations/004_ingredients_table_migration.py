@@ -4,7 +4,7 @@ steps = [
         """
         CREATE TABLE ingredients (
             id SERIAL PRIMARY KEY NOT NULL,
-            quantity INT NOT NULL,
+            quantity VARCHAR(20) NOT NULL,
             measurement VARCHAR(50) NOT NULL,
             name VARCHAR(50) NOT NULL,
             recipe_id INT NOT NULL REFERENCES recipes(id)
