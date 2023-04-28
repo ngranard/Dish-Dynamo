@@ -11,6 +11,7 @@ from queries.ingredients import (
     Error,
 )
 
+
 router = APIRouter()
 
 

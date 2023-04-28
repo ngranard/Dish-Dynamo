@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/image";
 import { Box } from "@chakra-ui/layout";
-import { Table, Tbody, Td, Th, Thead, Tr, Text} from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Editable, EditablePreview, EditableInput, EditableTextarea, FormControl, Select, Button, ButtonGroup } from "@chakra-ui/react";
