@@ -14,6 +14,7 @@ import RecipeDetailsForm from "./RecipeDetailsForm";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from "../useUser";
 import { useColorModeValue } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 function Multistep() {
   const validateForm = () => {
@@ -33,6 +34,7 @@ function Multistep() {
   const toast = useToast();
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(33);
+  const navigate = useNavigate();
   const initialRecipe = {
     recipe_name: "",
     description: "",
@@ -120,6 +122,7 @@ function Multistep() {
             isClosable: true,
           });
           setRecipe(initialRecipe);
+          navigate("/my-recipes");
         }
       } catch (error) {
         console.error("Error:", error);
