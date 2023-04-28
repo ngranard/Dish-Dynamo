@@ -2,12 +2,11 @@ from fastapi import APIRouter, Depends, Response, HTTPException
 from typing import List, Optional, Union
 from queries.recipes import (
     Error,
-    RecipeIn,
     RecipeOut,
     RecipeRepository,
     RecipeOutWithUser,
-    RecipeOutWithAdditionalData,
     RecipeInWithIngredients,
+    RecipeOutWithAdditionalData
 )
 
 router = APIRouter()
@@ -49,13 +48,13 @@ def delete_recipe(
 
 @router.get(
     "/recipes/{recipe_id}",
-    response_model=Optional[RecipeOutWithAdditionalData],
+    response_model=Optional[RecipeOutWithUser],
 )
 def get_one_recipe(
     recipe_id: int,
     response: Response,
     repo: RecipeRepository = Depends(),
-) -> Optional[RecipeOutWithAdditionalData]:
+) -> Optional[RecipeOutWithUser]:
     recipe = repo.get_one(recipe_id)
     if recipe is None:
         raise HTTPException(status_code=404, detail="Recipe not found")

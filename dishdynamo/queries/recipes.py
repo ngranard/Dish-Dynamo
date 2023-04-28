@@ -12,7 +12,7 @@ class Error(BaseModel):
 
 
 class IngredientIn(BaseModel):
-    quantity: int
+    quantity: str
     measurement: str
     name: str
 
@@ -90,7 +90,7 @@ class RecipeRepository:
             print(e)
             return {"message": "Could not get list of recipes for this user"}
 
-    def get_one(self, recipe_id: int) -> Optional[RecipeOutWithAdditionalData]:
+    def get_one(self, recipe_id: int) -> Optional[RecipeOutWithUser]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -99,15 +99,12 @@ class RecipeRepository:
                         SELECT r.id, r.recipe_name, r.description,
                             r.image_url, r.instructions, r.cooking_time,
                             r.user_id, r.difficulty_id,
-                            i.quantity, i.measurement, i.name, i.recipe_id,
                             u.first_name, u.last_name, u.email, d.name AS difficulty
                         FROM recipes AS r
                         LEFT OUTER JOIN users AS u
                             ON (r.user_id = u.id)
                         LEFT OUTER JOIN difficulty AS d
                             ON (r.difficulty_id = d.id)
-                        LEFT OUTER JOIN ingredients AS i
-                            ON (r.id = i.recipe_id)
                         WHERE r.id = %s
                         """,
                         [recipe_id],
@@ -115,7 +112,7 @@ class RecipeRepository:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_recipe_out_with_additional_data(
+                    return self.record_to_recipe_out(
                         record
                     )
         except Exception as e:
@@ -316,8 +313,6 @@ class RecipeRepository:
         )
 
     def record_to_recipe_out(self, record):
-        print(f"Record: {record}")
-
         return RecipeOutWithUser(
             id=record[0],
             recipe_name=record[1],

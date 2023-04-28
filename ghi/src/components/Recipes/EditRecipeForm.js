@@ -81,7 +81,7 @@ function EditRecipe() {
         const ingredientsData = [];
         ingredients.map(ingredient => {
             let ingredientObject = {
-                "quantity": parseInt(ingredient.quantity),
+                "quantity": ingredient.quantity,
                 "measurement": ingredient.measurement,
                 "name": ingredient.name
             }
@@ -124,35 +124,35 @@ function EditRecipe() {
     return (
         <Box maxW="600px" mx="auto">
             <Image src={imageUrl} alt={recipeName} mb={4} />
-            <Text mb={4}>
+            <Box mb={4}>
                 <strong>Image URL:</strong>
                 <Editable value={imageUrl}>
                     <EditablePreview />
                     <EditableInput onChange={(e) => setImageUrl(e.target.value)} />
                 </Editable>
-            </Text>
-            <Text mb={4}>
+            </Box>
+            <Box mb={4}>
                 <strong>Recipe Name:</strong>
                 <Editable value={recipeName}>
                     <EditablePreview fontSize="xl" fontWeight="bold" mb={2} />
                     <EditableInput onChange={(e) => setRecipeName(e.target.value)} />
                 </Editable>
-            </Text>
-            <Text mb={4}>
+            </Box>
+            <Box mb={4}>
                 <strong>Recipe Description:</strong>
                 <Editable value={description}>
                     <EditablePreview />
                     <EditableTextarea onChange={(e) => setDescription(e.target.value)} />
                 </Editable>
-            </Text>
-            <Text mb={4}>
+            </Box>
+            <Box mb={4}>
                 <strong>Cooking Time (in minutes):</strong>
                 <Editable value={cookingTime}>
                     <EditablePreview />
                     <EditableInput onChange={(e) => setCookingTime(e.target.value)} />
                 </Editable>
-            </Text>
-            <Text mb={4}>
+            </Box>
+            <Box mb={4}>
                 <strong>Difficulty:</strong>
                 <FormControl id="difficulty">
                     <Select
@@ -168,7 +168,7 @@ function EditRecipe() {
                         ))}
                     </Select>
                 </FormControl>
-            </Text>
+            </Box>
             <strong>Ingredients:</strong>
             <Table variant="simple" mb={4}>
                 <Thead>
@@ -203,13 +203,13 @@ function EditRecipe() {
                     ))}
                 </Tbody>
             </Table>
-            <Text mb={4}>
+            <Box mb={4}>
                 <strong>Instructions:</strong>
                 <Editable defaultValue={instructions}>
                     <EditablePreview />
                     <EditableTextarea onChange={(e) => setInstructions(e.target.value)} />
                 </Editable>
-            </Text>
+            </Box>
             <ButtonGroup variant='outline' spacing='6'>
                 <Button onClick={handleSubmit} colorScheme='blue'>Save</Button>
                 <Button onClick={handleCancel}>Cancel</Button>
