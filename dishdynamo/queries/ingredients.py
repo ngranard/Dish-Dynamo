@@ -8,7 +8,7 @@ class Error(BaseModel):
 
 
 class IngredientIn(BaseModel):
-    quantity: str
+    quantity: int
     measurement: str
     name: str
     recipe_id: int
@@ -16,7 +16,7 @@ class IngredientIn(BaseModel):
 
 class IngredientOut(BaseModel):
     id: int
-    quantity: str
+    quantity: int
     measurement: str
     name: str
     recipe_id: int
@@ -37,6 +37,7 @@ class IngredientRepository(BaseModel):
                         [recipe_id],
                     )
                     return [self.record_to_ingredient_out(record) for record in result]
+
         except Exception as e:
             print(e)
             return {"message": "Could not get list of ingredients for this recipe"}
