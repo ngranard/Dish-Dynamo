@@ -2,46 +2,42 @@
 
 Wireframes created with excalidraw during the planning of DishDynamo
 
-## Main Page
+## Main Page (Guest)
 
-![mainpage](/docs/wireframes/WF-mainpage.png)
+![mainpage](/docs/wireframes/Main-Page.png)
+
+## Main Page (Logged-In)
+
+![mainpage](/docs/wireframes/Main-Page-Logged-In.png)
 
 ## Login
 
-![Login](/docs/wireframes/WF-login.png)
+![Login](/docs/wireframes/Login-Page.png)
 
 ## Recipe Search (Guest)
 
-![RecipeSearch](/docs/wireframes/WF-recipe-search-guest.png)
+![RecipeSearch](/docs/wireframes/Recipe-Search-Guest.png)
 
-## Detail Recipe (User)
+## Recipe Search (Logged-in)
 
-![DetailRecipe](/docs/wireframes/WF-detail-recipe.png)
+![RecipeSearch](/docs/wireframes/Recipe-Search-Logged_In.png)
 
-## Create Recipe
+## Recipe Detail Recipe (User)
 
-![CreateRecipe](/docs/wireframes/WF-Create-recipe.png)
+![DetailRecipe](/docs/wireframes/Recipe-Detail-Logged-In.png)
 
-## Detail Recipe (Guest)
+## User Recipe Page
 
-![DetailRecipeGuest](/docs/wireframes/WF-detail-recipe-page-guest.png)
+![CreateRecipe](/docs/wireframes/User-Recipe-Page.png)
 
 ## Sign up
 
-![Signup](/docs/wireframes/wf-signup-page.png)
-
-## List Recipes
-
-![ListRecipes](/docs/wireframes/wf-list-recipe-page.png)
-
-## User's Recipes
-
-![UserRecipes](/docs/wireframes/wf-user-recipe-page.png)
+![Signup](/docs/wireframes/Sign-up-page.png)
 
 ## Update Recipe
 
-![UpdateRecipe](/docs/wireframes/wf-update-recipe-page.png)
+![UpdateRecipe](/docs/wireframes/Update-Recipe-Page.png)
 
 ## Edit Profile
 
-![UpdateProfile](/docs/wireframes/WF-edit-profile-page.png)
+![UpdateProfile](/docs/wireframes/Edit-Profile-Page.png)
