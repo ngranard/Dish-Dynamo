@@ -118,7 +118,7 @@ def update_account(
 def delete_account(
     id: int,
     response: Response,
-    info: UserQueries = Depends(),
+    info: UserQueries = Depends(authenticator.get_current_account_data),
 ) -> bool:
     response = info.delete_account(id)
     if response is None:

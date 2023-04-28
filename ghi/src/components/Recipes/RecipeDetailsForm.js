@@ -3,11 +3,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   VStack,
   Select,
 } from "@chakra-ui/react";
@@ -16,7 +11,7 @@ const RecipeDetailsForm = ({ recipe, setRecipe }) => {
   const [difficulties, setDifficulties] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/difficulty")
+    fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/difficulty`)
       .then((response) => response.json())
       .then((data) => setDifficulties(data))
       .catch((error) => console.error(error));
@@ -39,30 +34,7 @@ const RecipeDetailsForm = ({ recipe, setRecipe }) => {
           placeholder="Enter the image URL"
         />
       </FormControl>
-      <FormControl id="rating">
-        <FormLabel>Rating</FormLabel>
-        <NumberInput
-          min={0}
-          max={5}
-          step={1}
-          value={recipe.rating}
-          onChange={(value) =>
-            setRecipe({
-              ...recipe,
-              rating: value === "" ? "" : parseInt(value),
-            })
-          }
-        >
-          <NumberInputField
-            name="rating"
-            placeholder="Enter a rating between 0 and 5"
-          />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </FormControl>
+
       <FormControl id="difficulty">
         <FormLabel>Difficulty</FormLabel>
         <Select

@@ -36,9 +36,7 @@ class IngredientRepository(BaseModel):
                         """,
                         [recipe_id],
                     )
-                    return [
-                        self.record_to_ingredient_out(record) for record in result
-                    ]
+                    return [self.record_to_ingredient_out(record) for record in result]
         except Exception as e:
             print(e)
             return {"message": "Could not get list of ingredients for this recipe"}
@@ -83,9 +81,7 @@ class IngredientRepository(BaseModel):
             print(e)
             return False
 
-    def update(
-        self, ingredient_id: int, ingredients: IngredientIn
-    ) -> Union[IngredientOut, Error]:
+    def update(self, ingredient_id: int, ingredients: IngredientIn) -> Union[IngredientOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -106,9 +102,7 @@ class IngredientRepository(BaseModel):
                             ingredient_id,
                         ],
                     )
-                    return self.ingredient_in_to_out(
-                        ingredient_id, ingredients
-                    )
+                    return self.ingredient_in_to_out(ingredient_id, ingredients)
         except Exception as e:
             print(e)
             return {"message": "Could not update that ingredient"}
@@ -128,10 +122,7 @@ class IngredientRepository(BaseModel):
                         ORDER BY name;
                         """
                     )
-                    return [
-                        self.record_to_ingredient_out(record)
-                        for record in result
-                    ]
+                    return [self.record_to_ingredient_out(record) for record in result]
         except Exception as e:
             print(e)
             return {"message:": "Could not get all ingredients"}

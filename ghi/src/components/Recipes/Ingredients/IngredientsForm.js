@@ -13,15 +13,23 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
-const IngredientsForm = ({ recipe, setRecipe, ingredients, setIngredients }) => {
+const IngredientsForm = ({
+  recipe,
+  setRecipe,
+  ingredients,
+  setIngredients,
+}) => {
   const [quantity, setQuantity] = useState("");
   const [measurement, setMeasurement] = useState("");
   const [name, setName] = useState("");
   const toast = useToast();
 
-
   const addIngredient = () => {
-    if (quantity.trim() !== "" && measurement.trim() !== "" && name.trim() !== "") {
+    if (
+      quantity.trim() !== "" &&
+      measurement.trim() !== "" &&
+      name.trim() !== ""
+    ) {
       const newIngredient = { quantity, measurement, name };
       const updatedIngredients = [...ingredients, newIngredient];
       setIngredients(updatedIngredients);
