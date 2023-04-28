@@ -31,7 +31,7 @@ def test_create_ingredients():
     app.dependency_overrides[IngredientRepository] = CreateIngredientRepository
 
     json = {
-        "quantity": 1,
+        "quantity": "1",
         "measurement": "test measurement",
         "name": "test name",
         "recipe_id": 1,
@@ -39,7 +39,7 @@ def test_create_ingredients():
 
     expected = {
         "id": 1,
-        "quantity": 1,
+        "quantity": "1",
         "measurement": "test measurement",
         "name": "test name",
         "recipe_id": 1,
