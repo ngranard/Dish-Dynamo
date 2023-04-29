@@ -16,11 +16,11 @@
 
 ## Recipe Search by Ingredient
 
-![recipe-search-ingredient](/docs/GHI/recipe-serach-ingredient.png)
+![recipe-search-ingredient](/docs/GHI/recipe-search-ingredient.png)
 
 ## Recipe Search by Recipe
 
-![recipe-serach-recipe](/docs/GHI/serach-recipe-name.png)
+![recipe-serach-recipe](/docs/GHI/search-recipe-name.png)
 
 ## Search All Recipes
 
@@ -46,9 +46,9 @@
 
 ![recipe-detail](/docs/GHI/recipe-detail.png)
 
-## Update Recipe
+## Edit Recipe
 
-![update](/docs/GHI/update-recipe.png)
+![update](/docs/GHI/Edit-Recipe.png)
 
 ## Recipe Delete
 
@@ -64,7 +64,7 @@
 
 ## About
 
-![about](/docs/GHI/about.png)
+![about](/docs/GHI/About.png)
 
 ## Premium
 
