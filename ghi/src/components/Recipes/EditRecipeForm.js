@@ -1,11 +1,12 @@
 import { Image } from "@chakra-ui/image";
 import { Box } from "@chakra-ui/layout";
-import { Table, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Editable, EditablePreview, EditableInput, EditableTextarea, FormControl, Select, Button, ButtonGroup } from "@chakra-ui/react";
 import useUser from "../useUser";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import sadToast from "../../assets/sadToast.png"
 
 
 function EditRecipe() {
@@ -37,6 +38,7 @@ function EditRecipe() {
                 setInstructions(data.instructions)
                 setCookingTime(data.cooking_time)
                 setUserId(data.user_id)
+                setDifficulty(data.difficulty_id)
             }
         }
         fetchRecipeData();
@@ -221,8 +223,18 @@ function EditRecipe() {
             </Box>
         );
     } else return (
-        <Box maxW="600px" mx="auto">
-            <Text fontSize='6xl'>This is not your recipe! please go back to the main page!</Text>
+        <Box textAlign="center">
+            <Flex justifyContent="center" alignItems="center" my={8}>
+                <Image src={sadToast} />
+            </Flex>
+            <Box fontSize="xl" fontWeight="bold" my={8} >
+                This is not your recipe! Please so back to the main page!
+                <Box mt={4}>
+                    <Button colorScheme="blue" size="md" as={Link} to="/">
+                        Main Page
+                    </Button>
+                </Box>
+            </Box>
         </Box>
     );
 }

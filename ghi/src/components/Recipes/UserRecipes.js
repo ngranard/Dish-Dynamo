@@ -22,6 +22,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useUser from "../useUser";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState, useEffect } from "react";
+import sadToast from "../../assets/sadToast.png"
 
 
 const RecipeCard = ({ recipe, onDelete, setRecipes }) => {
@@ -102,7 +103,9 @@ const RecipeCard = ({ recipe, onDelete, setRecipes }) => {
 function UserRecipes() {
     const token = useToken();
     const user = useUser(token);
-    const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState(null);
+    const [userFirstName, setUserFirstName] = useState();
+
 
     const handleDelete = async (recipe_id) => {
         const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/recipes/${recipe_id}`;
@@ -111,6 +114,19 @@ function UserRecipes() {
             credentials: "include",
         });
         return response;
+    };
+
+    const fetchUserData = async (user_id) => {
+        const accountUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${user_id}`;
+        const response = await fetch(accountUrl, {
+            method: "GET",
+            credentials: "include",
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setUserFirstName(data.first_name)
+        }
     };
 
     const fetchUserRecipes = async (user_id) => {
@@ -128,6 +144,7 @@ function UserRecipes() {
     useEffect(() => {
         if (user && user.id) {
             fetchUserRecipes(user.id);
+            fetchUserData(user.id);
         }
     }, [user]);
 
@@ -135,38 +152,45 @@ function UserRecipes() {
         return null;
     }
 
-    return (
-        <Box maxW="600px" mx="auto">
-            <Box fontSize="3xl" fontWeight="bold" textAlign="center" my={8}>
-                {user.first_name}'s Recipes
-            </Box>
-            {recipes.length > 0 ? (
-                recipes.map((recipe) => (
-                    <Box key={recipe.id} position="relative">
-                        <RecipeCard
-                            recipe={recipe}
-                            onDelete={handleDelete}
-                            setRecipes={setRecipes}
-                        />
-                    </Box>
-                ))
-            ) : (
-                <Box textAlign="center">
-                    <Flex justifyContent="center" alignItems="center" my={8}>
-                        <Image src="https://i.ibb.co/M8MJH8f/Screenshot-2023-04-27-at-3-47-31-PM-removebg-preview.png" />
-                    </Flex>
-                    <Box fontSize="xl" fontWeight="bold" my={8} >
-                        Don't have any recipes?
-                        <Box mt={4}>
-                            <Button colorScheme="blue" size="md" as={Link} to="/create">
-                                Make one here
-                            </Button>
+    if (!recipes) {
+        return <div>Loading...</div>;
+    }
+
+    if (recipes.length > 0) {
+        return (
+            <Box maxW="600px" mx="auto">
+                <Box fontSize="3xl" fontWeight="bold" textAlign="center" my={8}>
+                    {userFirstName}'s Recipes
+                </Box>
+                    {recipes.map((recipe) => (
+                        <Box key={recipe.id} position="relative">
+                            <RecipeCard
+                                recipe={recipe}
+                                onDelete={handleDelete}
+                                setRecipes={setRecipes}
+                            />
                         </Box>
+                    ))}
+            </Box>
+        );
+    }
+    if (recipes.length === 0) {
+        return (
+            <Box textAlign="center">
+                <Flex justifyContent="center" alignItems="center" my={8}>
+                    <Image src={sadToast} />
+                </Flex>
+                <Box fontSize="xl" fontWeight="bold" my={8} >
+                    You haven't created any recipes yet!
+                    <Box mt={4}>
+                        <Button colorScheme="blue" size="md" as={Link} to="/create">
+                            Make one here
+                        </Button>
                     </Box>
                 </Box>
-            )}
-        </Box >
-    );
+            </Box>
+        )
+    }
 }
 
 export default UserRecipes;

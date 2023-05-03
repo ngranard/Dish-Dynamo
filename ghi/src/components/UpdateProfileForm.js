@@ -14,7 +14,7 @@ import {
   useToast,
   keyframes,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
@@ -39,6 +39,27 @@ const UpdateProfileForm = () => {
     const value = event.target.value;
     setEmail(value);
   };
+
+  const fetchUserData = async (user_id) => {
+    const accountUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${user_id}`;
+    const response = await fetch(accountUrl, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setFirstName(data.first_name);
+      setLastName(data.last_name);
+      setEmail(data.email);
+    }
+  };
+
+  useEffect(() => {
+    if (userToken && userToken.id) {
+      fetchUserData(userToken.id);
+    }
+  }, [userToken]);
 
   const handleSubmit = async (event) => {
     const accountData = {};
