@@ -6,7 +6,8 @@ from queries.recipes import (
     RecipeRepository,
     RecipeOutWithUser,
     RecipeInWithIngredients,
-    RecipeOutWithAdditionalData
+    RecipeOutWithAdditionalData,
+    # search_by_multiple_ingredients
 )
 
 
@@ -77,11 +78,11 @@ def get_recipe_by_user(
 
 
 @router.get("/search", response_model=Union[List[RecipeOutWithAdditionalData], Error])
-def search_by_ingredient_name(
-    ingredient: str,
+def search_by_multiple_ingredients(
+    ingredients: str,
     repo: RecipeRepository = Depends(),
 ) -> Union[List[RecipeOutWithAdditionalData], Error]:
-    recipes = repo.search_by_ingredient_name(ingredient)
+    recipes = repo.search_by_multiple_ingredients(ingredients)
     return recipes
 
 

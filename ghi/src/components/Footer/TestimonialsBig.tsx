@@ -110,7 +110,7 @@ const testimonials = [
     content:
       "Phenomenal. I will recommend you to my colleagues. I love Dish Dynamo.",
     avatar:
-      "https://scontent-lax3-2.xx.fbcdn.net/v/t39.30808-6/234247948_2137436316396932_6296351707301415067_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Yp4D-AgurXsAX8S8B05&_nc_oc=AQmSBL359X70fMTYfNLVbqGGUx8Xxw4pwpy39Q42RKVQsLUh94hLkNgrzfS6Js3keqc&_nc_ht=scontent-lax3-2.xx&oh=00_AfDgHz0rkITBDGqxzQZ50gFpvC-nMptdrPsHpfRHBRzdsA&oe=644C73A1",
+      "https://images.findagrave.com/photos250/photos/2012/133/89985734_133696392493.jpg",
   },
 ];
 

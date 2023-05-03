@@ -46,11 +46,12 @@ const SearchBar = () => {
           }
         );
       } else {
+        const ingredients = searchTerm.split(",").map((ing) => ing.trim()).join(",");
         response = await axios.get(
           `${process.env.REACT_APP_USER_SERVICE_API_HOST}/search`,
           {
             params: {
-              ingredient: searchTerm,
+              ingredients: ingredients,
             },
           }
         );
@@ -61,6 +62,8 @@ const SearchBar = () => {
       console.error("Error response:", error.response);
     }
   };
+
+
   const handleShowAllRecipes = async () => {
     try {
       const response = await axios.get(
@@ -130,7 +133,7 @@ const SearchBar = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder={
-                  searchByRecipe ? "Enter recipe name" : "Enter ingredient"
+                  searchByRecipe ? "Enter recipe name" : "Enter ingredient(s)"
                 }
               />
             </FormControl>

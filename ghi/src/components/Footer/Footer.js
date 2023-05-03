@@ -28,7 +28,7 @@ function Footer() {
           justifyContent="center"
           alignItems="center"
         >
-          <Text>Privacy</Text>
+          <NavLink to="/privacy">Privacy</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/premium">Premium</NavLink>
 

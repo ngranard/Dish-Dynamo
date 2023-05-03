@@ -12,7 +12,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGitlab, FaGithub, FaLinkedin } from "react-icons/fa";
 
 export interface Developer {
   name: string;
@@ -21,6 +21,7 @@ export interface Developer {
   backgroundImage: string;
   linkedinUrl: string;
   gitlabUrl: string;
+  githubUrl: string;
 }
 
 interface DeveloperCardProps {
@@ -63,14 +64,19 @@ export function DeveloperCard({ developer }: DeveloperCardProps) {
               {developer.role}
             </Text>
           </Stack>
-          <Flex justify={"center"} mt={4}>
+          <Flex justify={"center"} mr={2}>
             <LinkBox as="span" cursor="pointer">
               <Link href={developer.linkedinUrl} isExternal>
                 <Icon as={FaLinkedin} w={8} h={8} mr={2} />
               </Link>
             </LinkBox>
-            <LinkBox as="span" cursor="pointer">
+            <LinkBox as="span" cursor="pointer" ml={2} mr={2}>
               <Link href={developer.gitlabUrl} isExternal>
+                <Icon as={FaGitlab} w={8} h={8} />
+              </Link>
+            </LinkBox>
+            <LinkBox as="span" cursor="pointer" ml={2}>
+              <Link href={developer.githubUrl} isExternal>
                 <Icon as={FaGithub} w={8} h={8} />
               </Link>
             </LinkBox>

@@ -9,15 +9,16 @@ from routers import users, difficulty, recipes, ingredients, comments
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+sites = [
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "https://team-scrumtious.gitlab.io",
+    os.environ.get("CORS_HOST", None),
+]
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:8000",
-        "http://localhost:3000",
-        "https://team-scrumtious.gitlab.io",
-        os.environ.get("CORS_HOST", None),
-    ],
+    allow_origins=sites,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

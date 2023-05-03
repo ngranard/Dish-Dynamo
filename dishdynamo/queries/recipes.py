@@ -107,9 +107,7 @@ class RecipeRepository:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return self.record_to_recipe_out(
-                        record
-                    )
+                    return self.record_to_recipe_out(record)
         except Exception as e:
             print(e)
             return {"message": "Could not get that recipe"}
@@ -321,14 +319,17 @@ class RecipeRepository:
             difficulty=record[11],
         )
 
-    def search_by_ingredient_name(
-        self, ingredient_name: str
+    def search_by_multiple_ingredients(
+        self, ingredients: str
     ) -> Union[Error, List[RecipeOutWithAdditionalData]]:
         try:
+            ingredient_list = [
+                f"%{ingredient.strip().lower()}%" for ingredient in ingredients.split(",")
+            ]
+
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
-                        """
+                    query = """
                         SELECT DISTINCT r.id
                             , r.recipe_name
                             , r.description
@@ -343,15 +344,17 @@ class RecipeRepository:
                         JOIN ingredients i ON r.id = i.recipe_id
                         LEFT JOIN users u ON r.user_id = u.id
                         LEFT JOIN difficulty d ON r.difficulty_id = d.id
-                        WHERE LOWER(i.name) LIKE %s
-                        ORDER BY r.recipe_name;
-                        """,
-                        [f"%{ingredient_name.lower()}%"],
-                    )
+                        WHERE """
+
+                    # Add a LIKE clause for each ingredient in the list
+                    query += " OR ".join([f"LOWER(i.name) LIKE %s" for _ in ingredient_list])
+                    query += " ORDER BY r.recipe_name;"
+
+                    result = db.execute(query, ingredient_list)
                     return [self.record_to_recipe_out(record) for record in result]
         except Exception as e:
-            logger.error(f"Error searching recipes by ingredient: {e}")
-            return Error(message="Could not search recipes by ingredient")
+            logger.error(f"Error searching recipes by multiple ingredients: {e}")
+            return Error(message="Could not search recipes by multiple ingredients")
 
     def search_by_recipe_name(self, recipe_name: str) -> Union[Error, List[RecipeOutWithUser]]:
         try:

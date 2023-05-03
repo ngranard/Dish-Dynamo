@@ -1,8 +1,26 @@
+## April 28, 2023
+
+Today I worked on:
+
+- Deployment
+
+We hit some serious roadblocks with deployment. We were able to get the frontend deployed, but the backend was not working. We spent a lot of time trying to figure out what was wrong, but ultimately after a lot of help from others it worked. We werent expecting to present today, but we did and it went well. We were able to show off our app and talk about our process. I'm proud of what we've accomplished.
+
+## April 27, 2023
+
+Today I worked on:
+
+- Final styling, code clean-up, merging
+
+I made my final merge request for the graded portion of the project. I have cleaned up some styling on the main page and made sure any newer pages are responsive. I helped where I could to catch miscellaneous bugs and errors. We were able to get through those and are basically ready for deployment.
+
 ## April 26, 2023
 
 Today I worked on:
 
 - Login form minor upgrade, deployment tests/fixes with linting
+
+I took time to make sure the login form tells the user if they're missing a required field. We spent more time trying to clean up our code using Black and Prettier so that we can be ready to deploy easily.
 
 ## Apri 25, 2023
 

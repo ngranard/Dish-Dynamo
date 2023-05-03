@@ -14,13 +14,17 @@ import {
   useToast,
   keyframes,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
 import { FaUserCircle, FaHeart } from "react-icons/fa";
+import UserContext from "../userContext";
+
 const UpdateProfileForm = () => {
+  const { setName } = useContext(UserContext);
   const token = useToken();
+  const user = useContext(UserContext); // add this line to get the user from UserContext
   const userToken = useUser(token);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -57,6 +61,8 @@ const UpdateProfileForm = () => {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
+      setName(firstName)
+      userToken.refresh();
       toast({
         title: "Account updated.",
         description: "All changes have been saved.",
@@ -64,6 +70,7 @@ const UpdateProfileForm = () => {
         duration: 9000,
         isClosable: true,
       });
+      user.refresh();
       navigate("/update");
     }
   };
@@ -164,7 +171,7 @@ const UpdateProfileForm = () => {
         </Box>
 
         <Center>
-          <Heading mt={25} fontSize="lg">
+          <Heading mt={20} fontSize="lg" >
             We're glad you're here.
           </Heading>
         </Center>
