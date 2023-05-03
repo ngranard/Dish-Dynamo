@@ -90,10 +90,10 @@ export default function AboutPage() {
       name: "Tenzing",
       role: "Fullstack Engineer",
       avatar:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+        "https://media.licdn.com/dms/image/D4D03AQGrqhUF3BqNrA/profile-displayphoto-shrink_200_200/0/1683153874753?e=1688601600&v=beta&t=ngnFaDF7TUdwdt1gaChncPQLB3tXsugatvlzaYO5pOo",
       backgroundImage:
         "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-      linkedinUrl: "https://www.linkedin.com/in/noahgranard/",
+      linkedinUrl: "https://www.linkedin.com/in/tenzingkhantse/",
       gitlabUrl: "https://gitlab.com/TenzingK0",
       githubUrl: "",
     },
