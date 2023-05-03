@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
+  Center,
   Box,
   Button,
   FormControl,
@@ -11,6 +12,7 @@ import {
   Switch,
   HStack,
   VStack,
+  Img,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -18,6 +20,7 @@ import {
   AccordionIcon,
   useColorModeValue,
 } from "@chakra-ui/react";
+import search from "../../assets/search.png";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -93,6 +96,7 @@ const SearchBar = () => {
 
   return (
     <Box
+
       css={{
         backgroundImage: useColorModeValue(CONFETTI_LIGHT, CONFETTI_DARK),
         backgroundAttachment: "fixed",
@@ -100,15 +104,15 @@ const SearchBar = () => {
         backgroundPosition: "center",
       }}
       pb={21}
-      mt={{ base: 70, md: 150 }}
+      mt={{ base: 12, md: 15 }}
+      mb={{ base: "80px", md: "-20px" }}
     >
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Box
           width="100%"
           maxWidth="500px"
           mx="auto"
-          mt={{ base: "50px", md: "15px" }}
-          mb={{ base: "220px", md: "350px" }}
+          mb={{ base: "20px", md: "30px" }}
           p={6}
           borderRadius="md"
           boxShadow="md"
@@ -183,6 +187,16 @@ const SearchBar = () => {
           </VStack>
         </Box>
       </motion.div>
+      <Center>
+        <Img
+          src={search}
+          alt="Hero image"
+          objectFit="cover"
+          rounded="xl"
+          w="fit-content"
+          h={{ base: "350px", md: "600px" }}
+        />
+      </Center>
     </Box>
   );
 };

@@ -154,7 +154,7 @@ const Main = () => {
               alt="Hero image"
               objectFit="cover"
               rounded="xl"
-              w="fit-content%"
+              w="fit-content"
               h={{ base: "350px", md: "600px" }}
             />
           </motion.div>

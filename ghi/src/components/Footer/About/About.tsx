@@ -68,7 +68,7 @@ export default function AboutPage() {
       name: "John",
       role: "Fullstack Engineer",
       avatar:
-        "https://media.licdn.com/dms/image/D5635AQGsAl-8s0f3NA/profile-framedphoto-shrink_800_800/0/1662515617888?e=1683151200&v=beta&t=ZBRlZ831h8ObfR0g5d2x03JvLEp3eKs0jbno16OtSTo",
+        "https://media.licdn.com/dms/image/D5635AQGsAl-8s0f3NA/profile-framedphoto-shrink_400_400/0/1662515617888?e=1683763200&v=beta&t=-P8f6go7dE6RsuD7bTDc4qAAQbLOMV2acybCQAgaZ0Q",
       backgroundImage:
         "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
       linkedinUrl: "https://www.linkedin.com/in/john-agni/",
