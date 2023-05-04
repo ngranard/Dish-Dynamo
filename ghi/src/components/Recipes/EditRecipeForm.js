@@ -42,7 +42,7 @@ function EditRecipe() {
             }
         }
         fetchRecipeData();
-    }, [recipe_id]);
+    }, [recipe_id, user]);
 
     useEffect(() => {
         const fetchIngredientsData = async () => {
@@ -54,7 +54,7 @@ function EditRecipe() {
             }
         }
         fetchIngredientsData();
-    }, [recipe_id]);
+    }, [recipe_id, user]);
 
     const fetchDifficultiesData = async () => {
         const response = await fetch(`${process.env.REACT_APP_USER_SERVICE_API_HOST}/difficulty`);
@@ -66,7 +66,7 @@ function EditRecipe() {
     }
     useEffect(() => {
         fetchDifficultiesData();
-    }, []);
+    }, [user]);
 
     const handleIngredientChange = (id, field, value) => {
         const updatedIngredients = ingredients.map((ingredient) => {
@@ -124,9 +124,7 @@ function EditRecipe() {
 
     if (!recipe || !ingredients) {
         return <p>Loading...</p>;
-    }
-
-    if (user.id === recipe.user_id) {
+    } else if (user.id === recipe.user_id) {
         return (
             <Box maxW="600px" mx="auto">
                 <Image src={imageUrl} alt={recipeName} mb={4} />
