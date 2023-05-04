@@ -135,7 +135,7 @@ function EditRecipe() {
     navigate(`/recipes/${recipe.id}`);
   };
 
-  if (!recipe || !ingredients) {
+  if (!recipe || !ingredients || !user) {
     return <p>Loading...</p>;
   } else if (user.id === recipe.user_id) {
     return (
@@ -159,9 +159,7 @@ function EditRecipe() {
           <strong>Recipe Description:</strong>
           <Editable value={description}>
             <EditablePreview />
-            <EditableTextarea
-              onChange={(e) => setDescription(e.target.value)}
-            />
+            <EditableTextarea onChange={(e) => setDescription(e.target.value)} />
           </Editable>
         </Box>
         <Box mb={4}>
@@ -203,43 +201,19 @@ function EditRecipe() {
                 <Td>
                   <Editable value={ingredient.quantity}>
                     <EditablePreview />
-                    <EditableInput
-                      onChange={(e) =>
-                        handleIngredientChange(
-                          ingredient.id,
-                          "quantity",
-                          e.target.value
-                        )
-                      }
-                    />
+                    <EditableInput onChange={(e) => handleIngredientChange(ingredient.id, 'quantity', e.target.value)} />
                   </Editable>
                 </Td>
                 <Td>
                   <Editable value={ingredient.measurement}>
                     <EditablePreview />
-                    <EditableInput
-                      onChange={(e) =>
-                        handleIngredientChange(
-                          ingredient.id,
-                          "measurement",
-                          e.target.value
-                        )
-                      }
-                    />
+                    <EditableInput onChange={(e) => handleIngredientChange(ingredient.id, 'measurement', e.target.value)} />
                   </Editable>
                 </Td>
                 <Td>
                   <Editable value={ingredient.name}>
                     <EditablePreview />
-                    <EditableInput
-                      onChange={(e) =>
-                        handleIngredientChange(
-                          ingredient.id,
-                          "name",
-                          e.target.value
-                        )
-                      }
-                    />
+                    <EditableInput onChange={(e) => handleIngredientChange(ingredient.id, 'name', e.target.value)} />
                   </Editable>
                 </Td>
               </Tr>
@@ -250,35 +224,30 @@ function EditRecipe() {
           <strong>Instructions:</strong>
           <Editable defaultValue={instructions}>
             <EditablePreview />
-            <EditableTextarea
-              onChange={(e) => setInstructions(e.target.value)}
-            />
+            <EditableTextarea onChange={(e) => setInstructions(e.target.value)} />
           </Editable>
         </Box>
-        <ButtonGroup variant="outline" spacing="6">
-          <Button onClick={handleSubmit} colorScheme="blue">
-            Save
-          </Button>
+        <ButtonGroup variant='outline' spacing='6'>
+          <Button onClick={handleSubmit} colorScheme='blue'>Save</Button>
           <Button onClick={handleCancel}>Cancel</Button>
         </ButtonGroup>
       </Box>
     );
-  } else
-    return (
-      <Box textAlign="center">
-        <Flex justifyContent="center" alignItems="center" my={8}>
-          <Image src={sadToast} />
-        </Flex>
-        <Box fontSize="xl" fontWeight="bold" my={8}>
-          This is not your recipe! Please so back to the main page!
-          <Box mt={4}>
-            <Button colorScheme="blue" size="md" as={Link} to="/">
-              Main Page
-            </Button>
-          </Box>
+  } else return (
+    <Box textAlign="center">
+      <Flex justifyContent="center" alignItems="center" my={8}>
+        <Image src={sadToast} />
+      </Flex>
+      <Box fontSize="xl" fontWeight="bold" my={8} >
+        This is not your recipe! Please so back to the main page!
+        <Box mt={4}>
+          <Button colorScheme="blue" size="md" as={Link} to="/">
+            Main Page
+          </Button>
         </Box>
       </Box>
-    );
+    </Box>
+  );
 }
 
 export default EditRecipe;
