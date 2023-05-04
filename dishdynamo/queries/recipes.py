@@ -346,8 +346,7 @@ class RecipeRepository:
                         LEFT JOIN difficulty d ON r.difficulty_id = d.id
                         WHERE """
 
-                    # Add a LIKE clause for each ingredient in the list
-                    query += " OR ".join([f"LOWER(i.name) LIKE %s" for _ in ingredient_list])
+                    query += " OR ".join(["LOWER(i.name) LIKE %s" for _ in ingredient_list])
                     query += " ORDER BY r.recipe_name;"
 
                     result = db.execute(query, ingredient_list)
