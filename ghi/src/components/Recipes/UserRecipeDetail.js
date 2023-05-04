@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Text } from "@chakra-ui/layout";
-import { Table, Tbody, Td, Th, Thead, Tr, useColorModeValue, Flex } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr, } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -29,6 +29,7 @@ function RecipeDetails() {
     }
 
     return (
+
         <Box maxW="600px" mx="auto" >
             <Image src={recipe.image_url} alt={recipe.recipe_name} mb={4} />
             <Text fontSize="xl" fontWeight="bold" mb={2}>
@@ -64,7 +65,7 @@ function RecipeDetails() {
                 <strong>Instructions:</strong> {recipe.instructions}
             </Text>
         </Box>
-        </Box >
+
     );
 }
 
