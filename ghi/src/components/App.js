@@ -11,7 +11,7 @@ import CreateRecipe from "./Recipes/CreateRecipe";
 import { Box } from "@chakra-ui/react";
 import UpdateProfile from "./UpdateProfileForm";
 import UserRecipes from "./Recipes/UserRecipes";
-import Contact from "./Contact";
+import Contact from "./Footer/Contact";
 import TestimonialsBig from "./Footer/TestimonialsBig.tsx";
 import RecipeDetails from "./Recipes/RecipeDetail";
 import ScrollToTop from "./Navigation/ScrollToTop";

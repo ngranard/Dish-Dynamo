@@ -16,13 +16,13 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { BsPerson } from "react-icons/bs";
 import { MdEmail, MdOutlineEmail } from "react-icons/md";
 import { FaGitlab } from "react-icons/fa";
-import * as emailjs from '@emailjs/browser'
+import * as emailjs from "@emailjs/browser";
 
 const confetti = {
   light: {
@@ -47,9 +47,9 @@ function Contact() {
     email: "",
     message: "",
   };
-  const ref = useRef()
+  const ref = useRef();
   const [contactData, setContactData] = useState({ ...initialFormState });
-  const [success, setSuccess] = useState(false)
+  const [, setSuccess] = useState(false);
 
   const handleChange = ({ target }) => {
     setContactData({
@@ -61,26 +61,34 @@ function Contact() {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_448b8q7', 'template_93zzkq8', e.target, '_qnAMfbIhB7FeAtgI')
-      .then((result) => {
-        console.log(result.text);
+    emailjs
+      .sendForm(
+        "service_448b8q7",
+        "template_93zzkq8",
+        e.target,
+        "_qnAMfbIhB7FeAtgI"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
 
-        setSuccess(true);
-        toast({
-          title: "Message Sent!",
-          description: "We'll get back to you as soon as possible.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-
-      }, (error) => {
-        console.log(error.text);
-        setSuccess(false);
-      });
+          setSuccess(true);
+          toast({
+            title: "Message Sent!",
+            description: "We'll get back to you as soon as possible.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+        },
+        (error) => {
+          console.log(error.text);
+          setSuccess(false);
+        }
+      );
 
     setContactData({ ...initialFormState });
-  }
+  };
   return (
     <Flex
       bg={useColorModeValue("gray.100", "gray.900")}
@@ -144,7 +152,6 @@ function Contact() {
                     size="lg"
                     fontSize="3xl"
                     icon={<FaGitlab size="xl" />}
-
                     _hover={{
                       bg: "blue.500",
                       color: useColorModeValue("white", "gray.700"),
@@ -152,8 +159,6 @@ function Contact() {
                     isRound
                   />
                 </Link>
-
-
               </Stack>
               <form onSubmit={sendEmail} ref={ref}>
                 <Box
@@ -169,7 +174,14 @@ function Contact() {
 
                       <InputGroup>
                         <InputLeftElement children={<BsPerson />} />
-                        <Input type="text" id="name" value={contactData.name} name="name" placeholder="Your Name" onChange={handleChange} />
+                        <Input
+                          type="text"
+                          id="name"
+                          value={contactData.name}
+                          name="name"
+                          placeholder="Your Name"
+                          onChange={handleChange}
+                        />
                       </InputGroup>
                     </FormControl>
 
@@ -219,13 +231,10 @@ function Contact() {
                 </Box>
               </form>
             </Stack>
-
           </VStack>
         </Box>
-
       </Box>
-
-    </Flex >
+    </Flex>
   );
 }
 
