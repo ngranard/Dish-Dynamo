@@ -122,7 +122,7 @@ function EditRecipe() {
         navigate(`/recipes/${recipe.id}`);
     }
 
-    if (!recipe || !ingredients) {
+    if (!recipe || !ingredients || !user) {
         return <p>Loading...</p>;
     } else if (user.id === recipe.user_id) {
         return (
