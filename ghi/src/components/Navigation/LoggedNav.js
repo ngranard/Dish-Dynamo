@@ -27,7 +27,7 @@ import {
 } from "@chakra-ui/icons";
 import Logo4 from "../../assets/Logo4.png";
 import { Link as ChakraLink } from "@chakra-ui/react";
-import Greeting from "./Greeting";
+
 
 const LoggedNav = () => {
   const [scroll, setScroll] = useState(false);
@@ -73,7 +73,7 @@ const LoggedNav = () => {
             marginLeft="-18px"
           />
         </NavLink>
-        {/* <Greeting /> */}
+
 
         <Spacer />
 
