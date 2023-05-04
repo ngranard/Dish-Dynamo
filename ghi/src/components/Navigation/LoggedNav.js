@@ -73,7 +73,7 @@ const LoggedNav = () => {
             marginLeft="-18px"
           />
         </NavLink>
-        <Greeting />
+        {/* <Greeting /> */}
 
         <Spacer />
 

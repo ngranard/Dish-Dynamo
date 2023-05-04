@@ -7,7 +7,8 @@ const Greeting = () => {
   const token = useToken();
   const user = useUser(token);
   const [firstName, setFirstName] = useState("");
-
+  console.log(user)
+  console.log(firstName)
   const fetchUserData = async (user_id) => {
     const accountUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${user_id}`;
     const response = await fetch(accountUrl, {

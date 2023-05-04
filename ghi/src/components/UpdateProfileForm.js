@@ -17,12 +17,14 @@ import { useEffect, useState } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import useUser from "./useUser";
 import { FaUserCircle, FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 const UpdateProfileForm = () => {
   const token = useToken();
   const userToken = useUser(token);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   const handleFirstName = (event) => {
     const value = event.target.value;
     setFirstName(value);
@@ -74,7 +76,7 @@ const UpdateProfileForm = () => {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      window.location.reload();
+      navigate("/my-recipes");
     }
   };
   const pulseAnimation = keyframes`
