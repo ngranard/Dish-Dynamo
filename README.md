@@ -7,7 +7,7 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 # Maintainers
 
 - John Agni (@ohtheagni)
-- Noah Granard (@ngranard)
+- Noah Granard (@ngranard) (Project Lead)
 - Tenzing Khantse (@TenzingK0)
 - Brandon Souvannarath (@brandonsouv)
 
