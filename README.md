@@ -1,8 +1,8 @@
 ReadMe
 
-# DishDynamo
+# Dish Dynamo
 
-DishDynamo is a webapplication for individuals looking for and creating recipes based on ingredients they have on hand.
+Dish Dynamo is a web-application for individuals looking for and creating recipes based on ingredients they have on hand.
 
 # Maintainers
 
@@ -27,7 +27,7 @@ DishDynamo is a webapplication for individuals looking for and creating recipes 
 
 # API
 
-The DishDyamo app utilizes FastAPI which allows logged-in users to create, update, and delete recipes they've created. Users who are not logged in can view recipes.
+The Dish Dyamo app utilizes FastAPI which allows logged-in users to create, update, and delete recipes they've created. Users who are not logged in can view recipes.
 
 # Getting started
 
